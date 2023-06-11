@@ -40,7 +40,7 @@ namespace ERP.Bussiness
         {
             var state = await _appDbContext.State.FindAsync(Id);
             _appDbContext.State.Remove(state);
-            _appDbContext.SaveChangesAsync();
+            await _appDbContext.SaveChangesAsync();
             return state;
         }
         public async Task<IEnumerable<State>> GetStateByCountryIdAsync(int Id)

@@ -20,14 +20,14 @@ namespace ERP.Controllers
             return await _dayBookRepository.GetAllAsync();
         }
         [HttpGet]
-        [Route("getById")]
+        [Route("getDayBookByAccountId")]
         public async Task<IEnumerable<DayBook>> GetById(int Id)
         {
-            return await _dayBookRepository.GetByIdAsync(Id);
+            return await _dayBookRepository.GetDayBookByAccountIdAsync(Id);
         }
         [HttpPost]
         [Route("post")]
-        public async Task<IEnumerable<DayBook>> DayBookAdd(IEnumerable<DayBook> dayBook)
+        public async Task<DayBook> DayBookAdd(DayBook dayBook)
         {
             return await _dayBookRepository.AddAsync(dayBook);
         }

@@ -33,7 +33,7 @@ namespace ERP.Bussiness
         public async Task<Users> AddAsync(Users user)
         {
             user.CreatedAt = DateTime.UtcNow;
-            var users = await _dbContext.Users.Where(x=>x.UserName == user.UserName || x.PhoneNumber == user.PhoneNumber).FirstOrDefaultAsync();
+            var users = await _dbContext.Users.Where(x=>x.UserEmail == user.UserEmail || x.UserMobile == user.UserMobile).FirstOrDefaultAsync();
             if (users == null)
             {
                 _dbContext.Users.Add(user);
@@ -49,8 +49,8 @@ namespace ERP.Bussiness
             var record = await _dbContext.Users.Where(w => w.Id == user.Id).FirstOrDefaultAsync();
             record.IsActive = user.IsActive;
             record.UserPassword = user.UserPassword;
-            record.UserName = user.UserName;
-            record.PhoneNumber = user.PhoneNumber;
+            record.UserEmail = user.UserEmail;
+            record.UserMobile = user.UserMobile;
             _dbContext.Users.Update(record);
             await _dbContext.SaveChangesAsync();
             return record;
@@ -93,15 +93,14 @@ namespace ERP.Bussiness
 
 
             var count =  await _dbContext.Users.Where(w =>
-               (string.IsNullOrEmpty(userSearch.UserName) || w.UserName.Contains(userSearch.UserName))
-               && (string.IsNullOrEmpty(userSearch.PhoneNumber) || w.PhoneNumber.Contains(userSearch.PhoneNumber))
+               
+               (string.IsNullOrEmpty(userSearch.UserMobile) || w.UserMobile.Contains(userSearch.UserMobile))
                && (string.IsNullOrEmpty(userSearch.IsActive) || w.IsActive == Convert.ToBoolean(userSearch.IsActive))
                && (string.IsNullOrEmpty(userSearch.From) && string.IsNullOrEmpty(userSearch.To) && !w.CreatedAt.HasValue) || w.CreatedAt.Value.Date >= Convert.ToDateTime(userSearch.From) || w.CreatedAt <= Convert.ToDateTime(userSearch.To)
                ).Select(s=>s.Id).CountAsync(); 
 
             var users = await _dbContext.Users.Where(w =>
-               (string.IsNullOrEmpty(userSearch.UserName) || w.UserName.Contains(userSearch.UserName))
-               && (string.IsNullOrEmpty(userSearch.PhoneNumber) || w.PhoneNumber.Contains(userSearch.PhoneNumber))
+                (string.IsNullOrEmpty(userSearch.UserMobile) || w.UserMobile.Contains(userSearch.UserMobile))
                && (string.IsNullOrEmpty(userSearch.IsActive)||w.IsActive == Convert.ToBoolean(userSearch.IsActive))
                && (string.IsNullOrEmpty(userSearch.From) && string.IsNullOrEmpty(userSearch.To) && !w.CreatedAt.HasValue ) ||  w.CreatedAt.Value.Date >= Convert.ToDateTime(userSearch.From) || w.CreatedAt <= Convert.ToDateTime(userSearch.To)
                ).Take(userSearch.Take).
@@ -111,8 +110,7 @@ namespace ERP.Bussiness
                     CreatedAt = s.CreatedAt.HasValue?s.CreatedAt.Value.Date: null,
                      Id=s.Id,
                       IsActive=s.IsActive.HasValue?s.IsActive.Value: null,
-                      UserName=s.UserName,
-                      PhoneNumber=s.PhoneNumber,
+                      UserMobile=s.UserMobile,
                       UserPassword= "",
                       TotalCount=count
                }).
@@ -123,7 +121,7 @@ namespace ERP.Bussiness
 
         public async Task<UserSignUpResponse> LogInAsync(Users user)
         {
-            var userRecord = await _dbContext.Users.Where(x=>x.PhoneNumber==user.PhoneNumber || x.UserName == user.UserName && x.UserPassword == user.UserPassword).FirstOrDefaultAsync();
+            var userRecord = await _dbContext.Users.Where(x=>x.UserMobile == user.UserMobile && x.UserPassword == user.UserPassword).FirstOrDefaultAsync();
             if (userRecord!=null)
             {
             var response = GenerateJWT(userRecord);
@@ -150,8 +148,7 @@ namespace ERP.Bussiness
                 Subject = new ClaimsIdentity(new[]
                 {
                     new Claim("Id", user.Id.ToString()),
-                    new Claim("UserName", user.UserName),
-                    new Claim("Phone", user.PhoneNumber),
+                    new Claim("UserMobile", user.UserMobile),
                     new Claim("Role", roleList),
              }),
                 Expires = DateTime.UtcNow.AddDays(30),

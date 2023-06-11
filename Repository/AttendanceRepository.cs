@@ -22,7 +22,7 @@ namespace ERP.Bussiness
                                         Id = allAttendance.Id,
                                         UserId = allAttendance.UserId,
                                         PunchTime = allAttendance.PunchTime,
-                                        UserName = users.UserName
+                                        UserName = users.UserMobile
                                     }).OrderByDescending(o=>o.Id).ToListAsync();
             return attendance;
         }

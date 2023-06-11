@@ -26,7 +26,7 @@ namespace ERP.Controllers
             return await _cityRepository.GetByIdAsync(Id);
         }
         [HttpPost]
-        [Route("add")]
+        [Route("post")]
         public async Task<City> CityAdd(City city)
         {
             return await _cityRepository.AddAsync(city);

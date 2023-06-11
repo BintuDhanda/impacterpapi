@@ -29,7 +29,7 @@ namespace ERP.Bussiness
                            }).OrderByDescending(o => o.ID).Take(10).ToListAsync();
             return dayBook;
         }
-        public async Task<IEnumerable<DayBook>> GetByIdAsync(int Id)
+        public async Task<IEnumerable<DayBook>> GetDayBookByAccountIdAsync(int Id)
         {
             var dayBook = await (from allDayBook in _appDbContext.DayBook
                                  join account in _appDbContext.Account on allDayBook.AccountId equals account.Id
@@ -46,17 +46,15 @@ namespace ERP.Bussiness
                                  }).Where(d => d.AccountId == Id).ToListAsync();
             return dayBook;
         }
-        public async Task<IEnumerable<DayBook>> AddAsync(IEnumerable<DayBook> dayBook)
+        public async Task<DayBook> AddAsync(DayBook dayBook)
         {
-            foreach(var item in dayBook)
-            {
-                item.CreatedAt = System.DateTime.UtcNow;
-                if(item.AccountId != 0 && item.Credit != 0 || item.Debit != 0)
+            
+                dayBook.CreatedAt = System.DateTime.UtcNow;
+                if(dayBook.AccountId != 0 && dayBook.Credit != 0 || dayBook.Debit != 0)
                 {
-                    _appDbContext.DayBook.Add(item);
+                    _appDbContext.DayBook.Add(dayBook);
                     await _appDbContext.SaveChangesAsync();
                 }
-            }
             return dayBook;
         }
         public async Task<DayBook> UpdateAsync(DayBook dayBook)

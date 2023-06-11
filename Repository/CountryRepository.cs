@@ -27,7 +27,7 @@ namespace ERP.Bussiness
         {
             var country = await _dbContext.Country.FindAsync(Id);
             _dbContext.Country.Remove(country);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
             return country;
         }
 
