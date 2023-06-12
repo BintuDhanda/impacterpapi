@@ -1,5 +1,6 @@
 ﻿using ERP.Interface;
 using ERP.Models;
+using ERP.SearchFilters;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ERP.Controllers
@@ -13,11 +14,11 @@ namespace ERP.Controllers
         {
             _dayBookRepository = dayBookRepository;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("get")]
-        public async Task<IEnumerable<DayBook>> Get()
+        public async Task<IEnumerable<DayBook>> Get([FromBody] CommonSearchFilter commonSearchFilter)
         {
-            return await _dayBookRepository.GetAllAsync();
+            return await _dayBookRepository.GetAllAsync(commonSearchFilter);
         }
         [HttpGet]
         [Route("getDayBookByAccountId")]

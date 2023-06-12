@@ -16,5 +16,6 @@ namespace ERP.Models
         public string BodyRemark { get; set; }
         public int UserId { get; set; }
         public bool? IsActive { get; set; }
+        public bool? IsDeleted { get; set;}
     }
 }

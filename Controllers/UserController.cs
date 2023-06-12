@@ -26,13 +26,13 @@ namespace ERP.Controllers
             return await _userRepository.GetByIdAsync(Id);
         }
         [HttpPost]
-        [Route("add")]
+        [Route("post")]
         public async Task<Users> UserAdd(Users user) 
         {
             return await _userRepository.AddAsync(user);
         }
         [HttpPut]
-        [Route("update")]
+        [Route("put")]
         public async Task<Users> UserUpdate(Users user)
         {
             return await _userRepository.UpdateAsync(user);

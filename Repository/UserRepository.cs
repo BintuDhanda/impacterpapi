@@ -33,6 +33,9 @@ namespace ERP.Bussiness
         public async Task<Users> AddAsync(Users user)
         {
             user.CreatedAt = DateTime.UtcNow;
+            user.IsDeleted = false;
+            user.IsEmailConfirmed = false;
+            user.IsMobileConfirmed = false;
             var users = await _dbContext.Users.Where(x=>x.UserEmail == user.UserEmail || x.UserMobile == user.UserMobile).FirstOrDefaultAsync();
             if (users == null)
             {
@@ -106,7 +109,7 @@ namespace ERP.Bussiness
                ).Take(userSearch.Take).
                Skip(skip)
                .Select(s=>new Users
-               {
+               {    
                     CreatedAt = s.CreatedAt.HasValue?s.CreatedAt.Value.Date: null,
                      Id=s.Id,
                       IsActive=s.IsActive.HasValue?s.IsActive.Value: null,

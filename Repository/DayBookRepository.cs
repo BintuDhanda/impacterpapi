@@ -1,6 +1,7 @@
 ﻿using ERP.ERPDbContext;
 using ERP.Interface;
 using ERP.Models;
+using ERP.SearchFilters;
 using Microsoft.EntityFrameworkCore;
 
 namespace ERP.Bussiness
@@ -12,21 +13,27 @@ namespace ERP.Bussiness
         {
             _appDbContext = appDbContext;
         }
-        public async Task<IEnumerable<DayBook>> GetAllAsync()
+        public async Task<IEnumerable<DayBook>> GetAllAsync(CommonSearchFilter commonSearchFilter)
         {
-            var dayBook = await (from allDayBook in _appDbContext.DayBook
-                           join account in _appDbContext.Account on allDayBook.AccountId equals account.Id
-                           select new DayBook
-                           {
-                               ID = allDayBook.ID,
-                               Particulars = allDayBook.Particulars,
-                               Credit = allDayBook.Credit,
-                               Debit = allDayBook.Debit,
-                               CreatedAt = allDayBook.CreatedAt,
-                               AccountId = allDayBook.AccountId,
-                               IsActive = allDayBook.IsActive,
-                               Account = account.AccountName,
-                           }).OrderByDescending(o => o.ID).Take(10).ToListAsync();
+             var dayBook = await (from allDayBook in _appDbContext.DayBook
+                                               join account in _appDbContext.Account on allDayBook.AccountId equals account.Id
+                                               where allDayBook.CreatedAt >= Convert.ToDateTime(commonSearchFilter.From) &&
+                                                     allDayBook.CreatedAt <= Convert.ToDateTime(commonSearchFilter.To)
+                                               select new DayBook
+                                               {
+                                                   ID = allDayBook.ID,
+                                                   Particulars = allDayBook.Particulars,
+                                                   Credit = allDayBook.Credit,
+                                                   Debit = allDayBook.Debit,
+                                                   CreatedAt = allDayBook.CreatedAt,
+                                                   AccountId = allDayBook.AccountId,
+                                                   IsActive = allDayBook.IsActive,
+                                                   Account = account.AccountName,
+                                               })
+                         .OrderByDescending(o => o.ID)
+                         .Skip(commonSearchFilter.Skip)
+                         .Take(commonSearchFilter.Take)
+                         .ToListAsync();
             return dayBook;
         }
         public async Task<IEnumerable<DayBook>> GetDayBookByAccountIdAsync(int Id)
