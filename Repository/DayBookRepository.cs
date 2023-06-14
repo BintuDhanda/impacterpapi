@@ -15,8 +15,7 @@ namespace ERP.Bussiness
         }
         public async Task<IEnumerable<DayBook>> GetAllAsync(CommonSearchFilter commonSearchFilter)
         {
-             var dayBook = await (from allDayBook in _appDbContext.DayBook
-                                               join account in _appDbContext.Account on allDayBook.AccountId equals account.Id
+             var dayBook = await (from allDayBook in _appDbContext.DayBook 
                                                where allDayBook.CreatedAt >= Convert.ToDateTime(commonSearchFilter.From) &&
                                                      allDayBook.CreatedAt <= Convert.ToDateTime(commonSearchFilter.To)
                                                select new DayBook
@@ -28,7 +27,7 @@ namespace ERP.Bussiness
                                                    CreatedAt = allDayBook.CreatedAt,
                                                    AccountId = allDayBook.AccountId,
                                                    IsActive = allDayBook.IsActive,
-                                                   Account = account.AccountName,
+                                                   Account = _appDbContext.Account.Where(w=>w.Id== allDayBook.AccountId).Select(s=>s.AccountName).FirstOrDefault(),
                                                })
                          .OrderByDescending(o => o.ID)
                          .Skip(commonSearchFilter.Skip)
