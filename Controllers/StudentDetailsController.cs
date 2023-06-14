@@ -1,4 +1,5 @@
-﻿using ERP.Interface;
+﻿using ERP.Bussiness;
+using ERP.Interface;
 using ERP.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +28,7 @@ namespace ERP.Controllers
             return await _studentDetailsRepository.GetByIdAsync(Id);
         }
         [HttpPost]
-        [Route("add")]
+        [Route("post")]
         public async Task<StudentDetails> StudentDetailsAdd(StudentDetails studentDetails)
         {
             return await _studentDetailsRepository.AddAsync(studentDetails);
@@ -43,6 +44,12 @@ namespace ERP.Controllers
         public async Task<StudentDetails> StudentDetailsDelete(int Id)
         {
             return await _studentDetailsRepository.DeleteAsync(Id);
+        }
+        [HttpGet]
+        [Route("getStudentDetailsByUserId")]
+        public async Task<IEnumerable<StudentDetails>> GetStudentDetailsByUserId(int UserId)
+        {
+            return await _studentDetailsRepository.GetStudentDetailsByUserIdAsync(UserId);
         }
     }
 }

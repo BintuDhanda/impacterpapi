@@ -23,6 +23,7 @@ namespace ERP.Bussiness
         public async Task<Batch> AddAsync(Batch batch)
         {
             batch.CreatedAt = DateTime.UtcNow;
+            batch.IsDeleted = false;
             _appDbContext.Batch.Add(batch);
             await _appDbContext.SaveChangesAsync();
             return batch;

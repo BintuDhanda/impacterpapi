@@ -22,6 +22,8 @@ namespace ERP.Bussiness
         }
         public async Task<StudentDetails> AddAsync(StudentDetails studentDetails)
         {
+            studentDetails.CreatedAt = DateTime.UtcNow;
+            studentDetails.IsDeleted = false;
             _appDbcontext.StudentDetails.Add(studentDetails);
             await _appDbcontext.SaveChangesAsync();
             return studentDetails;
@@ -38,6 +40,10 @@ namespace ERP.Bussiness
             _appDbcontext.StudentDetails.Remove(studentDetails);
             await _appDbcontext.SaveChangesAsync();
             return studentDetails;
+        }
+        public async Task<IEnumerable<StudentDetails>> GetStudentDetailsByUserIdAsync(int UserId)
+        {
+            return await _appDbcontext.StudentDetails.Where(s => s.UserId == UserId).ToListAsync();
         }
     }
 }
