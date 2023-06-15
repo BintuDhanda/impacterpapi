@@ -22,7 +22,20 @@ namespace ERP.Bussiness
 
         public async Task<IEnumerable<Users>> GetAllAsync()
         {
-            return await _dbContext.Users.OrderByDescending(o=>o.Id).Take(10).ToListAsync();
+            var users = await (from u in _dbContext.Users
+                        select new Users
+                        {
+                            Id = u.Id,
+                            UserEmail = u.UserEmail,
+                            UserMobile = u.UserMobile,
+                            UserPassword = u.UserPassword,
+                            IsEmailConfirmed = u.IsEmailConfirmed,
+                            IsMobileConfirmed = u.IsMobileConfirmed,
+                            IsActive = u.IsActive,
+                            CreatedAt = u.CreatedAt,
+                            IsStudentCreated = _dbContext.StudentDetails.Where(f=>f.UserId==u.Id).FirstOrDefault() == null ? false:true,
+                        }).OrderByDescending(o=>o.Id).ToListAsync();
+            return users;
         }
 
         public async Task<Users> GetByIdAsync(int id)

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ERP.Models
 {
@@ -17,6 +18,8 @@ namespace ERP.Models
         public int UserId { get; set; }
         public bool? IsActive { get; set; }
         public bool? IsDeleted { get; set;}
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
+        [NotMapped]
+        public string? Mobile { get; set; }
     }
 }

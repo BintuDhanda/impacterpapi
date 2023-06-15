@@ -22,12 +22,16 @@ namespace ERP.Bussiness
         }
         public async Task<FeeType> AddAsync(FeeType feeType)
         {
+            feeType.CreatedAt = DateTime.UtcNow;
+            feeType.IsDeleted = false;
             _appdbContext.FeeType.Add(feeType);
             await _appdbContext.SaveChangesAsync();
             return feeType;
         }
         public async Task<FeeType> UpdateAsync(FeeType feeType)
         {
+            feeType.CreatedAt = DateTime.UtcNow;
+            feeType.IsDeleted = false;
             _appdbContext.FeeType.Update(feeType);
             await _appdbContext.SaveChangesAsync();
             return feeType;
