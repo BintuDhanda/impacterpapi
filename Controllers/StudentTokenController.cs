@@ -26,11 +26,17 @@ namespace ERP.Controllers
         {
             return await _studentTokenRepository.GetByIdAsync(Id);
         }
+        //[HttpPost]
+        //[Route("post")]
+        //public async Task<StudentToken> StudentTokenAdd(int StudentId, int BatchId)
+        //{
+        //    return await _studentTokenRepository.AddAsync(StudentId,BatchId);
+        //}
         [HttpPost]
         [Route("post")]
-        public async Task<StudentToken> StudentTokenAdd(int UserId, int BatchId)
+        public async Task<StudentToken> StudentTokenAdd(StudentToken studentToken)
         {
-            return await _studentTokenRepository.AddAsync(UserId,BatchId);
+            return await _studentTokenRepository.AddAsync(studentToken);
         }
         [HttpPut]
         [Route("put")]

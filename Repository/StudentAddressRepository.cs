@@ -22,12 +22,16 @@ namespace ERP.Bussiness
         }
         public async Task<StudentAddress> AddAsync(StudentAddress studentAddress)
         {
+            studentAddress.CreatedAt = DateTime.UtcNow;
+            studentAddress.IsDeleted = false;
             _appDbcontext.StudentAddress.Add(studentAddress);
             await _appDbcontext.SaveChangesAsync();
             return studentAddress;
         }
         public async Task<StudentAddress> UpdateAsync(StudentAddress studentAddress)
         {
+            studentAddress.CreatedAt = DateTime.UtcNow;
+            studentAddress.IsDeleted = false;
             _appDbcontext.StudentAddress.Update(studentAddress);
             await _appDbcontext.SaveChangesAsync();
             return studentAddress;
@@ -46,7 +50,7 @@ namespace ERP.Bussiness
                                  join country in _appDbcontext.Country on allStudentAddress.CountryId equals country.Id
                                  join state in _appDbcontext.State on allStudentAddress.StateId equals state.Id
                                  join city in _appDbcontext.City on allStudentAddress.CityId equals city.ID
-                                 where allStudentAddress.UserId == Id
+                                 where allStudentAddress.StudentDetailsId == Id
                                  select new StudentAddress
                                  {
                                      Id = allStudentAddress.Id,
@@ -61,7 +65,7 @@ namespace ERP.Bussiness
                                      City = city.CityName,
                                      Pincode = allStudentAddress.Pincode,
                                      IsActive = allStudentAddress.IsActive,
-                                     UserId = allStudentAddress.UserId
+                                     StudentDetailsId = allStudentAddress.StudentDetailsId
                                  }).ToListAsync();
             return studentAddress;
         }

@@ -6,11 +6,16 @@ namespace ERP.Models
     {
         [Key]
         public int Id { get; set; }
-        public int TokenNumber{ get; set; }
-        public DateTime ValidForm { get; set; }
-        public DateTime ValidUpto { get; set; }
-        public Decimal Amount { get; set; }
-        public int UserId { get; set; }
-        public int BatchId { get; set; }
+        public DateTime? ValidFrom { get; set; }
+        public DateTime? ValidUpto { get; set; }
+        public Decimal? TokenFee { get; set; }
+        public int? StudentId { get; set; }
+        public int? BatchId { get; set; }
+        public bool? IsActive { get; set; }
+        public bool? IsDeleted { get; set; }
+        public DateTime? CreatedAt { get; set; }
+        public int? CreatedBy { get; set; }
+        public DateTime? UpdatedAt { get; set;}
+        public int? UpdatedBy { get;set; }
     }
 }

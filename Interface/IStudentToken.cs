@@ -6,7 +6,8 @@ namespace ERP.Interface
     {
         Task<IEnumerable<StudentToken>> GetAllAsync();
         Task<StudentToken> GetByIdAsync(int Id);
-        Task<StudentToken> AddAsync(int UserId, int BatchId);
+        //Task<StudentToken> AddAsync(int StudentId, int BatchId);
+        Task<StudentToken> AddAsync(StudentToken studentToken);
         Task<StudentToken> UpdateAsync(StudentToken tokenValidity);
         Task<StudentToken> DeleteAsync(int Id);
     }
