@@ -44,10 +44,10 @@ namespace ERP.Controllers
             return await _studentAddressRepository.DeleteAsync(Id);
         }
         [HttpGet]
-        [Route("getAllJoins")]
-        public async Task<IEnumerable<StudentAddress>> StudentAddressGetAllJoin(int Id)
+        [Route("getStudentAddressByStudentId")]
+        public async Task<IEnumerable<StudentAddress>> StudentAddressByStudentId(int Id)
         {
-            return await _studentAddressRepository.GetAllJoinAsync(Id);
+            return await _studentAddressRepository.GetStudentAddressByStudentIdAsync(Id);
         }
     }
 }

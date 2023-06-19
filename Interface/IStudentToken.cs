@@ -10,5 +10,6 @@ namespace ERP.Interface
         Task<StudentToken> AddAsync(StudentToken studentToken);
         Task<StudentToken> UpdateAsync(StudentToken tokenValidity);
         Task<StudentToken> DeleteAsync(int Id);
+        Task<IEnumerable<StudentToken>> GetStudentTokenByStudentIdAsync(int StudentId);
     }
 }

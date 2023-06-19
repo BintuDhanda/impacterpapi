@@ -30,7 +30,7 @@ namespace ERP.Bussiness
         }
         public async Task<StudentAddress> UpdateAsync(StudentAddress studentAddress)
         {
-            studentAddress.CreatedAt = DateTime.UtcNow;
+            studentAddress.UpdatedAt = DateTime.UtcNow;
             studentAddress.IsDeleted = false;
             _appDbcontext.StudentAddress.Update(studentAddress);
             await _appDbcontext.SaveChangesAsync();
@@ -43,14 +43,14 @@ namespace ERP.Bussiness
             await _appDbcontext.SaveChangesAsync();
             return studentAddress;
         }
-        public async Task<IEnumerable<StudentAddress>> GetAllJoinAsync(int Id)
+        public async Task<IEnumerable<StudentAddress>> GetStudentAddressByStudentIdAsync(int Id)
         {
             var studentAddress = await (from allStudentAddress in _appDbcontext.StudentAddress
                                  join addressType in _appDbcontext.AddressType on allStudentAddress.AddressTypeId equals addressType.Id
                                  join country in _appDbcontext.Country on allStudentAddress.CountryId equals country.Id
                                  join state in _appDbcontext.State on allStudentAddress.StateId equals state.Id
                                  join city in _appDbcontext.City on allStudentAddress.CityId equals city.ID
-                                 where allStudentAddress.StudentDetailsId == Id
+                                 where allStudentAddress.StudentId == Id
                                  select new StudentAddress
                                  {
                                      Id = allStudentAddress.Id,
@@ -65,7 +65,11 @@ namespace ERP.Bussiness
                                      City = city.CityName,
                                      Pincode = allStudentAddress.Pincode,
                                      IsActive = allStudentAddress.IsActive,
-                                     StudentDetailsId = allStudentAddress.StudentDetailsId
+                                     StudentId = allStudentAddress.StudentId,
+                                     CreatedAt = allStudentAddress.CreatedAt,
+                                     CreatedBy = allStudentAddress.CreatedBy,
+                                     UpdatedAt = allStudentAddress.UpdatedAt,
+                                     UpdatedBy = allStudentAddress.UpdatedBy,
                                  }).ToListAsync();
             return studentAddress;
         }

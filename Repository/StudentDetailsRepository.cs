@@ -60,9 +60,9 @@ namespace ERP.Bussiness
             await _appDbcontext.SaveChangesAsync();
             return studentDetails;
         }
-        public async Task<IEnumerable<StudentDetails>> GetStudentDetailsByUserIdAsync(int UserId)
+        public async Task<StudentDetails> GetStudentDetailsByUserIdAsync(int UserId)
         {
-            return await _appDbcontext.StudentDetails.Where(s => s.UserId == UserId).ToListAsync();
+            return await _appDbcontext.StudentDetails.Where(s => s.UserId == UserId).FirstOrDefaultAsync();
         }
     }
 }

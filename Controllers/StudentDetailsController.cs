@@ -47,7 +47,7 @@ namespace ERP.Controllers
         }
         [HttpGet]
         [Route("getStudentDetailsByUserId")]
-        public async Task<IEnumerable<StudentDetails>> GetStudentDetailsByUserId(int UserId)
+        public async Task<StudentDetails> GetStudentDetailsByUserId(int UserId)
         {
             return await _studentDetailsRepository.GetStudentDetailsByUserIdAsync(UserId);
         }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ERP.Models
 {
@@ -17,5 +18,7 @@ namespace ERP.Models
         public int? CreatedBy { get; set; }
         public DateTime? UpdatedAt { get; set;}
         public int? UpdatedBy { get;set; }
+        [NotMapped]
+        public string? BatchName { get; set; }
     }
 }

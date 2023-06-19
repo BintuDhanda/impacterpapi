@@ -71,6 +71,8 @@ namespace ERP.Bussiness
 
         public async Task<StudentToken> UpdateAsync(StudentToken studentToken)
         {
+            studentToken.UpdatedAt = DateTime.UtcNow;
+            studentToken.IsDeleted = false;
             _appDbContext.StudentToken.Update(studentToken);
             await _appDbContext.SaveChangesAsync();
             return studentToken;
@@ -80,6 +82,27 @@ namespace ERP.Bussiness
             var studentToken = await _appDbContext.StudentToken.FindAsync(Id);
             _appDbContext.StudentToken.Remove(studentToken);
             await _appDbContext.SaveChangesAsync();
+            return studentToken;
+        }
+        public async Task<IEnumerable<StudentToken>> GetStudentTokenByStudentIdAsync(int StudentId)
+        {
+            var studentToken = await (from allStudentToken in _appDbContext.StudentToken
+                                      select new StudentToken
+                                      {
+                                          Id = allStudentToken.Id,
+                                          ValidFrom = allStudentToken.ValidFrom,
+                                          ValidUpto = allStudentToken.ValidUpto,
+                                          TokenFee = allStudentToken.TokenFee,
+                                          StudentId = allStudentToken.StudentId,
+                                          BatchId = allStudentToken.BatchId,
+                                          IsActive = allStudentToken.IsActive,
+                                          IsDeleted = allStudentToken.IsDeleted,
+                                          CreatedAt = allStudentToken.CreatedAt,
+                                          CreatedBy = allStudentToken.CreatedBy,
+                                          UpdatedAt = allStudentToken.UpdatedAt,
+                                          UpdatedBy = allStudentToken.UpdatedBy,
+                                          BatchName = _appDbContext.Batch.Where(b => b.Id == allStudentToken.BatchId).Select(b=>b.BatchName).FirstOrDefault()
+                                      }).OrderByDescending(b=>b.Id).ToListAsync();
             return studentToken;
         }
     }

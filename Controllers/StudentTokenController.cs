@@ -1,4 +1,5 @@
-﻿using ERP.Interface;
+﻿using ERP.Bussiness;
+using ERP.Interface;
 using ERP.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -49,6 +50,12 @@ namespace ERP.Controllers
         public async Task<StudentToken> StudentTokenDelete(int Id)
         {
             return await _studentTokenRepository.DeleteAsync(Id);
+        }
+        [HttpGet]
+        [Route("getStudentTokenByStudentId")]
+        public async Task<IEnumerable<StudentToken>> GetStudentTokenByStudentId(int StudentId)
+        {
+            return await _studentTokenRepository.GetStudentTokenByStudentIdAsync(StudentId);
         }
     }
 }

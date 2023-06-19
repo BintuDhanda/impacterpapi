@@ -13,10 +13,13 @@ namespace ERP.Models
         public int StateId { get; set; }
         public int CityId { get; set; }
         public int Pincode { get; set; }
-        public int StudentDetailsId { get; set; }
+        public int StudentId { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? CreatedAt { get; set; }
+        public int? CreatedBy { get; set; }
+        public DateTime? UpdatedAt { get;set; }
+        public int? UpdatedBy { get; set; }
         [NotMapped]
         public string? AddressType { get; set; }
         [NotMapped]
