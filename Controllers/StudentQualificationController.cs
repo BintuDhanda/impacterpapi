@@ -44,10 +44,10 @@ namespace ERP.Controllers
             return await _studentQualificationRepository.DeleteAsync(Id);
         }
         [HttpGet]
-        [Route("getQualificationNameRecord")]
-        public async Task<IEnumerable<StudentQualification>> GetQualificationNameRecord(int Id)
+        [Route("getStudentQualificationByStudentId")]
+        public async Task<IEnumerable<StudentQualification>> GetStudentQualificationByStudentId(int Id)
         {
-            return await _studentQualificationRepository.GetQualificationNameAsync(Id);
+            return await _studentQualificationRepository.GetStudentQualificationByStudentIdAsync(Id);
         }
     }
 }

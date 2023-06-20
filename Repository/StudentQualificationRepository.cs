@@ -22,12 +22,16 @@ namespace ERP.Bussiness
         }
         public async Task<StudentQualification> AddAsync(StudentQualification studentQualification)
         {
+            studentQualification.CreatedAt = DateTime.UtcNow;
+            studentQualification.IsDeleted = false;
             _appDbContext.StudentQualification.Add(studentQualification);
             await _appDbContext.SaveChangesAsync();
             return studentQualification;
         }
         public async Task<StudentQualification> UpdateAsync(StudentQualification studentQualification)
         {
+            studentQualification.UpdatedAt = DateTime.UtcNow;
+            studentQualification.IsDeleted = false;
             _appDbContext.StudentQualification.Update(studentQualification);
             await _appDbContext.SaveChangesAsync();
             return studentQualification;
@@ -39,23 +43,28 @@ namespace ERP.Bussiness
             await _appDbContext.SaveChangesAsync();
             return studentQualification;
         }
-        public async Task<IEnumerable<StudentQualification>> GetQualificationNameAsync (int Id)
+        public async Task<IEnumerable<StudentQualification>> GetStudentQualificationByStudentIdAsync (int Id)
         {
             var studentQualification = await (from allStudentQualification in _appDbContext.StudentQualification
                                               join qualification in _appDbContext.Qualification on allStudentQualification.QualificationId equals qualification.Id
-                                              where allStudentQualification.UserId == Id
+                                              where allStudentQualification.StudentId == Id
                                               select new StudentQualification
                                               { 
                                                 Id = allStudentQualification.Id,
-                                                Subjects = allStudentQualification.Subjects,
+                                                Subject = allStudentQualification.Subject,
                                                 MarksObtain = allStudentQualification.MarksObtain,
-                                                MaximumMarks = allStudentQualification.MaximumMarks,
+                                                MaximumMark = allStudentQualification.MaximumMark,
                                                 Percentage = allStudentQualification.Percentage,
                                                 Grade = allStudentQualification.Grade,
                                                 QualificationId = allStudentQualification.QualificationId,
                                                 QualificationName = qualification.QualificationName,
                                                 IsActive= allStudentQualification.IsActive,
-                                                UserId = allStudentQualification.UserId
+                                                IsDeleted= allStudentQualification.IsDeleted,
+                                                StudentId = allStudentQualification.StudentId,
+                                                UpdatedAt = allStudentQualification.UpdatedAt,
+                                                UpdatedBy = allStudentQualification.UpdatedBy,   
+                                                CreatedAt = allStudentQualification.CreatedAt,
+                                                CreatedBy = allStudentQualification.CreatedBy,
                                               }).ToListAsync();
             return studentQualification;
         } 

@@ -9,6 +9,6 @@ namespace ERP.Interface
         Task<StudentQualification> AddAsync(StudentQualification studentQualification);
         Task<StudentQualification> UpdateAsync(StudentQualification studentQualification);
         Task<StudentQualification> DeleteAsync(int Id);
-        Task<IEnumerable<StudentQualification>> GetQualificationNameAsync(int Id);
+        Task<IEnumerable<StudentQualification>> GetStudentQualificationByStudentIdAsync(int Id);
     }
 }
