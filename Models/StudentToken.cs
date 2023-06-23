@@ -9,7 +9,7 @@ namespace ERP.Models
         public int Id { get; set; }
         public DateTime? ValidFrom { get; set; }
         public DateTime? ValidUpto { get; set; }
-        public Decimal? TokenFee { get; set; }
+        public decimal? TokenFee { get; set; }
         public int? StudentId { get; set; }
         public int? BatchId { get; set; }
         public bool? IsActive { get; set; }

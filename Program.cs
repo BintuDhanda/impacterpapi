@@ -66,7 +66,7 @@ builder.Services.AddScoped<IStudentContact, StudentContactRepository>();
 builder.Services.AddScoped<IStudentAddress, StudentAddressRepository>();
 builder.Services.AddScoped<IAddressType, AddressTypeRepository>();
 builder.Services.AddScoped<IBatch, BatchRepository>();
-builder.Services.AddScoped<ITokenValidity, TokenValidityRepository>();
+builder.Services.AddScoped<IStudentTokenFees, StudentTokenFeesRepository>();
 builder.Services.AddScoped<IStudentToken, StudentTokenRepository>();
 builder.Services.AddScoped<IRegistration, RegistrationRepository>();
 builder.Services.AddScoped<IAttendance, AttendanceRepository>();

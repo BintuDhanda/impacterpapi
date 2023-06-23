@@ -32,7 +32,7 @@ namespace ERP.ERPDbContext
         public DbSet<StudentAddress> StudentAddress { get; set; }
         public DbSet<AddressType> AddressType { get; set; }
         public DbSet<StudentToken> StudentToken { get; set; }
-        public DbSet<TokenValidity> TokenValidity { get; set; }
+        public DbSet<StudentTokenFees> StudentTokenFees { get; set; }
         public DbSet<Registration> Registration{ get; set; }
         public DbSet<Student> Student { get; set; }
         public DbSet<StudentBatchFees> StudentBatchFees { get; set; }
