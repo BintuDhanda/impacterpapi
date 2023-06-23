@@ -35,7 +35,7 @@ namespace ERP.ERPDbContext
         public DbSet<TokenValidity> TokenValidity { get; set; }
         public DbSet<Registration> Registration{ get; set; }
         public DbSet<Student> Student { get; set; }
-        public DbSet<StudentFees> StudentFees { get; set; }
+        public DbSet<StudentBatchFees> StudentBatchFees { get; set; }
         public DbSet<FeeType> FeeType { get; set; }
     }
 }

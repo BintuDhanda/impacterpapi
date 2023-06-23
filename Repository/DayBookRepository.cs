@@ -16,7 +16,7 @@ namespace ERP.Bussiness
         public async Task<IEnumerable<DayBook>> GetAllAsync(CommonSearchFilter commonSearchFilter)
         {
              var dayBook = await (from allDayBook in _appDbContext.DayBook 
-                                               where allDayBook.CreatedAt >= Convert.ToDateTime(commonSearchFilter.From) &&
+                                               where allDayBook.CreatedAt >= Convert.ToDateTime(commonSearchFilter.From)&&
                                                      allDayBook.CreatedAt <= Convert.ToDateTime(commonSearchFilter.To)
                                                select new DayBook
                                                {

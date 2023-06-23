@@ -14,10 +14,10 @@ namespace ERP.Controllers
             _studentBatchRepository = studentBatchRepository;
         }
         [HttpGet]
-        [Route("get")]
-        public async Task<IEnumerable<StudentBatch>> Get(int Id)
+        [Route("getStudentBatchByStudentId")]
+        public async Task<IEnumerable<StudentBatch>> GetStudentBatchByStudentId(int Id)
         {
-            return await _studentBatchRepository.GetAllAsync(Id);
+            return await _studentBatchRepository.GetStudentBatchByStudentId(Id);
         }
         [HttpGet]
         [Route("getById")]

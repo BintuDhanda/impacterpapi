@@ -71,7 +71,7 @@ builder.Services.AddScoped<IStudentToken, StudentTokenRepository>();
 builder.Services.AddScoped<IRegistration, RegistrationRepository>();
 builder.Services.AddScoped<IAttendance, AttendanceRepository>();
 builder.Services.AddScoped<IStudent, StudentRepository>();
-builder.Services.AddScoped<IStudentFees, StudentFeesRepository>();
+builder.Services.AddScoped<IStudentBatchFees, StudentBatchFeesRepository>();
 builder.Services.AddScoped<IFeeType, FeeTypeRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

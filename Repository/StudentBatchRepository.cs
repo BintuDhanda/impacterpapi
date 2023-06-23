@@ -12,9 +12,26 @@ namespace ERP.Bussiness
         {
             _appDbcontext = appDbcontext;
         }
-        public async Task<IEnumerable<StudentBatch>> GetAllAsync(int Id)
+        public async Task<IEnumerable<StudentBatch>> GetStudentBatchByStudentId(int Id)
         {
-            return await _appDbcontext.StudentBatch.Where(s=>s.UserId == Id).ToListAsync();
+            var studentBatch = await (from allStudentBatch in _appDbcontext.StudentBatch
+                                      select new StudentBatch
+                                      {
+                                          Id = allStudentBatch.Id,
+                                          DateOfJoin = allStudentBatch.DateOfJoin,
+                                          BatchStartDate = allStudentBatch.BatchStartDate,
+                                          BatchEndDate = allStudentBatch.BatchEndDate,
+                                          StudentId = allStudentBatch.StudentId,
+                                          BatchId = allStudentBatch.BatchId,
+                                          IsActive = allStudentBatch.IsActive,
+                                          IsDeleted = allStudentBatch.IsDeleted,
+                                          CreatedAt = allStudentBatch.CreatedAt,
+                                          CreatedBy = allStudentBatch.CreatedBy,
+                                          UpdatedAt = allStudentBatch.UpdatedAt,
+                                          UpdatedBy = allStudentBatch.UpdatedBy,
+                                          BatchName = _appDbcontext.Batch.Where(b => b.Id == allStudentBatch.BatchId).Select(b => b.BatchName).FirstOrDefault(),
+                                      }).Where(b=>b.StudentId==Id).OrderByDescending(b => b.Id).ToListAsync();
+            return studentBatch;
         }
         public async Task<StudentBatch> GetByIdAsync(int Id)
         {
@@ -22,12 +39,16 @@ namespace ERP.Bussiness
         }
         public async Task<StudentBatch> AddAsync(StudentBatch studentBatch)
         {
+            studentBatch.CreatedAt = DateTime.UtcNow;
+            studentBatch.IsDeleted = false;
             _appDbcontext.StudentBatch.Add(studentBatch);
             await _appDbcontext.SaveChangesAsync();
             return studentBatch;
         }
         public async Task<StudentBatch> UpdateAsync(StudentBatch studentBatch)
         {
+            studentBatch.UpdatedAt = DateTime.UtcNow;
+            studentBatch.IsDeleted = false;
             _appDbcontext.StudentBatch.Update(studentBatch);
             await _appDbcontext.SaveChangesAsync();
             return studentBatch;
