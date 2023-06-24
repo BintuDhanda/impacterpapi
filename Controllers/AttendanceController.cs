@@ -1,5 +1,6 @@
 ﻿using ERP.Interface;
 using ERP.Models;
+using ERP.SearchFilters;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ERP.Controllers
@@ -13,11 +14,11 @@ namespace ERP.Controllers
         {
             _attendanceRepository = attendanceRepository;
         }
-        [HttpGet]
-        [Route("get")]
-        public async Task<IEnumerable<Attendance>> Get(int UserId)
+        [HttpPost]
+        [Route("getAttendanceByStudentId")]
+        public async Task<IEnumerable<Attendance>> Get(int StudentId, CommonSearchFilter commonSearchFilter)
         {
-            return await _attendanceRepository.GetAllByUserIdAsync(UserId);
+            return await _attendanceRepository.GetAttendanceByStudentIdAsync(StudentId, commonSearchFilter);
         }
         [HttpGet]
         [Route("getById")]

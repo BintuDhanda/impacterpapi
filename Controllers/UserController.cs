@@ -13,11 +13,11 @@ namespace ERP.Controllers
         {
             _userRepository = user;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("get")]
-        public async Task <IEnumerable<Users>> Get()
+        public async Task <IEnumerable<Users>> Get(CommonSearchFilter commonSearchFilter)
         {
-           return await _userRepository.GetAllAsync();
+           return await _userRepository.GetAllAsync(commonSearchFilter);
         }
         [HttpGet]
         [Route("getById")]
@@ -50,17 +50,23 @@ namespace ERP.Controllers
         {
             return await _userRepository.SignUpAsync(user);
         }
-        [HttpGet]
+        [HttpPost]
         [Route("login")]
-        public async Task<UserSignUpResponse> UserLogin(Users user)
+        public async Task<UserSignUpResponse> UserLogin(UserLogin userLogin)
         {
-            return await _userRepository.LogInAsync(user);
+            return await _userRepository.LogInAsync(userLogin);
         }
         [HttpPost]
         [Route("search")]
         public async Task<IEnumerable<Users>> Search(UserSearch userSearch)
         {
             return await _userRepository.SearchAsync(userSearch);
+        }
+        [HttpPost]
+        [Route("IsExists")]
+        public async Task<IActionResult> IsExists([FromBody] CommonSearchFilter commonSearchFilter)
+        {
+            return await _userRepository.IsExists(commonSearchFilter);
         }
     }
 }

@@ -2,6 +2,7 @@
 using ERP.Interface;
 using ERP.Models;
 using ERP.SearchFilters;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -20,9 +21,11 @@ namespace ERP.Bussiness
             _configration = configuration;
         }
 
-        public async Task<IEnumerable<Users>> GetAllAsync()
+        public async Task<IEnumerable<Users>> GetAllAsync(CommonSearchFilter commonSearchFilter)
         {
             var users = await (from u in _dbContext.Users
+                               where !string.IsNullOrEmpty(commonSearchFilter.Mobile) ? u.UserMobile==commonSearchFilter.Mobile : u.CreatedAt >= Convert.ToDateTime(commonSearchFilter.From).ToUniversalTime() &&
+                               u.CreatedAt <= Convert.ToDateTime(commonSearchFilter.To).ToUniversalTime()
                         select new Users
                         {
                             Id = u.Id,
@@ -34,7 +37,11 @@ namespace ERP.Bussiness
                             IsActive = u.IsActive,
                             CreatedAt = u.CreatedAt,
                             IsStudentCreated = _dbContext.StudentDetails.Where(f=>f.UserId==u.Id).FirstOrDefault() == null ? false:true,
-                        }).OrderByDescending(o=>o.Id).ToListAsync();
+                        })
+                        .OrderByDescending(o=>o.Id)
+                        .Skip(commonSearchFilter.Skip) 
+                        .Take(commonSearchFilter.Take)
+                        .ToListAsync();
             return users;
         }
 
@@ -135,9 +142,9 @@ namespace ERP.Bussiness
             return users;
         }
 
-        public async Task<UserSignUpResponse> LogInAsync(Users user)
+        public async Task<UserSignUpResponse> LogInAsync(UserLogin userLogin)
         {
-            var userRecord = await _dbContext.Users.Where(x=>x.UserMobile == user.UserMobile && x.UserPassword == user.UserPassword).FirstOrDefaultAsync();
+            var userRecord = await _dbContext.Users.Where(x=>x.UserMobile == userLogin.UserMobile && x.UserPassword == userLogin.UserPassword).FirstOrDefaultAsync();
             if (userRecord!=null)
             {
             var response = GenerateJWT(userRecord);
@@ -147,6 +154,11 @@ namespace ERP.Bussiness
             {
                 return new UserSignUpResponse();
             }
+        }
+
+        public async Task<IActionResult> IsExists(CommonSearchFilter commonSearchFilter)
+        {
+            return new JsonResult(await _dbContext.Users.AnyAsync(x => x.UserMobile == commonSearchFilter.Mobile));
         }
 
         private UserSignUpResponse GenerateJWT(Users user)
@@ -190,4 +202,5 @@ namespace ERP.Bussiness
         }
         
     }
+
 }
