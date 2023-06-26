@@ -17,12 +17,13 @@ namespace ERP.Bussiness
             var studentBatch = await (from allStudentBatch in _appDbcontext.StudentBatch
                                       select new StudentBatch
                                       {
-                                          Id = allStudentBatch.Id,
+                                          StudentBatchId = allStudentBatch.StudentBatchId,
                                           DateOfJoin = allStudentBatch.DateOfJoin,
                                           BatchStartDate = allStudentBatch.BatchStartDate,
                                           BatchEndDate = allStudentBatch.BatchEndDate,
                                           StudentId = allStudentBatch.StudentId,
                                           BatchId = allStudentBatch.BatchId,
+                                          RegistrationNumber = allStudentBatch.RegistrationNumber,
                                           IsActive = allStudentBatch.IsActive,
                                           IsDeleted = allStudentBatch.IsDeleted,
                                           CreatedAt = allStudentBatch.CreatedAt,
@@ -30,7 +31,7 @@ namespace ERP.Bussiness
                                           UpdatedAt = allStudentBatch.UpdatedAt,
                                           UpdatedBy = allStudentBatch.UpdatedBy,
                                           BatchName = _appDbcontext.Batch.Where(b => b.Id == allStudentBatch.BatchId).Select(b => b.BatchName).FirstOrDefault(),
-                                      }).Where(b=>b.StudentId==Id).OrderByDescending(b => b.Id).ToListAsync();
+                                      }).Where(b=>b.StudentId==Id).OrderByDescending(b => b.StudentBatchId).ToListAsync();
             return studentBatch;
         }
         public async Task<StudentBatch> GetByIdAsync(int Id)

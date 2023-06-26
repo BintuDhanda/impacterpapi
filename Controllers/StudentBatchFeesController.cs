@@ -45,10 +45,10 @@ namespace ERP.Controllers
             return await _studentBatchFeesRepository.DeleteAsync(Id);
         }
         [HttpPost]
-        [Route("getStudentBatchFeesByStudentBatchId")]
-        public async Task<IEnumerable<StudentBatchFees>> GetStudentBatchFeesByStudentBatchId ( int Id, CommonSearchFilter commonSearchFilter)
+        [Route("getStudentBatchFeesByRegistrationNumber")]
+        public async Task<IEnumerable<StudentBatchFees>> GetStudentBatchFeesByRegistrationNumber ( StudentBatchFeesSearch studentBatchFeesSearch)
         {
-            return await _studentBatchFeesRepository.GetStudentBatchFeesByStudentBatchIdAsync(Id, commonSearchFilter);
+            return await _studentBatchFeesRepository.GetStudentBatchFeesByRegistrationNumberAsync(studentBatchFeesSearch);
         }
     }
 }

@@ -23,6 +23,8 @@ namespace ERP.Bussiness
         }
         public async Task<StudentBatchFees> AddAsync(StudentBatchFees studentBatchFees)
         {
+            studentBatchFees.StudentId = _appDbcontext.StudentBatch.Where(b => b.RegistrationNumber == studentBatchFees.RegistrationNumber).Select(b => b.StudentId).FirstOrDefault();
+            studentBatchFees.StudentBatchId = _appDbcontext.StudentBatch.Where(_b => _b.RegistrationNumber == studentBatchFees.RegistrationNumber).Select(_b => _b.StudentBatchId).FirstOrDefault();
             studentBatchFees.CreatedAt = DateTime.UtcNow;
             studentBatchFees.IsDeleted = false;
             _appDbcontext.StudentBatchFees.Add(studentBatchFees);
@@ -44,30 +46,32 @@ namespace ERP.Bussiness
             await _appDbcontext.SaveChangesAsync();
             return studentBatchFees;
         }
-        public async Task<IEnumerable<StudentBatchFees>> GetStudentBatchFeesByStudentBatchIdAsync(int Id,CommonSearchFilter commonSearchFilter)
+        public async Task<IEnumerable<StudentBatchFees>> GetStudentBatchFeesByRegistrationNumberAsync(StudentBatchFeesSearch studentBatchFeesSearch)
         {
-            var studentBatchFees = await (from allStudentBatchFees in _appDbcontext.StudentBatchFees
-                                          where allStudentBatchFees.CreatedAt >= Convert.ToDateTime(commonSearchFilter.From) &&
-                                                     allStudentBatchFees.CreatedAt <= Convert.ToDateTime(commonSearchFilter.To)
-                                          select new StudentBatchFees
+            var studentBatchFees = await  _appDbcontext.StudentBatchFees
+                                      .Where(b => b.StudentBatchId == _appDbcontext.StudentBatch.Where(w => w.RegistrationNumber == (studentBatchFeesSearch.RegistrationNumber)).Select(s => s.StudentBatchId).FirstOrDefault())
+                                      .Select(sbf =>  new StudentBatchFees
                                       {
-                                          Id = allStudentBatchFees.Id,
-                                          StudentId = allStudentBatchFees.StudentId,
-                                          StudentBatchId = allStudentBatchFees.StudentBatchId,
-                                          Deposit = allStudentBatchFees.Deposit,
-                                          Refund = allStudentBatchFees.Refund,
-                                          Particulars = allStudentBatchFees.Particulars,
-                                          IsActive = allStudentBatchFees.IsActive,
-                                          IsDeleted = allStudentBatchFees.IsDeleted,
-                                          CreatedAt = allStudentBatchFees.CreatedAt,
-                                          CreatedBy = allStudentBatchFees.CreatedBy,
-                                          UpdatedAt = allStudentBatchFees.UpdatedAt,
-                                          UpdatedBy = allStudentBatchFees.UpdatedBy,
+                                          StudentBatchFeesId = sbf.StudentBatchFeesId,
+                                          StudentId = sbf.StudentId,
+                                          StudentBatchId = sbf.StudentBatchId,
+                                          Deposit = sbf.Deposit,
+                                          Refund = sbf.Refund,
+                                          Particulars = sbf.Particulars,
+                                          IsActive = sbf.IsActive,
+                                          IsDeleted = sbf.IsDeleted,
+                                          CreatedAt = sbf.CreatedAt,
+                                          CreatedBy = sbf.CreatedBy,
+                                          UpdatedAt = sbf.UpdatedAt,
+                                          UpdatedBy = sbf.UpdatedBy,
+                                          RegistrationNumber = _appDbcontext.StudentBatch.Where(w => w.RegistrationNumber == studentBatchFeesSearch.RegistrationNumber).Select(s => s.RegistrationNumber).FirstOrDefault(),
+                                          BatchName = _appDbcontext.Batch.Where(b => b.Id == (_appDbcontext.StudentBatch.Where(sb => sb.StudentBatchId == sbf.StudentBatchId).Select(b => b.BatchId).FirstOrDefault())).Select(x => x.BatchName).FirstOrDefault(),
+                                          StudentName = _appDbcontext.StudentDetails.Where(sd => sd.Id == sbf.StudentId).Select(s => s.FirstName + " " + s.LastName).FirstOrDefault(),
+                                          Mobile = _appDbcontext.Users.Where(u => u.Id == (_appDbcontext.StudentDetails.Where(sd => sd.Id == sbf.StudentId).Select(s => s.UserId).FirstOrDefault())).Select(u => u.UserMobile).FirstOrDefault(),
                                       })
-                                      .Where(b => b.StudentBatchId == Id)
-                                      .OrderByDescending(b => b.Id)
-                                      .Skip(commonSearchFilter.Skip)
-                                      .Take(commonSearchFilter.Take)
+                                      .OrderByDescending(b => b.StudentBatchFeesId)
+                                      .Skip(studentBatchFeesSearch.Skip)
+                                      .Take(studentBatchFeesSearch.Take)
                                       .ToListAsync();
             return studentBatchFees;
         }

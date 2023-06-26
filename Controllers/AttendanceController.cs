@@ -1,4 +1,5 @@
-﻿using ERP.Interface;
+﻿using ERP.Bussiness;
+using ERP.Interface;
 using ERP.Models;
 using ERP.SearchFilters;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +16,10 @@ namespace ERP.Controllers
             _attendanceRepository = attendanceRepository;
         }
         [HttpPost]
-        [Route("getAttendanceByStudentId")]
-        public async Task<IEnumerable<Attendance>> Get(int StudentId, CommonSearchFilter commonSearchFilter)
+        [Route("getAttendanceByRegistrationNumber")]
+        public async Task<IEnumerable<Attendance>> Get(AttendanceSearch attendanceSearch)
         {
-            return await _attendanceRepository.GetAttendanceByStudentIdAsync(StudentId, commonSearchFilter);
+            return await _attendanceRepository.GetAttendanceByRegistrationNumberAsync(attendanceSearch);
         }
         [HttpGet]
         [Route("getById")]
@@ -28,7 +29,7 @@ namespace ERP.Controllers
         }
         [HttpPost]
         [Route("post")]
-        public async Task<Attendance> AttendanceAdd(Attendance attendance)
+        public async Task<Attendance> AttendanceAdd([FromBody] Attendance attendance)
         {
             return await _attendanceRepository.AddAsync(attendance);
         }
@@ -43,6 +44,12 @@ namespace ERP.Controllers
         public async Task<Attendance> AttendanceDelete(int Id)
         {
             return await _attendanceRepository.DeleteAsync(Id);
+        }
+        [HttpPost]
+        [Route("RegistrationIsExists")]
+        public async Task<IActionResult> RegistrationIsExists([FromBody] AttendanceSearch attendanceSearch)
+        {
+            return await _attendanceRepository.RegistrationIsExist(attendanceSearch);
         }
     }
 }

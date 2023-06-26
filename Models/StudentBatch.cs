@@ -6,12 +6,13 @@ namespace ERP.Models
     public class StudentBatch
     {
         [Key]
-        public int Id { get; set; }
+        public int StudentBatchId { get; set; }
         public DateTime? DateOfJoin { get; set; }
         public DateTime BatchStartDate { get; set; }
         public DateTime BatchEndDate { get; set; }
         public int BatchId { get; set; }
         public int StudentId { get; set; }
+        public string RegistrationNumber { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? CreatedAt { get; set; }

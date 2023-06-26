@@ -10,6 +10,6 @@ namespace ERP.Interface
         Task<StudentBatchFees> AddAsync(StudentBatchFees studentBatchFees);
         Task<StudentBatchFees> UpdateAsync(StudentBatchFees studentBatchFees);
         Task<StudentBatchFees> DeleteAsync(int Id);
-        Task<IEnumerable<StudentBatchFees>> GetStudentBatchFeesByStudentBatchIdAsync(int Id, CommonSearchFilter commonSearchFilter);
+        Task<IEnumerable<StudentBatchFees>> GetStudentBatchFeesByRegistrationNumberAsync(StudentBatchFeesSearch studentBatchFeesSearch);
     }
 }

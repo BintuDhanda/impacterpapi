@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ERP.Models
 {
     public class StudentBatchFees
     {
         [Key]
-        public int Id { get; set; }
+        public int StudentBatchFeesId { get; set; }
         public int StudentId { get; set; }
         public int StudentBatchId { get; set; }
         public decimal Deposit { get; set; }
@@ -17,5 +18,13 @@ namespace ERP.Models
         public int? CreatedBy { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public int? UpdatedBy { get; set;}
+        [NotMapped]
+        public string? RegistrationNumber { get; set; }
+        [NotMapped]
+        public string? StudentName { get; set; }
+        [NotMapped]
+        public string? Mobile { get; set; }
+        [NotMapped]
+        public string? BatchName { get; set; }
     }
 }
