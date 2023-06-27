@@ -1,4 +1,5 @@
-﻿using ERP.Interface;
+﻿using ERP.Bussiness;
+using ERP.Interface;
 using ERP.Models;
 using ERP.SearchFilters;
 using Microsoft.AspNetCore.Mvc;
@@ -49,6 +50,18 @@ namespace ERP.Controllers
         public async Task<IEnumerable<StudentBatchFees>> GetStudentBatchFeesByRegistrationNumber ( StudentBatchFeesSearch studentBatchFeesSearch)
         {
             return await _studentBatchFeesRepository.GetStudentBatchFeesByRegistrationNumberAsync(studentBatchFeesSearch);
+        }
+        [HttpPost]
+        [Route("RegistrationIsExists")]
+        public async Task<IActionResult> RegistrationIsExists([FromBody] StudentBatchFeesSearch studentBatchFeesSearch)
+        {
+            return await _studentBatchFeesRepository.RegistrationIsExist(studentBatchFeesSearch);
+        }
+        [HttpGet]
+        [Route("sumDepositAndRefund")]
+        public async Task<IActionResult> SumDepositAndRefund()
+        {
+            return await _studentBatchFeesRepository.SumDepositAndRefund();
         }
     }
 }

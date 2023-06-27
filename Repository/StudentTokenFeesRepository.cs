@@ -2,6 +2,7 @@
 using ERP.Interface;
 using ERP.Models;
 using ERP.SearchFilters;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ERP.Bussiness
@@ -23,6 +24,8 @@ namespace ERP.Bussiness
         }
         public async Task<StudentTokenFees> AddAsync(StudentTokenFees studentTokenFees)
         {
+            studentTokenFees.StudentId = _appDbContext.StudentToken.Where(b => b.Id == studentTokenFees.TokenNumber).Select(b => b.StudentId).FirstOrDefault();
+            studentTokenFees.StudentTokenId = _appDbContext.StudentToken.Where(_b => _b.Id == studentTokenFees.TokenNumber).Select(_b => _b.Id).FirstOrDefault();
             studentTokenFees.CreatedAt = DateTime.UtcNow;
             studentTokenFees.IsDeleted = false;
             _appDbContext.StudentTokenFees.Add(studentTokenFees);
@@ -44,32 +47,45 @@ namespace ERP.Bussiness
             await _appDbContext.SaveChangesAsync();
             return studentTokenFees;
         }
-        public async Task<IEnumerable<StudentTokenFees>> GetStudentTokenFeesByStudentTokenIdAsync(int Id, CommonSearchFilter commonSearchFilter)
+        public async Task<IEnumerable<StudentTokenFees>> GetStudentTokenFeesByTokenNumberAsync(StudentTokenFeesSearch studentTokenFeesSearch)
         {
-            var studentTokenFees = await (from allStudentTokenFees in _appDbContext.StudentTokenFees
-                                          where allStudentTokenFees.CreatedAt >= Convert.ToDateTime(commonSearchFilter.From) &&
-                                                     allStudentTokenFees.CreatedAt <= Convert.ToDateTime(commonSearchFilter.To)
-                                          select new StudentTokenFees
+            var studentTokenFees = await  _appDbContext.StudentTokenFees
+                                          .Where(b => b.StudentTokenId == _appDbContext.StudentToken.Where(w => w.Id == studentTokenFeesSearch.TokenNumber).Select(s => s.Id).FirstOrDefault())
+                                          .Select(stf => new StudentTokenFees
                                           {
-                                              Id = allStudentTokenFees.Id,
-                                              StudentId = allStudentTokenFees.StudentId,
-                                              StudentTokenId = allStudentTokenFees.StudentTokenId,
-                                              Deposit = allStudentTokenFees.Deposit,
-                                              Refund = allStudentTokenFees.Refund,
-                                              Particulars = allStudentTokenFees.Particulars,
-                                              IsActive = allStudentTokenFees.IsActive,
-                                              IsDeleted = allStudentTokenFees.IsDeleted,
-                                              CreatedAt = allStudentTokenFees.CreatedAt,
-                                              CreatedBy = allStudentTokenFees.CreatedBy,
-                                              UpdatedAt = allStudentTokenFees.UpdatedAt,
-                                              UpdatedBy = allStudentTokenFees.UpdatedBy,
+                                              StudentTokenFeesId = stf.StudentTokenFeesId,
+                                              StudentId = stf.StudentId,
+                                              StudentTokenId = stf.StudentTokenId,
+                                              Deposit = stf.Deposit,
+                                              Refund = stf.Refund,
+                                              Particulars = stf.Particulars,
+                                              IsActive = stf.IsActive,
+                                              IsDeleted = stf.IsDeleted,
+                                              CreatedAt = stf.CreatedAt,
+                                              CreatedBy = stf.CreatedBy,
+                                              UpdatedAt = stf.UpdatedAt,
+                                              UpdatedBy = stf.UpdatedBy,
+                                              BatchName = _appDbContext.Batch.Where(b => b.Id == (_appDbContext.StudentToken.Where(st => st.Id == stf.StudentTokenId).Select(b => b.BatchId).FirstOrDefault())).Select(x => x.BatchName).FirstOrDefault(),
+                                              StudentName = _appDbContext.StudentDetails.Where(sd => sd.Id == stf.StudentId).Select(s => s.FirstName + " " + s.LastName).FirstOrDefault(),
+                                              Mobile = _appDbContext.Users.Where(u => u.Id == (_appDbContext.StudentDetails.Where(sd => sd.Id == stf.StudentId).Select(s => s.UserId).FirstOrDefault())).Select(u => u.UserMobile).FirstOrDefault(),
                                           })
-                                      .Where(b => b.StudentTokenId == Id)
-                                      .OrderByDescending(b => b.Id)
-                                      .Skip(commonSearchFilter.Skip)
-                                      .Take(commonSearchFilter.Take)
+                                      .OrderByDescending(b => b.StudentTokenFeesId)
+                                      .Skip(studentTokenFeesSearch.Skip)
+                                      .Take(studentTokenFeesSearch.Take)
                                       .ToListAsync();
             return studentTokenFees;
+        }
+        public async Task<IActionResult> TokenIsExist(StudentTokenFeesSearch studentTokenFeesSearch)
+        {
+            return new JsonResult(await _appDbContext.StudentToken.AnyAsync(x => x.Id == studentTokenFeesSearch.TokenNumber));
+        }
+        public async Task<IActionResult> SumDepositAndRefund()
+        {
+            var Deposit = await _appDbContext.StudentTokenFees.SumAsync(s => s.Deposit);
+            var Refund = await _appDbContext.StudentTokenFees.SumAsync(s => s.Refund);
+            var Result = new { Deposit, Refund };
+
+            return new JsonResult(Result);
         }
     }
 }

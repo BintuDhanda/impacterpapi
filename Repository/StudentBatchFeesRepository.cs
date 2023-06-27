@@ -2,6 +2,7 @@
 using ERP.Interface;
 using ERP.Models;
 using ERP.SearchFilters;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ERP.Bussiness
@@ -74,6 +75,18 @@ namespace ERP.Bussiness
                                       .Take(studentBatchFeesSearch.Take)
                                       .ToListAsync();
             return studentBatchFees;
+        }
+        public async Task<IActionResult> RegistrationIsExist(StudentBatchFeesSearch studentBatchFeesSearch)
+        {
+            return new JsonResult(await _appDbcontext.StudentBatch.AnyAsync(x => x.RegistrationNumber == studentBatchFeesSearch.RegistrationNumber));
+        }
+        public async Task<IActionResult> SumDepositAndRefund()
+        {
+            var Deposit = await  _appDbcontext.StudentBatchFees.SumAsync(s => s.Deposit);
+            var Refund = await _appDbcontext.StudentBatchFees.SumAsync(s => s.Refund);
+            var Result = new { Deposit, Refund };
+
+            return new JsonResult(Result);
         }
     }
 }

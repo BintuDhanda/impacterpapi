@@ -46,10 +46,22 @@ namespace ERP.Controllers
             return await _studentTokenFeesRepository.DeleteAsync(Id);
         }
         [HttpPost]
-        [Route("getStudentTokenFeesByStudentTokenId")]
-        public async Task<IEnumerable<StudentTokenFees>> GetStudentTokenFeesByStudentTokenId(int Id, CommonSearchFilter commonSearchFilter)
+        [Route("getStudentTokenFeesByTokenNumber")]
+        public async Task<IEnumerable<StudentTokenFees>> GetStudentTokenFeesByTokenNumber(StudentTokenFeesSearch studentTokenFeesSearch)
         {
-            return await _studentTokenFeesRepository.GetStudentTokenFeesByStudentTokenIdAsync(Id, commonSearchFilter);
+            return await _studentTokenFeesRepository.GetStudentTokenFeesByTokenNumberAsync(studentTokenFeesSearch);
+        }
+        [HttpPost]
+        [Route("TokenIsExists")]
+        public async Task<IActionResult> RegistrationIsExists([FromBody] StudentTokenFeesSearch studentTokenFeesSearch)
+        {
+            return await _studentTokenFeesRepository.TokenIsExist(studentTokenFeesSearch);
+        }
+        [HttpGet]
+        [Route("sumDepositAndRefund")]
+        public async Task<IActionResult> SumDepositAndRefund()
+        {
+            return await _studentTokenFeesRepository.SumDepositAndRefund();
         }
     }
 }

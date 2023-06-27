@@ -1,5 +1,6 @@
 ﻿using ERP.Models;
 using ERP.SearchFilters;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ERP.Interface
 {
@@ -11,5 +12,7 @@ namespace ERP.Interface
         Task<StudentBatchFees> UpdateAsync(StudentBatchFees studentBatchFees);
         Task<StudentBatchFees> DeleteAsync(int Id);
         Task<IEnumerable<StudentBatchFees>> GetStudentBatchFeesByRegistrationNumberAsync(StudentBatchFeesSearch studentBatchFeesSearch);
+        Task<IActionResult> RegistrationIsExist(StudentBatchFeesSearch studentBatchFeesSearch);
+        Task<IActionResult> SumDepositAndRefund();
     }
 }

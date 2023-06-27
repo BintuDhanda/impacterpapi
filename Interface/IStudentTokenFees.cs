@@ -1,5 +1,6 @@
 ﻿using ERP.Models;
 using ERP.SearchFilters;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ERP.Interface
 {
@@ -10,6 +11,8 @@ namespace ERP.Interface
         Task<StudentTokenFees> AddAsync(StudentTokenFees tokenValidity);
         Task<StudentTokenFees> UpdateAsync(StudentTokenFees tokenValidity);
         Task<StudentTokenFees> DeleteAsync(int Id);
-        Task<IEnumerable<StudentTokenFees>> GetStudentTokenFeesByStudentTokenIdAsync(int Id, CommonSearchFilter commonSearchFilter);
+        Task<IEnumerable<StudentTokenFees>> GetStudentTokenFeesByTokenNumberAsync(StudentTokenFeesSearch studentTokenFeesSearch);
+        Task<IActionResult> TokenIsExist(StudentTokenFeesSearch studentTokenFeesSearch);
+        Task<IActionResult> SumDepositAndRefund();
     }
 }
