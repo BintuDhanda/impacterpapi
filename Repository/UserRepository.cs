@@ -23,10 +23,10 @@ namespace ERP.Bussiness
 
         public async Task<IEnumerable<Users>> GetAllAsync(CommonSearchFilter commonSearchFilter)
         {
-            var users = await (from u in _dbContext.Users
-                               where !string.IsNullOrEmpty(commonSearchFilter.Mobile) ? u.UserMobile==commonSearchFilter.Mobile : u.CreatedAt >= Convert.ToDateTime(commonSearchFilter.From).ToUniversalTime() &&
-                               u.CreatedAt <= Convert.ToDateTime(commonSearchFilter.To).ToUniversalTime()
-                        select new Users
+            var users = await _dbContext.Users
+                        .Where (u => !string.IsNullOrEmpty(commonSearchFilter.Mobile) ? u.UserMobile==commonSearchFilter.Mobile : u.CreatedAt >= Convert.ToDateTime(commonSearchFilter.From).ToUniversalTime() &&
+                         u.CreatedAt <= Convert.ToDateTime(commonSearchFilter.To).ToUniversalTime())
+                        .Select( u =>  new Users
                         {
                             Id = u.Id,
                             UserEmail = u.UserEmail,
@@ -37,6 +37,7 @@ namespace ERP.Bussiness
                             IsActive = u.IsActive,
                             CreatedAt = u.CreatedAt,
                             IsStudentCreated = _dbContext.StudentDetails.Where(f=>f.UserId==u.Id).FirstOrDefault() == null ? false:true,
+                            TotalUser = _dbContext.Users.Where(u=>u.IsActive == true).Count(),
                         })
                         .OrderByDescending(o=>o.Id)
                         .Skip(commonSearchFilter.Skip) 
@@ -56,7 +57,7 @@ namespace ERP.Bussiness
             user.IsDeleted = false;
             user.IsEmailConfirmed = false;
             user.IsMobileConfirmed = false;
-            var users = await _dbContext.Users.Where(x=>x.UserEmail == user.UserEmail || x.UserMobile == user.UserMobile).FirstOrDefaultAsync();
+            var users = await _dbContext.Users.Where(x=>x.UserEmail == ((string.IsNullOrEmpty(user.UserEmail)) ? "": user.UserEmail) || x.UserMobile == user.UserMobile).FirstOrDefaultAsync();
             if (users == null)
             {
                 _dbContext.Users.Add(user);

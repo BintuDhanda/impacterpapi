@@ -13,6 +13,6 @@ namespace ERP.Interface
         Task<StudentBatchFees> DeleteAsync(int Id);
         Task<IEnumerable<StudentBatchFees>> GetStudentBatchFeesByRegistrationNumberAsync(StudentBatchFeesSearch studentBatchFeesSearch);
         Task<IActionResult> RegistrationIsExist(StudentBatchFeesSearch studentBatchFeesSearch);
-        Task<IActionResult> SumDepositAndRefund();
+        Task<IActionResult> SumDepositAndRefund(string registrationNumber);
     }
 }

@@ -13,6 +13,6 @@ namespace ERP.Interface
         Task<StudentTokenFees> DeleteAsync(int Id);
         Task<IEnumerable<StudentTokenFees>> GetStudentTokenFeesByTokenNumberAsync(StudentTokenFeesSearch studentTokenFeesSearch);
         Task<IActionResult> TokenIsExist(StudentTokenFeesSearch studentTokenFeesSearch);
-        Task<IActionResult> SumDepositAndRefund();
+        Task<IActionResult> SumDepositAndRefund(int studentTokenId);
     }
 }

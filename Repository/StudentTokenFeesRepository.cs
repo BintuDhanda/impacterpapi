@@ -79,10 +79,10 @@ namespace ERP.Bussiness
         {
             return new JsonResult(await _appDbContext.StudentToken.AnyAsync(x => x.Id == studentTokenFeesSearch.TokenNumber));
         }
-        public async Task<IActionResult> SumDepositAndRefund()
+        public async Task<IActionResult> SumDepositAndRefund(int studentTokenId)
         {
-            var Deposit = await _appDbContext.StudentTokenFees.SumAsync(s => s.Deposit);
-            var Refund = await _appDbContext.StudentTokenFees.SumAsync(s => s.Refund);
+            var Deposit = await _appDbContext.StudentTokenFees.Where(d=>d.StudentTokenId == studentTokenId).SumAsync(s => s.Deposit);
+            var Refund = await _appDbContext.StudentTokenFees.Where(r=>r.StudentTokenId == studentTokenId).SumAsync(s => s.Refund);
             var Result = new { Deposit, Refund };
 
             return new JsonResult(Result);

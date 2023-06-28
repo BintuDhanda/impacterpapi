@@ -1,6 +1,7 @@
 ﻿using ERP.Bussiness;
 using ERP.Interface;
 using ERP.Models;
+using ERP.SearchFilters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,11 +16,11 @@ namespace ERP.Controllers
         {
             _studentDetailsRepository = studentDetailsRepository;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("get")]
-        public async Task<IEnumerable<StudentDetails>> Get()
+        public async Task<IEnumerable<StudentDetails>> Get(CommonSearchFilter commonSearchFilter)
         {
-            return await _studentDetailsRepository.GetAllAsync();
+            return await _studentDetailsRepository.GetAllAsync(commonSearchFilter);
         }
         [HttpGet]
         [Route("getById")]

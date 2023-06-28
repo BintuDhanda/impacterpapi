@@ -17,8 +17,10 @@ namespace ERP.Models
         public bool? IsDeleted { get; set; }
         
         [NotMapped]
-        public int TotalCount { get; set; }
+        public int? TotalCount { get; set; }
         [NotMapped]
         public bool ? IsStudentCreated { get; set; }
+        [NotMapped]
+        public int? TotalUser { get; set; }
     }
 }

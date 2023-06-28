@@ -41,7 +41,9 @@ namespace ERP.Bussiness
             var userRoles = await _appDbContext.UserRole.Where(x => x.UserID == userRole.UserID && x.RoleID == userRole.RoleID).FirstOrDefaultAsync();
             if (userRoles == null)
             {
-            _appDbContext.UserRole.Add(userRole);
+                userRole.CreatedAt = DateTime.UtcNow;
+                userRole.IsDeleted = false;
+                _appDbContext.UserRole.Add(userRole);
             await _appDbContext.SaveChangesAsync();
             return userRole;
             }

@@ -59,9 +59,9 @@ namespace ERP.Controllers
         }
         [HttpGet]
         [Route("sumDepositAndRefund")]
-        public async Task<IActionResult> SumDepositAndRefund()
+        public async Task<IActionResult> SumDepositAndRefund(string registrationNumber)
         {
-            return await _studentBatchFeesRepository.SumDepositAndRefund();
+            return await _studentBatchFeesRepository.SumDepositAndRefund(registrationNumber);
         }
     }
 }

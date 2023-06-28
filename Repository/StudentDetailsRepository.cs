@@ -1,6 +1,7 @@
 ﻿using ERP.ERPDbContext;
 using ERP.Interface;
 using ERP.Models;
+using ERP.SearchFilters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,24 +14,33 @@ namespace ERP.Bussiness
         {
             _appDbcontext = appDbcontext;
         }
-        public async Task<IEnumerable<StudentDetails>> GetAllAsync()
+        public async Task<IEnumerable<StudentDetails>> GetAllAsync(CommonSearchFilter commonSearchFilter)
         {
-            var studentDetails = await (from allStudentDetails in _appDbcontext.StudentDetails select new StudentDetails {
-                Id = allStudentDetails.Id,
-                FirstName = allStudentDetails.FirstName,
-                LastName = allStudentDetails.LastName,
-                FatherName = allStudentDetails.FatherName,
-                MotherName = allStudentDetails.MotherName,
-                Gender = allStudentDetails.Gender,
-                StudentHeight = allStudentDetails.StudentHeight,
-                StudentWeight = allStudentDetails.StudentWeight,
-                BodyRemark = allStudentDetails.BodyRemark,
-                UserId = allStudentDetails.UserId,
-                IsActive = allStudentDetails.IsActive,
-                IsDeleted = allStudentDetails.IsDeleted,
-                CreatedAt = allStudentDetails.CreatedAt,                             
-                Mobile = _appDbcontext.Users.Where(s => s.Id == allStudentDetails.UserId).Select(s => s.UserMobile).FirstOrDefault()
-            }).OrderByDescending(o => o.Id).ToListAsync();
+            var studentDetails = await _appDbcontext.StudentDetails
+            .Where(sd => !string.IsNullOrEmpty(commonSearchFilter.Mobile) ? (_appDbcontext.Users.Where(s => s.Id == sd.UserId).Select(s => s.UserMobile).FirstOrDefault()) == commonSearchFilter.Mobile : sd.CreatedAt >= Convert.ToDateTime(commonSearchFilter.From).ToUniversalTime() &&
+            sd.CreatedAt <= Convert.ToDateTime(commonSearchFilter.To).ToUniversalTime())
+            .Select( sd => new StudentDetails 
+            {
+                Id = sd.Id,
+                FirstName = sd.FirstName,
+                LastName = sd.LastName,
+                FatherName = sd.FatherName,
+                MotherName = sd.MotherName,
+                Gender = sd.Gender,
+                StudentHeight = sd.StudentHeight,
+                StudentWeight = sd.StudentWeight,
+                BodyRemark = sd.BodyRemark,
+                UserId = sd.UserId,
+                IsActive = sd.IsActive,
+                IsDeleted = sd.IsDeleted,
+                CreatedAt = sd.CreatedAt,                             
+                Mobile = _appDbcontext.Users.Where(s => s.Id == sd.UserId).Select(s => s.UserMobile).FirstOrDefault(),
+                TotalStudent = _appDbcontext.StudentDetails.Where(sd=>sd.IsActive == true).Count(),
+            })
+            .OrderByDescending(o => o.Id)
+            .Skip(commonSearchFilter.Skip)
+            .Take(commonSearchFilter.Take)
+            .ToListAsync();
             return studentDetails;
         }
         public async Task<StudentDetails> GetByIdAsync(int Id)

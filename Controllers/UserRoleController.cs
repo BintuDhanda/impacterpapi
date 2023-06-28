@@ -15,7 +15,7 @@ namespace ERP.Controllers
             _userRoleRepository = userRoleRepository;
         }
         [HttpPost]
-        [Route("add")]
+        [Route("post")]
         public async Task<UserRole> Add(UserRole userRole)
         {
             return await _userRoleRepository.AddAsync(userRole);
@@ -27,7 +27,7 @@ namespace ERP.Controllers
             return await _userRoleRepository.UpdateAsync(userRole);
         }
         [HttpGet]
-        [Route("getByUserId")]
+        [Route("getUserRoleByUserId")]
         public async Task<IEnumerable<UserRole>> GetByUserIdAsync (int UserId)
         {
             return  await _userRoleRepository.GetByUserIdAsync(UserId);

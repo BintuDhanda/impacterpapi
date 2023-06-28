@@ -80,10 +80,10 @@ namespace ERP.Bussiness
         {
             return new JsonResult(await _appDbcontext.StudentBatch.AnyAsync(x => x.RegistrationNumber == studentBatchFeesSearch.RegistrationNumber));
         }
-        public async Task<IActionResult> SumDepositAndRefund()
+        public async Task<IActionResult> SumDepositAndRefund(string registrationNumber)
         {
-            var Deposit = await  _appDbcontext.StudentBatchFees.SumAsync(s => s.Deposit);
-            var Refund = await _appDbcontext.StudentBatchFees.SumAsync(s => s.Refund);
+            var Deposit = await  _appDbcontext.StudentBatchFees.Where(sbf => sbf.StudentBatchId == (_appDbcontext.StudentBatch.Where(_b => _b.RegistrationNumber == registrationNumber).Select(_b => _b.StudentBatchId).FirstOrDefault())).SumAsync(s => s.Deposit);
+            var Refund = await _appDbcontext.StudentBatchFees.Where(sbf => sbf.StudentBatchId == (_appDbcontext.StudentBatch.Where(_b => _b.RegistrationNumber == registrationNumber).Select(_b => _b.StudentBatchId).FirstOrDefault())).SumAsync(s => s.Refund);
             var Result = new { Deposit, Refund };
 
             return new JsonResult(Result);

@@ -21,5 +21,7 @@ namespace ERP.Models
         public DateTime? CreatedAt { get; set; }
         [NotMapped]
         public string? Mobile { get; set; }
+        [NotMapped]
+        public int? TotalStudent { get; set; }
     }
 }
