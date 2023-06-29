@@ -1,4 +1,5 @@
-﻿using ERP.Interface;
+﻿using ERP.Bussiness;
+using ERP.Interface;
 using ERP.Models;
 using ERP.SearchFilters;
 using Microsoft.AspNetCore.Mvc;
@@ -20,11 +21,11 @@ namespace ERP.Controllers
         {
             return await _dayBookRepository.GetAllAsync(commonSearchFilter);
         }
-        [HttpGet]
+        [HttpPost]
         [Route("getDayBookByAccountId")]
-        public async Task<IEnumerable<DayBook>> GetById(int Id)
+        public async Task<IEnumerable<DayBook>> GetDayBookByAccountId(AccountSearchFilter accountSearchFilter)
         {
-            return await _dayBookRepository.GetDayBookByAccountIdAsync(Id);
+            return await _dayBookRepository.GetDayBookByAccountIdAsync(accountSearchFilter);
         }
         [HttpPost]
         [Route("post")]
@@ -43,6 +44,12 @@ namespace ERP.Controllers
         public async Task<DayBook> DayBookDelete(int Id)
         {
             return await _dayBookRepository.DeleteAsync(Id);
+        }
+        [HttpPost]
+        [Route("sumCreditAndDebit")]
+        public async Task<IActionResult> SumCreditAndDebit(SumCreditAndDebitDaybook sumCreditAndDebitDaybook)
+        {
+            return await _dayBookRepository.SumCreditAndDebitAsync(sumCreditAndDebitDaybook);
         }
     }
 }

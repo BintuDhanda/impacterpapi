@@ -2,6 +2,7 @@
 using ERP.Interface;
 using ERP.Models;
 using ERP.SearchFilters;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ERP.Bussiness
@@ -20,42 +21,48 @@ namespace ERP.Bussiness
                                                      allDayBook.CreatedAt <= Convert.ToDateTime(commonSearchFilter.To)
                                                select new DayBook
                                                {
-                                                   ID = allDayBook.ID,
+                                                   DayBookId = allDayBook.DayBookId,
                                                    Particulars = allDayBook.Particulars,
                                                    Credit = allDayBook.Credit,
                                                    Debit = allDayBook.Debit,
                                                    CreatedAt = allDayBook.CreatedAt,
                                                    AccountId = allDayBook.AccountId,
                                                    IsActive = allDayBook.IsActive,
-                                                   Account = _appDbContext.Account.Where(w=>w.Id== allDayBook.AccountId).Select(s=>s.AccountName).FirstOrDefault(),
+                                                   Account = _appDbContext.Account.Where(w=>w.AccountId== allDayBook.AccountId).Select(s=>s.AccountName).FirstOrDefault(),
                                                })
-                         .OrderByDescending(o => o.ID)
+                         .OrderByDescending(o => o.DayBookId)
                          .Skip(commonSearchFilter.Skip)
                          .Take(commonSearchFilter.Take)
                          .ToListAsync();
             return dayBook;
         }
-        public async Task<IEnumerable<DayBook>> GetDayBookByAccountIdAsync(int Id)
+        public async Task<IEnumerable<DayBook>> GetDayBookByAccountIdAsync(AccountSearchFilter accountSearchFilter)
         {
-            var dayBook = await (from allDayBook in _appDbContext.DayBook
-                                 join account in _appDbContext.Account on allDayBook.AccountId equals account.Id
-                                 select new DayBook
+            var dayBook = await _appDbContext.DayBook
+                                 .Where(d => d.AccountId == accountSearchFilter.AccountId && (d.CreatedAt >= Convert.ToDateTime(accountSearchFilter.From).ToUniversalTime() &&
+                         d.CreatedAt <= Convert.ToDateTime(accountSearchFilter.To).ToUniversalTime()))
+                                 .Select(d => new DayBook
                                  {
-                                     ID = allDayBook.ID,
-                                     Particulars = allDayBook.Particulars,
-                                     Credit = allDayBook.Credit,
-                                     Debit = allDayBook.Debit,
-                                     CreatedAt = allDayBook.CreatedAt,
-                                     AccountId = allDayBook.AccountId,
-                                     IsActive = allDayBook.IsActive,
-                                     Account = account.AccountName,
-                                 }).Where(d => d.AccountId == Id).ToListAsync();
+                                     DayBookId = d.DayBookId,
+                                     Particulars = d.Particulars,
+                                     Credit = d.Credit,
+                                     Debit = d.Debit,
+                                     CreatedAt = d.CreatedAt,
+                                     AccountId = d.AccountId,
+                                     IsActive = d.IsActive,
+                                     Account = _appDbContext.Account.Where(w => w.AccountId == d.AccountId).Select(s => s.AccountName).FirstOrDefault(),
+                                 })
+                                 .OrderByDescending(o => o.DayBookId)
+                                 .Skip(accountSearchFilter.Skip)
+                                 .Take(accountSearchFilter.Take)
+                                 .ToListAsync();
             return dayBook;
         }
         public async Task<DayBook> AddAsync(DayBook dayBook)
         {
             
                 dayBook.CreatedAt = System.DateTime.UtcNow;
+                dayBook.IsDeleted = false;
                 if(dayBook.AccountId != 0 && dayBook.Credit != 0 || dayBook.Debit != 0)
                 {
                     _appDbContext.DayBook.Add(dayBook);
@@ -65,6 +72,8 @@ namespace ERP.Bussiness
         }
         public async Task<DayBook> UpdateAsync(DayBook dayBook)
         {
+            dayBook.UpdatedAt = System.DateTime.UtcNow;
+            dayBook.IsDeleted = false;
             _appDbContext.DayBook.Update(dayBook);
             await _appDbContext.SaveChangesAsync();
             return dayBook;
@@ -75,6 +84,16 @@ namespace ERP.Bussiness
             _appDbContext.DayBook.Remove(daybook);
             await _appDbContext.SaveChangesAsync();
             return daybook;
+        }
+        public async Task<IActionResult> SumCreditAndDebitAsync(SumCreditAndDebitDaybook sumCreditAndDebitDaybook)
+        {
+            var Credit = await _appDbContext.DayBook.Where(d => d.AccountId == sumCreditAndDebitDaybook.AccountId && (d.CreatedAt >= Convert.ToDateTime(sumCreditAndDebitDaybook.From).ToUniversalTime() &&
+                         d.CreatedAt <= Convert.ToDateTime(sumCreditAndDebitDaybook.To).ToUniversalTime())).SumAsync(s => s.Credit);
+            var Debit = await _appDbContext.DayBook.Where(r => r.AccountId == sumCreditAndDebitDaybook.AccountId && (r.CreatedAt >= Convert.ToDateTime(sumCreditAndDebitDaybook.From).ToUniversalTime() &&
+                         r.CreatedAt <= Convert.ToDateTime(sumCreditAndDebitDaybook.To).ToUniversalTime())).SumAsync(s => s.Debit);
+            var Result = new { Credit, Debit };
+
+            return new JsonResult(Result);
         }
     }
 }

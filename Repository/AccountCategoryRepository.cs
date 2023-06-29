@@ -22,12 +22,16 @@ namespace ERP.Bussiness
         }
         public async Task <AccountCategory> AddAsync(AccountCategory accountCategory)
         {
+            accountCategory.CreatedAt = DateTime.UtcNow;
+            accountCategory.IsDeleted = false;
             _appdbContext.AccountCategory.Add(accountCategory);
             await _appdbContext.SaveChangesAsync();
             return accountCategory;
         }
         public async Task <AccountCategory> UpdateAsync(AccountCategory accountCategory)
         {
+            accountCategory.UpdatedAt = DateTime.UtcNow;
+            accountCategory.IsDeleted = false;
             _appdbContext.AccountCategory.Update(accountCategory);
             await _appdbContext.SaveChangesAsync();
             return accountCategory;

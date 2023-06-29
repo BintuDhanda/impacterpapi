@@ -22,12 +22,16 @@ namespace ERP.Bussiness
         }
         public async Task <Account> AddAsync(Account account)
         {
+            account.CreatedAt = DateTime.UtcNow;
+            account.IsDeleted = false;
             _appDbcontext.Account.Add(account);
             await _appDbcontext.SaveChangesAsync();
             return account;
         }
         public async Task<Account> UpdateAsync(Account account)
         {
+            account.UpdatedAt = DateTime.UtcNow;
+            account.IsDeleted = false;
             _appDbcontext.Account.Update(account);
             await _appDbcontext.SaveChangesAsync();
             return account;
