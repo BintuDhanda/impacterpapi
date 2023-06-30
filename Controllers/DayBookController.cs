@@ -47,9 +47,14 @@ namespace ERP.Controllers
         }
         [HttpPost]
         [Route("sumCreditAndDebit")]
-        public async Task<IActionResult> SumCreditAndDebit(SumCreditAndDebitDaybook sumCreditAndDebitDaybook)
+        public async Task<IActionResult> SumCreditAndDebit(SumCreditAndDebitAcountDaybook sumCreditAndDebitAccountDaybook)
         {
-            return await _dayBookRepository.SumCreditAndDebitAsync(sumCreditAndDebitDaybook);
+            return await _dayBookRepository.SumCreditAndDebitAsync(sumCreditAndDebitAccountDaybook);
+        }[HttpPost]
+        [Route("sumCreditAndDebitDayBook")]
+        public async Task<IActionResult> SumCreditAndDebitDayBook(SumCreditAndDebitDayBook sumCreditAndDebitDaybook)
+        {
+            return await _dayBookRepository.SumCreditAndDebitDayBookAsync(sumCreditAndDebitDaybook);
         }
     }
 }

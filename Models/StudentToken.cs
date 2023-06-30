@@ -20,5 +20,7 @@ namespace ERP.Models
         public int? UpdatedBy { get;set; }
         [NotMapped]
         public string? BatchName { get; set; }
+        [NotMapped]
+        public bool? TokenStatus { get; set;}
     }
 }

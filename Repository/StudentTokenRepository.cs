@@ -102,7 +102,8 @@ namespace ERP.Bussiness
                                           UpdatedAt = allStudentToken.UpdatedAt,
                                           UpdatedBy = allStudentToken.UpdatedBy,
                                           BatchName = _appDbContext.Batch.Where(b => b.Id == allStudentToken.BatchId).Select(b=>b.BatchName).FirstOrDefault(),
-                                      }).OrderByDescending(b=>b.Id).ToListAsync();
+                                          TokenStatus = _appDbContext.StudentToken.Where(st => DateTime.UtcNow >= st.ValidFrom && DateTime.UtcNow <= st.ValidUpto).FirstOrDefault() == null ? false : true,
+                                      }).Where(t => t.StudentId == StudentId).OrderByDescending(b=>b.Id).ToListAsync();
             return studentToken;
         }
     }

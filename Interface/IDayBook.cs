@@ -11,6 +11,7 @@ namespace ERP.Interface
         Task <DayBook> AddAsync(DayBook dayBook);
         Task <DayBook> UpdateAsync(DayBook dayBook);
         Task <DayBook> DeleteAsync(int Id);
-        Task<IActionResult> SumCreditAndDebitAsync(SumCreditAndDebitDaybook sumCreditAndDebitDaybook);
+        Task<IActionResult> SumCreditAndDebitAsync(SumCreditAndDebitAcountDaybook sumCreditAndDebitAccountDaybook);
+        Task<IActionResult> SumCreditAndDebitDayBookAsync(SumCreditAndDebitDayBook sumCreditAndDebitDaybook);
     }
 }

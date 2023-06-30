@@ -85,12 +85,22 @@ namespace ERP.Bussiness
             await _appDbContext.SaveChangesAsync();
             return daybook;
         }
-        public async Task<IActionResult> SumCreditAndDebitAsync(SumCreditAndDebitDaybook sumCreditAndDebitDaybook)
+        public async Task<IActionResult> SumCreditAndDebitAsync(SumCreditAndDebitAcountDaybook sumCreditAndDebitAccountDaybook)
         {
-            var Credit = await _appDbContext.DayBook.Where(d => d.AccountId == sumCreditAndDebitDaybook.AccountId && (d.CreatedAt >= Convert.ToDateTime(sumCreditAndDebitDaybook.From).ToUniversalTime() &&
-                         d.CreatedAt <= Convert.ToDateTime(sumCreditAndDebitDaybook.To).ToUniversalTime())).SumAsync(s => s.Credit);
-            var Debit = await _appDbContext.DayBook.Where(r => r.AccountId == sumCreditAndDebitDaybook.AccountId && (r.CreatedAt >= Convert.ToDateTime(sumCreditAndDebitDaybook.From).ToUniversalTime() &&
-                         r.CreatedAt <= Convert.ToDateTime(sumCreditAndDebitDaybook.To).ToUniversalTime())).SumAsync(s => s.Debit);
+            var Credit = await _appDbContext.DayBook.Where(d => d.AccountId == sumCreditAndDebitAccountDaybook.AccountId && (d.CreatedAt >= Convert.ToDateTime(sumCreditAndDebitAccountDaybook.From).ToUniversalTime() &&
+                         d.CreatedAt <= Convert.ToDateTime(sumCreditAndDebitAccountDaybook.To).ToUniversalTime())).SumAsync(s => s.Credit);
+            var Debit = await _appDbContext.DayBook.Where(r => r.AccountId == sumCreditAndDebitAccountDaybook.AccountId && (r.CreatedAt >= Convert.ToDateTime(sumCreditAndDebitAccountDaybook.From).ToUniversalTime() &&
+                         r.CreatedAt <= Convert.ToDateTime(sumCreditAndDebitAccountDaybook.To).ToUniversalTime())).SumAsync(s => s.Debit);
+            var Result = new { Credit, Debit };
+
+            return new JsonResult(Result);
+        }
+        public async Task<IActionResult> SumCreditAndDebitDayBookAsync(SumCreditAndDebitDayBook sumCreditAndDebitDayBook)
+        {
+            var Credit = await _appDbContext.DayBook.Where(d =>  d.CreatedAt >= Convert.ToDateTime(sumCreditAndDebitDayBook.From).ToUniversalTime() &&
+                         d.CreatedAt <= Convert.ToDateTime(sumCreditAndDebitDayBook.To).ToUniversalTime()).SumAsync(s => s.Credit);
+            var Debit = await _appDbContext.DayBook.Where(r => r.CreatedAt >= Convert.ToDateTime(sumCreditAndDebitDayBook.From).ToUniversalTime() &&
+                         r.CreatedAt <= Convert.ToDateTime(sumCreditAndDebitDayBook.To).ToUniversalTime()).SumAsync(s => s.Debit);
             var Result = new { Credit, Debit };
 
             return new JsonResult(Result);
