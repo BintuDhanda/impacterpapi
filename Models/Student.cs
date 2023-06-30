@@ -2,16 +2,13 @@
 
 namespace ERP.Models
 {
-    public class Student
+    public class Student : BaseModel
     {
         [Key]
-        public int Id { get; set; }
-        public string StudentName { get; set; }
-        public string StudentPassword { get; set; }
-        public string PhoneNumber { get; set;}
-        public bool IsActive { get; set; }
-        public bool IsDeleted { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public int CreatedBy { get; set; }
+        public int Id { get; set; } = 0;
+        public string StudentName { get; set; } = string.Empty;
+        public string StudentPassword { get; set; } = string.Empty;
+        public string PhoneNumber { get; set;}  = string.Empty;
+        
     }
 }
