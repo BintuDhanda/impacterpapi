@@ -37,5 +37,8 @@ namespace ERP.ERPDbContext
         public DbSet<Student> Student { get; set; }
         public DbSet<StudentBatchFees> StudentBatchFees { get; set; }
         public DbSet<FeeType> FeeType { get; set; }
+        public DbSet<News> News { get; set; }
+        public DbSet<NewsLike> NewsLike { get; set; }
+        public DbSet<NewsComment> NewsComment { get; set; }
     }
 }
