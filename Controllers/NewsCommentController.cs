@@ -14,10 +14,10 @@ namespace ERP.Controllers
             _newsCommentRepository = newsCommentRepository;
         }
         [HttpGet]
-        [Route("get")]
-        public async Task<IEnumerable<NewsComment>> Get()
+        [Route("getNewsCommentByNewsId")]
+        public async Task<IEnumerable<NewsComment>> Get(int NewsId)
         {
-            return await _newsCommentRepository.GetAllAsync();
+            return await _newsCommentRepository.GetNewsCommentByNewsIdAsync(NewsId);
         }
         [HttpGet]
         [Route("getById")]

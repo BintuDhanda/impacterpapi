@@ -15,7 +15,21 @@ namespace ERP.Bussiness
         }
         public async Task<IEnumerable<NewsLike>> GetNewsLikeByNewsIdAsync(int NewsId)
         {
-            return await _appDbContext.NewsLike.Where(nl=>nl.NewsId == NewsId).ToListAsync();
+            return await _appDbContext.NewsLike.Where(nl=>nl.NewsId == NewsId)
+                .Select(nl =>  new NewsLike
+                {
+                    NewsLikeId = nl.NewsLikeId,
+                    NewsId = nl.NewsId,
+                    IsActive = nl.IsActive,
+                    IsDeleted = nl.IsDeleted,
+                    CreatedAt = nl.CreatedAt,
+                    CreatedBy = nl.CreatedBy,
+                    LastUpdatedAt = nl.LastUpdatedAt,
+                    LastUpdatedBy = nl.LastUpdatedBy,
+                    UserName = _appDbContext.StudentDetails.Where(x => x.UserId == nl.CreatedBy).Select(s => s.FirstName.Substring(0,1) + s.LastName.Substring(0,1)).FirstOrDefault(),
+                    UserMobile = _appDbContext.Users.Where(u => u.Id == nl.CreatedBy).Select(u => u.UserMobile.Substring(0, 3) + "-xxxxx-" + u.UserMobile.Substring(5, 2)).FirstOrDefault(),
+                })
+                .ToListAsync();
         }
         public async Task<NewsLike> GetByIdAsync(int Id)
         {
@@ -58,7 +72,7 @@ namespace ERP.Bussiness
         public async Task<NewsLike> DeleteAsync(int Id)
         {
             var newsLike = await _appDbContext.NewsLike.FindAsync(Id);
-            _appDbContext.Remove(newsLike);
+            _appDbContext.NewsLike.Remove(newsLike);
             await _appDbContext.SaveChangesAsync();
             return newsLike;
         }

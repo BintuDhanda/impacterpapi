@@ -12,9 +12,24 @@ namespace ERP.Bussiness
         {
             _appDbContext = appDbContext;
         }
-        public async Task<IEnumerable<NewsComment>> GetAllAsync()
+        public async Task<IEnumerable<NewsComment>> GetNewsCommentByNewsIdAsync(int NewsId)
         {
-            return await _appDbContext.NewsComment.ToListAsync();
+            return await _appDbContext.NewsComment.Where(nc => nc.NewsId == NewsId)
+                .Select(nc => new NewsComment
+                {
+                    NewsCommentId = nc.NewsCommentId,
+                    Comment = nc.Comment,
+                    NewsId = nc.NewsId,
+                    IsActive = nc.IsActive, 
+                    IsDeleted = nc.IsDeleted,
+                    CreatedAt = nc.CreatedAt,
+                    CreatedBy = nc.CreatedBy,
+                    LastUpdatedAt = nc.LastUpdatedAt,
+                    LastUpdatedBy = nc.LastUpdatedBy,
+                    UserName = _appDbContext.StudentDetails.Where(x => x.UserId == nc.CreatedBy).Select(s => s.FirstName.Substring(0, 1) + s.LastName.Substring(0, 1)).FirstOrDefault(),
+                    UserMobile = _appDbContext.Users.Where(u => u.Id == nc.CreatedBy).Select(u => u.UserMobile.Substring(0, 3) + "-xxxxx-" + u.UserMobile.Substring(5, 2)).FirstOrDefault(),
+                })
+                .ToListAsync();
         }
         public async Task<NewsComment> GetByIdAsync(int Id)
         {
@@ -22,16 +37,12 @@ namespace ERP.Bussiness
         }
         public async Task<NewsComment> AddAsync(NewsComment newsComment)
         {
-            var newsComments = await _appDbContext.NewsComment.Where(x => x.CreatedBy == newsComment.CreatedBy && x.NewsId == newsComment.NewsId).FirstOrDefaultAsync();
-            if (newsComments == null)
-            {
+            
                 newsComment.CreatedAt = DateTime.UtcNow;
-                newsComments.IsDeleted = false;
+                newsComment.IsDeleted = false;
                 _appDbContext.NewsComment.Add(newsComment);
                 await _appDbContext.SaveChangesAsync();
                 return newsComment;
-            }
-            return newsComments;
         }
         public async Task<NewsComment> UpdateAsync(NewsComment newsComment)
         {
