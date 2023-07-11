@@ -25,7 +25,8 @@ namespace ERP.Bussiness
             var roles = await _appDbContext.Roles.Where(x => x.RoleName == role.RoleName).FirstOrDefaultAsync();
             if(roles == null)
             {
-
+            role.CreatedAt = DateTime.UtcNow;
+            role.IsDeleted = false;
             _appDbContext.Roles.Add(role);
             await _appDbContext.SaveChangesAsync();
             return role;
@@ -34,6 +35,8 @@ namespace ERP.Bussiness
         }
         public async Task<Roles> UpdateAsync(Roles role)
         {
+            role.LastUpdatedAt = DateTime.UtcNow;
+            role.IsDeleted = false;
             _appDbContext.Roles.Update(role);
             await _appDbContext.SaveChangesAsync();
             return role;

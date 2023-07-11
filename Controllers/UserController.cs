@@ -68,5 +68,17 @@ namespace ERP.Controllers
         {
             return await _userRepository.IsExists(commonSearchFilter);
         }
+        [HttpPost]
+        [Route("IsVerified")]
+        public async Task<IActionResult> IsVerified(string userMobile)
+        {
+            return await _userRepository.IsVerified(userMobile);
+        }
+        [HttpPost]
+        [Route("IsMobileConfirmed")]
+        public async Task<IActionResult> IsMobileConfirmed(string userMobile)
+        {
+            return await _userRepository.IsMobileConfirmed(userMobile);
+        }
     }
 }

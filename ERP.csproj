@@ -26,7 +26,12 @@
 
   <ItemGroup>
     <Folder Include="DataAccess\" />
-    <Folder Include="uploads\" />
+    <Folder Include="wwwroot\uploads\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\uploads\6ceb0ace-0244-4e10-bfb6-d6589bad5fad_89109--png-free-photo_400x400.png" />
+    <None Include="wwwroot\uploads\7e9b5582-83b3-477d-877a-4e8fbb38d069_94766--free-download-image_400x400.png" />
   </ItemGroup>
 
 </Project>

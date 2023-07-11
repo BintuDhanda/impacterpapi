@@ -17,11 +17,11 @@ namespace ERP.Bussiness
         public async Task<IEnumerable<StudentDetails>> GetAllAsync(CommonSearchFilter commonSearchFilter)
         {
             var studentDetails = await _appDbcontext.StudentDetails
-            .Where(sd => !string.IsNullOrEmpty(commonSearchFilter.Mobile) ? (_appDbcontext.Users.Where(s => s.Id == sd.UserId).Select(s => s.UserMobile).FirstOrDefault()) == commonSearchFilter.Mobile : sd.CreatedAt >= Convert.ToDateTime(commonSearchFilter.From).ToUniversalTime() &&
+            .Where(sd => !string.IsNullOrEmpty(commonSearchFilter.Mobile) ? (_appDbcontext.Users.Where(s => s.UsersId == sd.UserId).Select(s => s.UserMobile).FirstOrDefault()) == commonSearchFilter.Mobile : sd.CreatedAt >= Convert.ToDateTime(commonSearchFilter.From).ToUniversalTime() &&
             sd.CreatedAt <= Convert.ToDateTime(commonSearchFilter.To).ToUniversalTime())
             .Select( sd => new StudentDetails 
             {
-                Id = sd.Id,
+                StudentId = sd.StudentId,
                 FirstName = sd.FirstName,
                 LastName = sd.LastName,
                 FatherName = sd.FatherName,
@@ -34,10 +34,10 @@ namespace ERP.Bussiness
                 IsActive = sd.IsActive,
                 IsDeleted = sd.IsDeleted,
                 CreatedAt = sd.CreatedAt,                             
-                Mobile = _appDbcontext.Users.Where(s => s.Id == sd.UserId).Select(s => s.UserMobile).FirstOrDefault(),
+                Mobile = _appDbcontext.Users.Where(s => s.UsersId == sd.UserId).Select(s => s.UserMobile).FirstOrDefault(),
                 TotalStudent = _appDbcontext.StudentDetails.Where(sd=>sd.IsActive == true).Count(),
             })
-            .OrderByDescending(o => o.Id)
+            .OrderByDescending(o => o.StudentId)
             .Skip(commonSearchFilter.Skip)
             .Take(commonSearchFilter.Take)
             .ToListAsync();
@@ -45,7 +45,7 @@ namespace ERP.Bussiness
         }
         public async Task<StudentDetails> GetByIdAsync(int Id)
         {
-            return await _appDbcontext.StudentDetails.Where(s => s.Id == Id).FirstOrDefaultAsync();
+            return await _appDbcontext.StudentDetails.Where(s => s.StudentId == Id).FirstOrDefaultAsync();
         }
         public async Task<StudentDetails> AddAsync(StudentDetails studentDetails)
         {

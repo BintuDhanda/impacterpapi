@@ -18,6 +18,8 @@ namespace ERP.Bussiness
         }
         public async Task<Country> AddAsync(Country country)
         {
+            country.CreatedAt = DateTime.UtcNow;
+            country.IsDeleted = false;
             _dbContext.Country.Add(country);
             await _dbContext.SaveChangesAsync();
             return  country;
@@ -33,6 +35,8 @@ namespace ERP.Bussiness
 
         public async Task<Country> UpdateAsync(Country country)
         {
+            country.LastUpdatedAt = DateTime.UtcNow;
+            country.IsDeleted = false;
             _dbContext.Country.Update(country);
             await _dbContext.SaveChangesAsync();
             return country;

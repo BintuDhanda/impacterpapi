@@ -24,20 +24,24 @@ namespace ERP.Bussiness
         public async Task<IEnumerable<UserRole>> GetByUserIdAsync (int UserId)
         {
             var userRole = await (from allUserRole in _appDbContext.UserRole
-                            join users in _appDbContext.Users on allUserRole.UserID equals users.Id
-                            join roles in _appDbContext.Roles on allUserRole.RoleID equals roles.Id
+                            join users in _appDbContext.Users on allUserRole.UserID equals users.UsersId
+                            join roles in _appDbContext.Roles on allUserRole.RoleID equals roles.RolesId
                             where allUserRole.UserID == UserId
                             select new UserRole
                             {
-                                Id = allUserRole.Id,
+                                UserRoleId = allUserRole.UserRoleId,
                                 UserID = allUserRole.UserID,
                                 RoleID = allUserRole.RoleID,
+                                IsActive = allUserRole.IsActive,
+                                IsDeleted = allUserRole.IsDeleted,
+                                CreatedAt = allUserRole.CreatedAt,
+                                CreatedBy = allUserRole.CreatedBy,
                                 RoleName = roles.RoleName
                             }).ToListAsync();
             return userRole;
         }
         public async Task<UserRole> AddAsync(UserRole userRole)
-        {
+         {
             var userRoles = await _appDbContext.UserRole.Where(x => x.UserID == userRole.UserID && x.RoleID == userRole.RoleID).FirstOrDefaultAsync();
             if (userRoles == null)
             {
@@ -52,6 +56,7 @@ namespace ERP.Bussiness
 
         public async Task<UserRole> UpdateAsync(UserRole userRole)
         {
+            userRole.IsDeleted = false;
             _appDbContext.UserRole.Update(userRole);
             await _appDbContext.SaveChangesAsync();
             return userRole;

@@ -27,7 +27,7 @@ namespace ERP.Bussiness
                     LastUpdatedAt = nl.LastUpdatedAt,
                     LastUpdatedBy = nl.LastUpdatedBy,
                     UserName = _appDbContext.StudentDetails.Where(x => x.UserId == nl.CreatedBy).Select(s => s.FirstName.Substring(0,1) + s.LastName.Substring(0,1)).FirstOrDefault(),
-                    UserMobile = _appDbContext.Users.Where(u => u.Id == nl.CreatedBy).Select(u => u.UserMobile.Substring(0, 3) + "-xxxxx-" + u.UserMobile.Substring(5, 2)).FirstOrDefault(),
+                    UserMobile = _appDbContext.Users.Where(u => u.UsersId == nl.CreatedBy).Select(u => u.UserMobile.Substring(0, 3) + "-xxxxx-" + u.UserMobile.Substring(5, 2)).FirstOrDefault(),
                 })
                 .ToListAsync();
         }

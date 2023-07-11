@@ -33,6 +33,7 @@ namespace ERP.Bussiness
                             TotalComments = _appDbContext.NewsComment.Where(w => w.NewsId == n.NewsId).Count(),
                             IsLiked= (_appDbContext.NewsLike.Where(w => w.NewsId == n.NewsId && w.CreatedBy== newsSearchFilter.CreatedBy).FirstOrDefault()==null)?false:true,
                             IsCommented= (_appDbContext.NewsComment.Where(w => w.NewsId == n.NewsId && w.CreatedBy == newsSearchFilter.CreatedBy).FirstOrDefault() == null )? false : true,
+                            TotalNews = _appDbContext.NewsLike.Where(u => u.IsActive == true).Count(),
                         })
                         .OrderByDescending(o => o.NewsId)
                         .Skip(newsSearchFilter.Skip)
@@ -49,7 +50,7 @@ namespace ERP.Bussiness
             string filePath = "";
             if (news.Image != null)
             {
-                string uploadsFolder = Path.Combine(_webHostEnvironment.ContentRootPath, "uploads");
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
                 if (!Directory.Exists(uploadsFolder))
                 {
                     Directory.CreateDirectory(uploadsFolder);
@@ -62,6 +63,8 @@ namespace ERP.Bussiness
                 {
                     await news.Image.CopyToAsync(fileStream);
                 }
+
+                filePath = "/uploads/" + uniqueFileName;
             }
             news.NewsImage = filePath;
             news.CreatedAt = DateTime.UtcNow;

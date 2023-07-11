@@ -24,8 +24,8 @@ namespace ERP.Bussiness
         }
         public async Task<StudentTokenFees> AddAsync(StudentTokenFees studentTokenFees)
         {
-            studentTokenFees.StudentId = _appDbContext.StudentToken.Where(b => b.Id == studentTokenFees.TokenNumber).Select(b => b.StudentId).FirstOrDefault();
-            studentTokenFees.StudentTokenId = _appDbContext.StudentToken.Where(_b => _b.Id == studentTokenFees.TokenNumber).Select(_b => _b.Id).FirstOrDefault();
+            studentTokenFees.StudentId = _appDbContext.StudentToken.Where(b => b.StudentTokenId == studentTokenFees.TokenNumber).Select(b => b.StudentId).FirstOrDefault();
+            studentTokenFees.StudentTokenId = _appDbContext.StudentToken.Where(_b => _b.StudentTokenId == studentTokenFees.TokenNumber).Select(_b => _b.StudentTokenId).FirstOrDefault();
             studentTokenFees.CreatedAt = DateTime.UtcNow;
             studentTokenFees.IsDeleted = false;
             _appDbContext.StudentTokenFees.Add(studentTokenFees);
@@ -34,7 +34,7 @@ namespace ERP.Bussiness
         }
         public async Task<StudentTokenFees> UpdateAsync(StudentTokenFees studentTokenFees)
         {
-            studentTokenFees.UpdatedAt = DateTime.UtcNow;
+            studentTokenFees.LastUpdatedAt = DateTime.UtcNow;
             studentTokenFees.IsDeleted = false;
             _appDbContext.StudentTokenFees.Update(studentTokenFees);
             await _appDbContext.SaveChangesAsync();
@@ -50,7 +50,7 @@ namespace ERP.Bussiness
         public async Task<IEnumerable<StudentTokenFees>> GetStudentTokenFeesByTokenNumberAsync(StudentTokenFeesSearch studentTokenFeesSearch)
         {
             var studentTokenFees = await  _appDbContext.StudentTokenFees
-                                          .Where(b => b.StudentTokenId == _appDbContext.StudentToken.Where(w => w.Id == studentTokenFeesSearch.TokenNumber).Select(s => s.Id).FirstOrDefault())
+                                          .Where(b => b.StudentTokenId == _appDbContext.StudentToken.Where(w => w.StudentTokenId == studentTokenFeesSearch.TokenNumber).Select(s => s.StudentTokenId).FirstOrDefault())
                                           .Select(stf => new StudentTokenFees
                                           {
                                               StudentTokenFeesId = stf.StudentTokenFeesId,
@@ -63,11 +63,11 @@ namespace ERP.Bussiness
                                               IsDeleted = stf.IsDeleted,
                                               CreatedAt = stf.CreatedAt,
                                               CreatedBy = stf.CreatedBy,
-                                              UpdatedAt = stf.UpdatedAt,
-                                              UpdatedBy = stf.UpdatedBy,
-                                              BatchName = _appDbContext.Batch.Where(b => b.Id == (_appDbContext.StudentToken.Where(st => st.Id == stf.StudentTokenId).Select(b => b.BatchId).FirstOrDefault())).Select(x => x.BatchName).FirstOrDefault(),
-                                              StudentName = _appDbContext.StudentDetails.Where(sd => sd.Id == stf.StudentId).Select(s => s.FirstName + " " + s.LastName).FirstOrDefault(),
-                                              Mobile = _appDbContext.Users.Where(u => u.Id == (_appDbContext.StudentDetails.Where(sd => sd.Id == stf.StudentId).Select(s => s.UserId).FirstOrDefault())).Select(u => u.UserMobile).FirstOrDefault(),
+                                              LastUpdatedAt = stf.LastUpdatedAt,
+                                              LastUpdatedBy = stf.LastUpdatedBy,
+                                              BatchName = _appDbContext.Batch.Where(b => b.BatchId == (_appDbContext.StudentToken.Where(st => st.StudentTokenId == stf.StudentTokenId).Select(b => b.BatchId).FirstOrDefault())).Select(x => x.BatchName).FirstOrDefault(),
+                                              StudentName = _appDbContext.StudentDetails.Where(sd => sd.StudentId == stf.StudentId).Select(s => s.FirstName + " " + s.LastName).FirstOrDefault(),
+                                              Mobile = _appDbContext.Users.Where(u => u.UsersId == (_appDbContext.StudentDetails.Where(sd => sd.StudentId == stf.StudentId).Select(s => s.UserId).FirstOrDefault())).Select(u => u.UserMobile).FirstOrDefault(),
                                           })
                                       .OrderByDescending(b => b.StudentTokenFeesId)
                                       .Skip(studentTokenFeesSearch.Skip)
@@ -77,7 +77,7 @@ namespace ERP.Bussiness
         }
         public async Task<IActionResult> TokenIsExist(StudentTokenFeesSearch studentTokenFeesSearch)
         {
-            return new JsonResult(await _appDbContext.StudentToken.AnyAsync(x => x.Id == studentTokenFeesSearch.TokenNumber));
+            return new JsonResult(await _appDbContext.StudentToken.AnyAsync(x => x.StudentTokenId == studentTokenFeesSearch.TokenNumber));
         }
         public async Task<IActionResult> SumDepositAndRefund(int studentTokenId)
         {

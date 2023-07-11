@@ -88,6 +88,7 @@ D:\ERP\obj\Debug\net6.0\ERP.genruntimeconfig.cache
 D:\ERP\obj\Debug\net6.0\ref\ERP.dll
 C:\Users\bintu\OneDrive\Documents\ERP\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\bintu\OneDrive\Documents\ERP\bin\Debug\net6.0\appsettings.json
+C:\Users\bintu\OneDrive\Documents\ERP\bin\Debug\net6.0\ERP.staticwebassets.runtime.json
 C:\Users\bintu\OneDrive\Documents\ERP\bin\Debug\net6.0\ERP.exe
 C:\Users\bintu\OneDrive\Documents\ERP\bin\Debug\net6.0\ERP.deps.json
 C:\Users\bintu\OneDrive\Documents\ERP\bin\Debug\net6.0\ERP.runtimeconfig.json

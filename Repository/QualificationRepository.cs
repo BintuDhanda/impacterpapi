@@ -22,12 +22,16 @@ namespace ERP.Bussiness
         }
         public async Task<Qualification> AddAsync(Qualification qualification)
         {
+            qualification.CreatedAt = DateTime.UtcNow;
+            qualification.IsDeleted = false;
             _appDbContext.Qualification.Add(qualification);
             await _appDbContext.SaveChangesAsync();
             return qualification;
         }
         public async Task<Qualification> UpdateAsync(Qualification qualification)
         {
+            qualification.LastUpdatedAt = DateTime.UtcNow;
+            qualification.IsDeleted = false;
             _appDbContext.Qualification.Update(qualification);
             await _appDbContext.SaveChangesAsync();
             return qualification;

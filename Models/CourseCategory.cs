@@ -2,11 +2,10 @@
 
 namespace ERP.Models
 {
-    public class CourseCategory
+    public class CourseCategory : BaseModel
     {
         [Key]
-        public int Id { get; set; }
+        public int CourseCategoryId { get; set; }
         public string CourseCategoryName { get; set; }
-        public bool IsActive { get; set; }
     }
 }

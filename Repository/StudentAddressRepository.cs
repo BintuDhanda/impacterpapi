@@ -46,10 +46,10 @@ namespace ERP.Bussiness
         public async Task<IEnumerable<StudentAddress>> GetStudentAddressByStudentIdAsync(int Id)
         {
             var studentAddress = await (from allStudentAddress in _appDbcontext.StudentAddress
-                                 join addressType in _appDbcontext.AddressType on allStudentAddress.AddressTypeId equals addressType.Id
-                                 join country in _appDbcontext.Country on allStudentAddress.CountryId equals country.Id
-                                 join state in _appDbcontext.State on allStudentAddress.StateId equals state.Id
-                                 join city in _appDbcontext.City on allStudentAddress.CityId equals city.ID
+                                 join addressType in _appDbcontext.AddressType on allStudentAddress.AddressTypeId equals addressType.AddressTypeId
+                                 join country in _appDbcontext.Country on allStudentAddress.CountryId equals country.CountryId
+                                 join state in _appDbcontext.State on allStudentAddress.StateId equals state.StateId
+                                 join city in _appDbcontext.City on allStudentAddress.CityId equals city.CityId
                                  where allStudentAddress.StudentId == Id
                                  select new StudentAddress
                                  {

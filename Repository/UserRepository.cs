@@ -28,18 +28,22 @@ namespace ERP.Bussiness
                          u.CreatedAt <= Convert.ToDateTime(commonSearchFilter.To).ToUniversalTime())
                         .Select( u =>  new Users
                         {
-                            Id = u.Id,
+                            UsersId = u.UsersId,
                             UserEmail = u.UserEmail,
                             UserMobile = u.UserMobile,
                             UserPassword = u.UserPassword,
                             IsEmailConfirmed = u.IsEmailConfirmed,
                             IsMobileConfirmed = u.IsMobileConfirmed,
                             IsActive = u.IsActive,
+                            IsDeleted = u.IsDeleted,
                             CreatedAt = u.CreatedAt,
-                            IsStudentCreated = _dbContext.StudentDetails.Where(f=>f.UserId==u.Id).FirstOrDefault() == null ? false:true,
+                            CreatedBy = u.CreatedBy,
+                            LastUpdatedAt = u.LastUpdatedAt,
+                            LastUpdatedBy = u.LastUpdatedBy,
+                            IsStudentCreated = _dbContext.StudentDetails.Where(f=>f.UserId==u.UsersId).FirstOrDefault() == null ? false:true,
                             TotalUser = _dbContext.Users.Where(u=>u.IsActive == true).Count(),
                         })
-                        .OrderByDescending(o=>o.Id)
+                        .OrderByDescending(o=>o.UsersId)
                         .Skip(commonSearchFilter.Skip) 
                         .Take(commonSearchFilter.Take)
                         .ToListAsync();
@@ -70,14 +74,11 @@ namespace ERP.Bussiness
 
         public async Task<Users> UpdateAsync(Users user)
         {
-            var record = await _dbContext.Users.Where(w => w.Id == user.Id).FirstOrDefaultAsync();
-            record.IsActive = user.IsActive;
-            record.UserPassword = user.UserPassword;
-            record.UserEmail = user.UserEmail;
-            record.UserMobile = user.UserMobile;
-            _dbContext.Users.Update(record);
+            user.LastUpdatedAt = DateTime.UtcNow;
+            user.IsDeleted = false;
+            _dbContext.Users.Update(user);
             await _dbContext.SaveChangesAsync();
-            return record;
+            return user;
         }
 
         public async Task<Users> DeleteAsync(int Id)
@@ -90,12 +91,12 @@ namespace ERP.Bussiness
 
         public async Task<UserRole> AddUserToRole(Users user)
         {
-            var roleId = await _dbContext.Roles.Where(r=>r.RoleName=="Student").Select(s=>s.Id).FirstOrDefaultAsync();
+            var roleId = await _dbContext.Roles.Where(r=>r.RoleName=="Student").Select(s=>s.RolesId).FirstOrDefaultAsync();
 
             var userRole = new UserRole()
             {
                 RoleID = roleId,
-                UserID = user.Id
+                UserID = user.UsersId
             };
              _dbContext.UserRole.Add(userRole);
             await _dbContext.SaveChangesAsync();
@@ -121,7 +122,7 @@ namespace ERP.Bussiness
                (string.IsNullOrEmpty(userSearch.UserMobile) || w.UserMobile.Contains(userSearch.UserMobile))
                && (string.IsNullOrEmpty(userSearch.IsActive) || w.IsActive == Convert.ToBoolean(userSearch.IsActive))
                && (string.IsNullOrEmpty(userSearch.From) && string.IsNullOrEmpty(userSearch.To) && !w.CreatedAt.HasValue) || w.CreatedAt.Value.Date >= Convert.ToDateTime(userSearch.From) || w.CreatedAt <= Convert.ToDateTime(userSearch.To)
-               ).Select(s=>s.Id).CountAsync(); 
+               ).Select(s=>s.UsersId).CountAsync(); 
 
             var users = await _dbContext.Users.Where(w =>
                 (string.IsNullOrEmpty(userSearch.UserMobile) || w.UserMobile.Contains(userSearch.UserMobile))
@@ -132,7 +133,7 @@ namespace ERP.Bussiness
                .Select(s=>new Users
                {    
                     CreatedAt = s.CreatedAt.HasValue?s.CreatedAt.Value.Date: null,
-                     Id=s.Id,
+                     UsersId =s.UsersId,
                       IsActive=s.IsActive.HasValue?s.IsActive.Value: null,
                       UserMobile=s.UserMobile,
                       UserPassword= "",
@@ -161,12 +162,23 @@ namespace ERP.Bussiness
         {
             return new JsonResult(await _dbContext.Users.AnyAsync(x => x.UserMobile == commonSearchFilter.Mobile));
         }
+        public async Task<IActionResult> IsVerified(string userMobile)
+        {
+            return new JsonResult(await _dbContext.Users.Where(x => x.UserMobile == userMobile).Select(s=>s.IsMobileConfirmed).FirstOrDefaultAsync());
+        }public async Task<IActionResult> IsMobileConfirmed(string userMobile)
+        {
+            var record = await _dbContext.Users.Where(w => w.UserMobile == userMobile).FirstOrDefaultAsync();
+            record.IsMobileConfirmed = true;
+            _dbContext.Users.Update(record);
+            await _dbContext.SaveChangesAsync();
+            return new JsonResult("true");
+        }
 
         private UserSignUpResponse GenerateJWT(Users user)
         {
             var roleList = string.Join(',',(from ur in _dbContext.UserRole join
-                           r in _dbContext.Roles on ur.RoleID equals r.Id
-                           where ur.UserID == user.Id
+                           r in _dbContext.Roles on ur.RoleID equals r.RolesId
+                           where ur.UserID == user.UsersId
                            select r.RoleName));
 
             var issuer = _configration["Jwt:Issuer"];
@@ -176,7 +188,7 @@ namespace ERP.Bussiness
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim("Id", user.Id.ToString()),
+                    new Claim("UsersId", user.UsersId.ToString()),
                     new Claim("UserMobile", user.UserMobile),
                     new Claim("Role", roleList),
              }),
@@ -196,7 +208,7 @@ namespace ERP.Bussiness
             {
                 Message = "success",
                 Token = jwtToken,
-                UserId = user.Id,
+                UserId = user.UsersId,
             };
 
             return userSignUpResponse;

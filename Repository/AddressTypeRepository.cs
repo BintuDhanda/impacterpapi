@@ -22,12 +22,16 @@ namespace ERP.Bussiness
         }
         public async Task<AddressType> AddAsync(AddressType addressType)
         {
+            addressType.CreatedAt = DateTime.UtcNow;
+            addressType.IsDeleted = false;
             _appDbContext.AddressType.Add(addressType);
             await _appDbContext.SaveChangesAsync();
             return addressType;
         }
         public async Task<AddressType> UpdateAsync(AddressType addressType)
         {
+            addressType.LastUpdatedAt = DateTime.UtcNow;
+            addressType.IsDeleted = false;
             _appDbContext.AddressType.Update(addressType);
             await _appDbContext.SaveChangesAsync();
             return addressType;

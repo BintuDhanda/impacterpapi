@@ -28,9 +28,9 @@ namespace ERP.Bussiness
                                           IsDeleted = allStudentBatch.IsDeleted,
                                           CreatedAt = allStudentBatch.CreatedAt,
                                           CreatedBy = allStudentBatch.CreatedBy,
-                                          UpdatedAt = allStudentBatch.UpdatedAt,
-                                          UpdatedBy = allStudentBatch.UpdatedBy,
-                                          BatchName = _appDbcontext.Batch.Where(b => b.Id == allStudentBatch.BatchId).Select(b => b.BatchName).FirstOrDefault(),
+                                          LastUpdatedAt = allStudentBatch.LastUpdatedAt,
+                                          LastUpdatedBy = allStudentBatch.LastUpdatedBy,
+                                          BatchName = _appDbcontext.Batch.Where(b => b.BatchId == allStudentBatch.BatchId).Select(b => b.BatchName).FirstOrDefault(),
                                       }).Where(b=>b.StudentId==Id).OrderByDescending(b => b.StudentBatchId).ToListAsync();
             return studentBatch;
         }
@@ -48,7 +48,7 @@ namespace ERP.Bussiness
         }
         public async Task<StudentBatch> UpdateAsync(StudentBatch studentBatch)
         {
-            studentBatch.UpdatedAt = DateTime.UtcNow;
+            studentBatch.LastUpdatedAt = DateTime.UtcNow;
             studentBatch.IsDeleted = false;
             _appDbcontext.StudentBatch.Update(studentBatch);
             await _appDbcontext.SaveChangesAsync();
@@ -65,8 +65,8 @@ namespace ERP.Bussiness
         public async Task<IEnumerable<Users>> GetStudentsAsync()
         {
             var students = await (from allusers in _appDbcontext.Users
-                                   join userRole in _appDbcontext.UserRole on allusers.Id equals userRole.UserID
-                                   join role in _appDbcontext.Roles on userRole.RoleID equals role.Id
+                                   join userRole in _appDbcontext.UserRole on allusers.UsersId equals userRole.UserID
+                                   join role in _appDbcontext.Roles on userRole.RoleID equals role.RolesId
                                    where role.RoleName=="Student"
                                    select allusers
                                    ).ToListAsync();

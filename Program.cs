@@ -89,11 +89,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseStaticFiles();
 
 app.UseCors("CorsPolicy");
 //app.UseHttpsRedirection();
 
-app.UseAuthorization();
+app.UseAuthorization(); 
 
 app.MapControllers();
 

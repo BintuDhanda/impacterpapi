@@ -22,12 +22,16 @@ namespace ERP.Bussiness
         }
         public async Task<CourseCategory> AddAsync(CourseCategory courseCategory)
         {
+            courseCategory.CreatedAt = DateTime.UtcNow;
+            courseCategory.IsDeleted = false;
             _appDbcontext.CourseCategory.Add(courseCategory);
             await _appDbcontext.SaveChangesAsync();
             return courseCategory;
         }
         public async Task<CourseCategory> UpdateAsync(CourseCategory courseCategory)
         {
+            courseCategory.LastUpdatedAt = DateTime.UtcNow;
+            courseCategory.IsDeleted = false;
             _appDbcontext.CourseCategory.Update(courseCategory);
             await _appDbcontext.SaveChangesAsync();
             return courseCategory;

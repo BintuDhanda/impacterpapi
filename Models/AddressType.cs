@@ -2,11 +2,10 @@
 
 namespace ERP.Models
 {
-    public class AddressType
+    public class AddressType : BaseModel
     {
         [Key]
-        public int Id { get; set; }
+        public int AddressTypeId { get; set; }
         public string AddressTypeName { get; set; }
-        public bool IsActive { get; set; }
     }
 }

@@ -24,6 +24,8 @@ namespace ERP.Bussiness
 
         public async Task<State> AddAsync(State state)
         {
+            state.CreatedAt = DateTime.UtcNow;
+            state.IsDeleted = false;
             _appDbContext.State.Add(state);
             await _appDbContext.SaveChangesAsync();
             return state;
@@ -31,6 +33,8 @@ namespace ERP.Bussiness
 
         public async Task<State> UpdateAsync(State state)
         {
+            state.LastUpdatedAt = DateTime.UtcNow;
+            state.IsDeleted = false;
             _appDbContext.State.Update(state);
             await _appDbContext.SaveChangesAsync();
             return state;

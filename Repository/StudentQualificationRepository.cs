@@ -30,7 +30,7 @@ namespace ERP.Bussiness
         }
         public async Task<StudentQualification> UpdateAsync(StudentQualification studentQualification)
         {
-            studentQualification.UpdatedAt = DateTime.UtcNow;
+            studentQualification.LastUpdatedAt = DateTime.UtcNow;
             studentQualification.IsDeleted = false;
             _appDbContext.StudentQualification.Update(studentQualification);
             await _appDbContext.SaveChangesAsync();
@@ -46,11 +46,11 @@ namespace ERP.Bussiness
         public async Task<IEnumerable<StudentQualification>> GetStudentQualificationByStudentIdAsync (int Id)
         {
             var studentQualification = await (from allStudentQualification in _appDbContext.StudentQualification
-                                              join qualification in _appDbContext.Qualification on allStudentQualification.QualificationId equals qualification.Id
+                                              join qualification in _appDbContext.Qualification on allStudentQualification.QualificationId equals qualification.QualificationId
                                               where allStudentQualification.StudentId == Id
                                               select new StudentQualification
                                               { 
-                                                Id = allStudentQualification.Id,
+                                                StudentQualificationId = allStudentQualification.StudentQualificationId,
                                                 Subject = allStudentQualification.Subject,
                                                 MarksObtain = allStudentQualification.MarksObtain,
                                                 MaximumMark = allStudentQualification.MaximumMark,
@@ -61,8 +61,8 @@ namespace ERP.Bussiness
                                                 IsActive= allStudentQualification.IsActive,
                                                 IsDeleted= allStudentQualification.IsDeleted,
                                                 StudentId = allStudentQualification.StudentId,
-                                                UpdatedAt = allStudentQualification.UpdatedAt,
-                                                UpdatedBy = allStudentQualification.UpdatedBy,   
+                                                LastUpdatedAt = allStudentQualification.LastUpdatedAt,
+                                                LastUpdatedBy = allStudentQualification.LastUpdatedBy,   
                                                 CreatedAt = allStudentQualification.CreatedAt,
                                                 CreatedBy = allStudentQualification.CreatedBy,
                                               }).ToListAsync();

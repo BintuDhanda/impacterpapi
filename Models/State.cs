@@ -2,12 +2,11 @@
 
 namespace ERP.Models
 {
-    public class State
+    public class State : BaseModel
     {
         [Key]
-        public int Id { get; set; }
+        public int StateId { get; set; }
         public string StateName { get; set; }
-        public bool IsActive { get; set; }
         public int CountryId { get; set; }
     }
 }

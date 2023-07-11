@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ERP.Models
 {
-    public class StudentTokenFees
+    public class StudentTokenFees : BaseModel
     {
         [Key]
         public int StudentTokenFeesId { get; set; }
@@ -12,12 +12,6 @@ namespace ERP.Models
         public decimal Deposit { get; set; }
         public decimal Refund { get; set; }
         public string Particulars { get; set; }
-        public bool IsActive { get; set; }
-        public bool IsDeleted { get; set; }
-        public DateTime? CreatedAt { get; set; }
-        public int? CreatedBy { get; set; }
-        public DateTime? UpdatedAt { get; set; }
-        public int? UpdatedBy { get; set; }
         [NotMapped]
         public int? TokenNumber { get; set; }
         [NotMapped]

@@ -28,6 +28,7 @@ namespace ERP.Controllers
             return await _newsRepository.GetByIdAsync(Id);
         }
         [HttpPost]
+        [Route("post")]
         public async Task<News> CreateNews([FromForm] News news)
         {
             return await _newsRepository.AddAsync(news);

@@ -32,9 +32,9 @@ namespace ERP.Bussiness
                             CreatedBy = s.CreatedBy,
                             UpdatedAt = s.UpdatedAt,
                             UpdatedBy = s.UpdatedBy,
-                            BatchName = _appDbContext.Batch.Where(b => b.Id == (_appDbContext.StudentBatch.Where(sb => sb.StudentBatchId == s.StudentBatchId).Select(b => b.BatchId).FirstOrDefault())).Select(x=>x.BatchName).FirstOrDefault(),
-                            StudentName = _appDbContext.StudentDetails.Where(sd => sd.Id == s.StudentId).Select(s=>s.FirstName + " " + s.LastName).FirstOrDefault(),
-                            Mobile = _appDbContext.Users.Where(u => u.Id == (_appDbContext.StudentDetails.Where(sd => sd.Id == s.StudentId).Select(s => s.UserId).FirstOrDefault())).Select(u=>u.UserMobile).FirstOrDefault(),
+                            BatchName = _appDbContext.Batch.Where(b => b.BatchId == (_appDbContext.StudentBatch.Where(sb => sb.StudentBatchId == s.StudentBatchId).Select(b => b.BatchId).FirstOrDefault())).Select(x=>x.BatchName).FirstOrDefault(),
+                            StudentName = _appDbContext.StudentDetails.Where(sd => sd.StudentId == s.StudentId).Select(s=>s.FirstName + " " + s.LastName).FirstOrDefault(),
+                            Mobile = _appDbContext.Users.Where(u => u.UsersId == (_appDbContext.StudentDetails.Where(sd => sd.StudentId == s.StudentId).Select(s => s.UserId).FirstOrDefault())).Select(u=>u.UserMobile).FirstOrDefault(),
                         })
                         .OrderByDescending(o => o.AttendanceId)
                         .Skip(attendanceSearch.Skip)

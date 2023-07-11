@@ -34,7 +34,7 @@ namespace ERP.Bussiness
         }
         public async Task<StudentBatchFees> UpdateAsync(StudentBatchFees studentBatchFees)
         {
-            studentBatchFees.UpdatedAt  = DateTime.UtcNow;
+            studentBatchFees.LastUpdatedAt  = DateTime.UtcNow;
             studentBatchFees.IsDeleted = false;
             _appDbcontext.StudentBatchFees.Update(studentBatchFees);
             await _appDbcontext.SaveChangesAsync();
@@ -63,12 +63,12 @@ namespace ERP.Bussiness
                                           IsDeleted = sbf.IsDeleted,
                                           CreatedAt = sbf.CreatedAt,
                                           CreatedBy = sbf.CreatedBy,
-                                          UpdatedAt = sbf.UpdatedAt,
-                                          UpdatedBy = sbf.UpdatedBy,
+                                          LastUpdatedAt = sbf.LastUpdatedAt,
+                                          LastUpdatedBy = sbf.LastUpdatedBy,
                                           RegistrationNumber = _appDbcontext.StudentBatch.Where(w => w.RegistrationNumber == studentBatchFeesSearch.RegistrationNumber).Select(s => s.RegistrationNumber).FirstOrDefault(),
-                                          BatchName = _appDbcontext.Batch.Where(b => b.Id == (_appDbcontext.StudentBatch.Where(sb => sb.StudentBatchId == sbf.StudentBatchId).Select(b => b.BatchId).FirstOrDefault())).Select(x => x.BatchName).FirstOrDefault(),
-                                          StudentName = _appDbcontext.StudentDetails.Where(sd => sd.Id == sbf.StudentId).Select(s => s.FirstName + " " + s.LastName).FirstOrDefault(),
-                                          Mobile = _appDbcontext.Users.Where(u => u.Id == (_appDbcontext.StudentDetails.Where(sd => sd.Id == sbf.StudentId).Select(s => s.UserId).FirstOrDefault())).Select(u => u.UserMobile).FirstOrDefault(),
+                                          BatchName = _appDbcontext.Batch.Where(b => b.BatchId == (_appDbcontext.StudentBatch.Where(sb => sb.StudentBatchId == sbf.StudentBatchId).Select(b => b.BatchId).FirstOrDefault())).Select(x => x.BatchName).FirstOrDefault(),
+                                          StudentName = _appDbcontext.StudentDetails.Where(sd => sd.StudentId == sbf.StudentId).Select(s => s.FirstName + " " + s.LastName).FirstOrDefault(),
+                                          Mobile = _appDbcontext.Users.Where(u => u.UsersId == (_appDbcontext.StudentDetails.Where(sd => sd.StudentId == sbf.StudentId).Select(s => s.UserId).FirstOrDefault())).Select(u => u.UserMobile).FirstOrDefault(),
                                       })
                                       .OrderByDescending(b => b.StudentBatchFeesId)
                                       .Skip(studentBatchFeesSearch.Skip)

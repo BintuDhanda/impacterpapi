@@ -71,7 +71,7 @@ namespace ERP.Bussiness
 
         public async Task<StudentToken> UpdateAsync(StudentToken studentToken)
         {
-            studentToken.UpdatedAt = DateTime.UtcNow;
+            studentToken.LastUpdatedAt = DateTime.UtcNow;
             studentToken.IsDeleted = false;
             _appDbContext.StudentToken.Update(studentToken);
             await _appDbContext.SaveChangesAsync();
@@ -89,7 +89,7 @@ namespace ERP.Bussiness
             var studentToken = await (from allStudentToken in _appDbContext.StudentToken
                                       select new StudentToken
                                       {
-                                          Id = allStudentToken.Id,
+                                          StudentTokenId = allStudentToken.StudentTokenId,
                                           ValidFrom = allStudentToken.ValidFrom,
                                           ValidUpto = allStudentToken.ValidUpto,
                                           TokenFee = allStudentToken.TokenFee,
@@ -99,11 +99,11 @@ namespace ERP.Bussiness
                                           IsDeleted = allStudentToken.IsDeleted,
                                           CreatedAt = allStudentToken.CreatedAt,
                                           CreatedBy = allStudentToken.CreatedBy,
-                                          UpdatedAt = allStudentToken.UpdatedAt,
-                                          UpdatedBy = allStudentToken.UpdatedBy,
-                                          BatchName = _appDbContext.Batch.Where(b => b.Id == allStudentToken.BatchId).Select(b=>b.BatchName).FirstOrDefault(),
+                                          LastUpdatedAt = allStudentToken.LastUpdatedAt,
+                                          LastUpdatedBy = allStudentToken.LastUpdatedBy,
+                                          BatchName = _appDbContext.Batch.Where(b => b.BatchId == allStudentToken.BatchId).Select(b=>b.BatchName).FirstOrDefault(),
                                           TokenStatus = _appDbContext.StudentToken.Where(st => DateTime.UtcNow >= st.ValidFrom && DateTime.UtcNow <= st.ValidUpto).FirstOrDefault() == null ? false : true,
-                                      }).Where(t => t.StudentId == StudentId).OrderByDescending(b=>b.Id).ToListAsync();
+                                      }).Where(t => t.StudentId == StudentId).OrderByDescending(b=>b.StudentTokenId).ToListAsync();
             return studentToken;
         }
     }

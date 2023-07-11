@@ -22,12 +22,16 @@ namespace ERP.Bussiness
         }
         public async Task<City> AddAsync(City city)
         {
+            city.CreatedAt = DateTime.UtcNow;
+            city.IsDeleted = false;
             _appDbContext.City.Add(city);
             await _appDbContext.SaveChangesAsync();
             return city;
         }
         public async Task <City> UpdateAsync(City city)
         {
+            city.LastUpdatedAt = DateTime.UtcNow;
+            city.IsDeleted = false;
             _appDbContext.City.Update(city);
             await _appDbContext.SaveChangesAsync();
             return city;

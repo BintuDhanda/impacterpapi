@@ -10,6 +10,8 @@ namespace ERP.Models
         public string NewsText { get; set; }
         public string? NewsImage { get; set; }
         public string NewsTitle { get; set; }
+        [NotMapped] 
+        public int? TotalNews { get; set; }
         [NotMapped]
         public int? TotalLikes{ get; set; } = 0;
         [NotMapped]

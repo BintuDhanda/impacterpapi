@@ -22,6 +22,8 @@ namespace ERP.Bussiness
         }
         public async Task<Course> AddAsync(Course course)
         {
+            course.CreatedAt = DateTime.UtcNow;
+            course.IsDeleted = false;
             _appDbcontext.Course.Add(course);
             await _appDbcontext.SaveChangesAsync();
             return course;

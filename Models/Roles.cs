@@ -2,11 +2,10 @@
 
 namespace ERP.Models
 {
-    public class Roles
+    public class Roles:BaseModel
     {
         [Key]
-        public int Id { get; set; }
+        public int RolesId { get; set; }
         public string RoleName { get; set; }
-        public bool? IsActive { get; set; }
     }
 }
