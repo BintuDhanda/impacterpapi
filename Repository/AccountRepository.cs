@@ -30,7 +30,7 @@ namespace ERP.Bussiness
         }
         public async Task<Account> UpdateAsync(Account account)
         {
-            account.UpdatedAt = DateTime.UtcNow;
+            account.LastUpdatedAt = DateTime.UtcNow;
             account.IsDeleted = false;
             _appDbcontext.Account.Update(account);
             await _appDbcontext.SaveChangesAsync();

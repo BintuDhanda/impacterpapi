@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ERP.Models
 {
-    public class Attendance
+    public class Attendance : BaseModel
     {
         [Key]
         public int AttendanceId { get; set; }
@@ -11,12 +11,6 @@ namespace ERP.Models
         public int StudentId { get; set; }
         public string AttendanceType { get; set; }
         public DateTime? PunchTime { get; set; }
-        public bool IsActive { get; set; }
-        public bool IsDeleted { get; set; }
-        public DateTime? CreatedAt { get; set; }
-        public int? CreatedBy { get; set; }
-        public DateTime? UpdatedAt { get; set; }
-        public int? UpdatedBy { get; set; }
         [NotMapped]
         public string? BatchName { get; set; }
         [NotMapped]

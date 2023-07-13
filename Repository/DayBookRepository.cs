@@ -72,7 +72,7 @@ namespace ERP.Bussiness
         }
         public async Task<DayBook> UpdateAsync(DayBook dayBook)
         {
-            dayBook.UpdatedAt = System.DateTime.UtcNow;
+            dayBook.LastUpdatedAt = System.DateTime.UtcNow;
             dayBook.IsDeleted = false;
             _appDbContext.DayBook.Update(dayBook);
             await _appDbContext.SaveChangesAsync();

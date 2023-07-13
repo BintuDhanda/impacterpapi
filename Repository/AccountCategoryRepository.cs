@@ -30,7 +30,7 @@ namespace ERP.Bussiness
         }
         public async Task <AccountCategory> UpdateAsync(AccountCategory accountCategory)
         {
-            accountCategory.UpdatedAt = DateTime.UtcNow;
+            accountCategory.LastUpdatedAt = DateTime.UtcNow;
             accountCategory.IsDeleted = false;
             _appdbContext.AccountCategory.Update(accountCategory);
             await _appdbContext.SaveChangesAsync();

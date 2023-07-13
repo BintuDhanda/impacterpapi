@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ERP.Models
 {
-    public class DayBook
+    public class DayBook : BaseModel
     {
         [Key]
         public int DayBookId { get; set; }
@@ -11,12 +11,6 @@ namespace ERP.Models
         public decimal Credit { get; set; }
         public decimal Debit { get; set; }
         public int AccountId { get; set; }
-        public bool IsActive { get; set; }
-        public bool IsDeleted { get; set; }
-        public DateTime? CreatedAt { get; set; }
-        public int? CreatedBy { get; set; }
-        public DateTime? UpdatedAt { get; set; }
-        public int? UpdatedBy { get; set; }
         [NotMapped]
         public string? Account { get; set; }
     }

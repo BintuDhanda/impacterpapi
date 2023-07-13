@@ -30,7 +30,7 @@ namespace ERP.Bussiness
         }
         public async Task<StudentAddress> UpdateAsync(StudentAddress studentAddress)
         {
-            studentAddress.UpdatedAt = DateTime.UtcNow;
+            studentAddress.LastUpdatedAt = DateTime.UtcNow;
             studentAddress.IsDeleted = false;
             _appDbcontext.StudentAddress.Update(studentAddress);
             await _appDbcontext.SaveChangesAsync();
@@ -53,7 +53,7 @@ namespace ERP.Bussiness
                                  where allStudentAddress.StudentId == Id
                                  select new StudentAddress
                                  {
-                                     Id = allStudentAddress.Id,
+                                     StudentAddressId = allStudentAddress.StudentAddressId,
                                      AddressTypeId = allStudentAddress.AddressTypeId,
                                      AddressType= addressType.AddressTypeName,
                                      Address = allStudentAddress.Address,
@@ -68,8 +68,8 @@ namespace ERP.Bussiness
                                      StudentId = allStudentAddress.StudentId,
                                      CreatedAt = allStudentAddress.CreatedAt,
                                      CreatedBy = allStudentAddress.CreatedBy,
-                                     UpdatedAt = allStudentAddress.UpdatedAt,
-                                     UpdatedBy = allStudentAddress.UpdatedBy,
+                                     LastUpdatedAt = allStudentAddress.LastUpdatedAt,
+                                     LastUpdatedBy = allStudentAddress.LastUpdatedBy,
                                  }).ToListAsync();
             return studentAddress;
         }

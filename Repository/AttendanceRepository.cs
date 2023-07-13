@@ -30,8 +30,8 @@ namespace ERP.Bussiness
                             IsDeleted = s.IsDeleted,
                             CreatedAt = s.CreatedAt,
                             CreatedBy = s.CreatedBy,
-                            UpdatedAt = s.UpdatedAt,
-                            UpdatedBy = s.UpdatedBy,
+                            LastUpdatedAt = s.LastUpdatedAt,
+                            LastUpdatedBy = s.LastUpdatedBy,
                             BatchName = _appDbContext.Batch.Where(b => b.BatchId == (_appDbContext.StudentBatch.Where(sb => sb.StudentBatchId == s.StudentBatchId).Select(b => b.BatchId).FirstOrDefault())).Select(x=>x.BatchName).FirstOrDefault(),
                             StudentName = _appDbContext.StudentDetails.Where(sd => sd.StudentId == s.StudentId).Select(s=>s.FirstName + " " + s.LastName).FirstOrDefault(),
                             Mobile = _appDbContext.Users.Where(u => u.UsersId == (_appDbContext.StudentDetails.Where(sd => sd.StudentId == s.StudentId).Select(s => s.UserId).FirstOrDefault())).Select(u=>u.UserMobile).FirstOrDefault(),
@@ -59,7 +59,7 @@ namespace ERP.Bussiness
         }
         public async Task<Attendance> UpdateAsync(Attendance attendance)
         {
-            attendance.UpdatedAt = System.DateTime.UtcNow;
+            attendance.LastUpdatedAt = System.DateTime.UtcNow;
             attendance.IsDeleted = false;
             _appDbContext.Attendance.Update(attendance);
             await _appDbContext.SaveChangesAsync();

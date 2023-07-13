@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ERP.Models
 {
-    public class StudentAddress
+    public class StudentAddress : BaseModel
     {
         [Key]
-        public int Id { get; set; }
+        public int StudentAddressId { get; set; }
         public int AddressTypeId { get; set; }
         public string Address { get; set; }
         public int CountryId { get; set; }
@@ -14,12 +14,6 @@ namespace ERP.Models
         public int CityId { get; set; }
         public int Pincode { get; set; }
         public int StudentId { get; set; }
-        public bool IsActive { get; set; }
-        public bool IsDeleted { get; set; }
-        public DateTime? CreatedAt { get; set; }
-        public int? CreatedBy { get; set; }
-        public DateTime? UpdatedAt { get;set; }
-        public int? UpdatedBy { get; set; }
         [NotMapped]
         public string? AddressType { get; set; }
         [NotMapped]
