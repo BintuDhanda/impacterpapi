@@ -19,5 +19,9 @@ namespace ERP.Models
         public bool? TokenStatus { get; set;}
         [NotMapped]
         public string? IsValidForAdmissionNonMapped { get; set;}
+        [NotMapped]
+        public string? TotalDeposit { get; set;}
+        [NotMapped]
+        public string? TotalRefund { get; set;}
     }
 }

@@ -117,7 +117,7 @@ namespace ERP.Bussiness
         public async Task<IEnumerable<StudentToken>> GetStudentTokenByStudentIdAsync(int StudentId)
         {
             var studentToken = await  _appDbContext.StudentToken.
-                                      Select(st => new StudentToken
+                                      Select( st => new StudentToken
                                       {
                                           StudentTokenId = st.StudentTokenId,
                                           ValidFrom = st.ValidFrom,
@@ -134,6 +134,8 @@ namespace ERP.Bussiness
                                           BatchName = _appDbContext.Batch.Where(b => b.BatchId == st.BatchId).Select(b=>b.BatchName).FirstOrDefault(),
                                           TokenStatus = _appDbContext.StudentToken.Where(st2 => st2.ValidFrom <= DateTime.UtcNow &&  st2.ValidUpto >=  DateTime.UtcNow ).FirstOrDefault() == null ? false : true,
                                           IsValidForAdmissionNonMapped = st.IsValidForAdmission.ToString(),
+                                          TotalDeposit =  _appDbContext.StudentTokenFees.Where(d => d.StudentTokenId == st.StudentTokenId).Sum(s => s.Deposit).ToString(),
+                                          TotalRefund =  _appDbContext.StudentTokenFees.Where(d => d.StudentTokenId == st.StudentTokenId).Sum(s => s.Refund).ToString(),
                                       }).Where(t => t.StudentId == StudentId).OrderByDescending(b=>b.StudentTokenId).ToListAsync();
             return studentToken;
         }
