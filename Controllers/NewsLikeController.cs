@@ -31,13 +31,13 @@ namespace ERP.Controllers
         {
             return await _newsLikeRepository.AddAsync(newsLike);
         }
-        [HttpPut]
+        [HttpPost]
         [Route("put")]
         public async Task<NewsLike> NewsLikeUpdate(NewsLike newsLike)
         {
             return await _newsLikeRepository.UpdateAsync(newsLike);
         }
-        [HttpDelete]
+        [HttpGet]
         [Route("delete")]
         public async Task<NewsLike> NewsLikeDelete(int Id)
         {

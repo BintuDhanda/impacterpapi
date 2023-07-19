@@ -2,7 +2,7 @@
 {
     public class BaseModel
     {
-        public DateTime? CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; } = System.DateTime.UtcNow;
         public int? CreatedBy { get; set; }
         public DateTime? LastUpdatedAt { get; set; }
         public int? LastUpdatedBy { get; set; }

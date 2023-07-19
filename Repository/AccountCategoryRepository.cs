@@ -22,18 +22,30 @@ namespace ERP.Bussiness
         }
         public async Task <AccountCategory> AddAsync(AccountCategory accountCategory)
         {
+            var accountCategorys = await _appdbContext.AccountCategory.Where(ac => ac.AccCategoryName == accountCategory.AccCategoryName).FirstOrDefaultAsync();
+            if (accountCategorys == null)
+            {
             accountCategory.CreatedAt = DateTime.UtcNow;
             accountCategory.IsDeleted = false;
             _appdbContext.AccountCategory.Add(accountCategory);
             await _appdbContext.SaveChangesAsync();
             return accountCategory;
+            }
+            return accountCategorys;
         }
         public async Task <AccountCategory> UpdateAsync(AccountCategory accountCategory)
         {
-            accountCategory.LastUpdatedAt = DateTime.UtcNow;
-            accountCategory.IsDeleted = false;
-            _appdbContext.AccountCategory.Update(accountCategory);
-            await _appdbContext.SaveChangesAsync();
+            var accountCategorys = await _appdbContext.AccountCategory.Where(ac => ac.AccountCategoryId == accountCategory.AccountCategoryId).FirstOrDefaultAsync();
+            if (accountCategorys != null)
+            {
+                accountCategorys.LastUpdatedAt = DateTime.UtcNow;
+                accountCategorys.IsDeleted = false;
+                accountCategorys.AccCategoryName = accountCategory.AccCategoryName;
+                accountCategorys.LastUpdatedBy = accountCategory.LastUpdatedBy;
+                _appdbContext.AccountCategory.Update(accountCategorys);
+                await _appdbContext.SaveChangesAsync();
+                return accountCategorys;
+            }
             return accountCategory;
         }
         public async Task<AccountCategory> DeleteAsync(int Id)

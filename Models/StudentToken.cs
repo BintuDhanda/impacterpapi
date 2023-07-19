@@ -12,9 +12,12 @@ namespace ERP.Models
         public decimal? TokenFee { get; set; }
         public int? StudentId { get; set; }
         public int? BatchId { get; set; }
+        public bool? IsValidForAdmission { get; set;} = false;
         [NotMapped]
         public string? BatchName { get; set; }
         [NotMapped]
         public bool? TokenStatus { get; set;}
+        [NotMapped]
+        public string? IsValidForAdmissionNonMapped { get; set;}
     }
 }

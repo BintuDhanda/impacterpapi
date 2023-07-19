@@ -18,11 +18,16 @@ namespace ERP.Bussiness
         }
         public async Task<Country> AddAsync(Country country)
         {
+            var countrys = await _dbContext.Country.Where(c => c.CountryName == country.CountryName).FirstOrDefaultAsync();
+            if(countrys == null)
+            {
             country.CreatedAt = DateTime.UtcNow;
             country.IsDeleted = false;
             _dbContext.Country.Add(country);
             await _dbContext.SaveChangesAsync();
-            return  country;
+            return country;
+            }
+            return  countrys;
         }
 
         public async Task<Country> DeleteAsync(int Id)
@@ -35,10 +40,17 @@ namespace ERP.Bussiness
 
         public async Task<Country> UpdateAsync(Country country)
         {
-            country.LastUpdatedAt = DateTime.UtcNow;
-            country.IsDeleted = false;
-            _dbContext.Country.Update(country);
+            var countrys = await _dbContext.Country.Where(c => c.CountryId == country.CountryId).FirstOrDefaultAsync();
+            if(countrys != null)
+            {
+                countrys.LastUpdatedAt = DateTime.UtcNow;
+                countrys.IsDeleted = false;
+                countrys.CountryName = country.CountryName;
+                countrys.LastUpdatedBy = country.LastUpdatedBy;
+            _dbContext.Country.Update(countrys);
             await _dbContext.SaveChangesAsync();
+            return countrys;
+            }
             return country;
         }
 

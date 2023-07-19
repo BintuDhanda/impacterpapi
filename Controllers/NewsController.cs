@@ -33,13 +33,13 @@ namespace ERP.Controllers
         {
             return await _newsRepository.AddAsync(news);
         }
-        [HttpPut]
+        [HttpPost]
         [Route("put")]
         public async Task<News> NewsUpdate([FromForm] News news)
         {
             return await _newsRepository.UpdateAsync(news);
         }
-        [HttpDelete]
+        [HttpGet]
         [Route("delete")]
         public async Task<News> NewsDelete(int id)
         {

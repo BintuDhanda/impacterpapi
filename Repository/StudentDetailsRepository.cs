@@ -57,7 +57,7 @@ namespace ERP.Bussiness
         }
         public async Task<StudentDetails> UpdateAsync([FromBody] StudentDetails studentDetails)
         {
-            studentDetails.CreatedAt = DateTime.UtcNow;
+            studentDetails.LastUpdatedAt = DateTime.UtcNow;
             studentDetails.IsDeleted = false;
             _appDbcontext.StudentDetails.Update(studentDetails);
             await _appDbcontext.SaveChangesAsync();

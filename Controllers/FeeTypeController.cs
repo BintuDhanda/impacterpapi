@@ -32,13 +32,13 @@ namespace ERP.Controllers
         {
             return await feeTypeRepository.AddAsync(feeType);
         }
-        [HttpPut]
+        [HttpPost]
         [Route("put")]
         public async Task<FeeType> FeeTypeUpdate(FeeType feeType)
         {
             return await feeTypeRepository.UpdateAsync(feeType);
         }
-        [HttpDelete]
+        [HttpGet]
         [Route("delete")]
         public async Task<FeeType> FeeTypeDelete(int Id)
         {

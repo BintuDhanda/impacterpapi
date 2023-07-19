@@ -1,13 +1,17 @@
-﻿using ERP.ERPDbContext;
+﻿using ClosedXML.Excel;
+using DocumentFormat.OpenXml.InkML;
+using ERP.ERPDbContext;
 using ERP.Interface;
 using ERP.Models;
 using ERP.SearchFilters;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace ERP.Bussiness
 {
@@ -15,10 +19,12 @@ namespace ERP.Bussiness
     {
         public IConfiguration _configration;
         private readonly AppDbContext _dbContext;
-        public UserRepository(AppDbContext appDbContext,IConfiguration configuration)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public UserRepository(AppDbContext appDbContext,IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
         {
             _dbContext = appDbContext;
             _configration = configuration;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public async Task<IEnumerable<Users>> GetAllAsync(CommonSearchFilter commonSearchFilter)
@@ -74,10 +80,17 @@ namespace ERP.Bussiness
 
         public async Task<Users> UpdateAsync(Users user)
         {
-            user.LastUpdatedAt = DateTime.UtcNow;
-            user.IsDeleted = false;
-            _dbContext.Users.Update(user);
-            await _dbContext.SaveChangesAsync();
+            var users = await _dbContext.Users.Where(x => x.UserEmail == ((string.IsNullOrEmpty(user.UserEmail)) ? "" : user.UserEmail) || x.UserMobile == user.UserMobile).FirstOrDefaultAsync();
+            if (users != null)
+            {
+                users.LastUpdatedAt = DateTime.UtcNow;
+                users.IsDeleted = false;
+                users.UserMobile = user.UserMobile;
+                users.LastUpdatedBy = user.LastUpdatedBy;
+                _dbContext.Users.Update(users);
+                await _dbContext.SaveChangesAsync();
+                return users;
+            }
             return user;
         }
 
@@ -165,10 +178,19 @@ namespace ERP.Bussiness
         public async Task<IActionResult> IsVerified(string userMobile)
         {
             return new JsonResult(await _dbContext.Users.Where(x => x.UserMobile == userMobile).Select(s=>s.IsMobileConfirmed).FirstOrDefaultAsync());
-        }public async Task<IActionResult> IsMobileConfirmed(string userMobile)
+        }
+        public async Task<IActionResult> IsMobileConfirmed(string userMobile)
         {
             var record = await _dbContext.Users.Where(w => w.UserMobile == userMobile).FirstOrDefaultAsync();
             record.IsMobileConfirmed = true;
+            _dbContext.Users.Update(record);
+            await _dbContext.SaveChangesAsync();
+            return new JsonResult("true");
+        }
+        public async Task<IActionResult> ForgotPassword(ForgotPassword forgotPassword)
+        {
+            var record = await _dbContext.Users.Where(w => w.UserMobile == forgotPassword.Mobile).FirstOrDefaultAsync();
+            record.UserPassword = forgotPassword.Password;
             _dbContext.Users.Update(record);
             await _dbContext.SaveChangesAsync();
             return new JsonResult("true");
@@ -213,7 +235,122 @@ namespace ERP.Bussiness
 
             return userSignUpResponse;
         }
-        
+        public async Task<IActionResult> BulkUserUpload(FileUpload fileUpload)
+        {
+            var user = _dbContext.Users.Where(u => u.UserMobile == fileUpload.UserMobile && u.UserPassword == fileUpload.UserPassword).FirstOrDefault();
+
+            if(user == null)
+            {
+                return new JsonResult("User Does Not Exists");
+            }
+            else
+            {
+                if (fileUpload.UploadFile == null || fileUpload.UploadFile.Length <= 0)
+                {
+                    return new JsonResult("No file uploaded.");
+                }
+
+                if (!Path.GetExtension(fileUpload.UploadFile.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
+                {
+                    return new JsonResult("Invalid file format. Only .xlsx files are allowed.");
+                }
+
+                try
+                {
+                    using (var workbook = new XLWorkbook(fileUpload.UploadFile.OpenReadStream()))
+                    {
+                        var worksheet = workbook.Worksheet(1); // Assuming the data is in the first worksheet
+
+                        var rows = worksheet.RowsUsed().Skip(1); // Skip the header row
+                       
+                        var columnNames = new Dictionary<string, int>();
+
+                        // Read the column names from the header row
+                        var headerRow = worksheet.FirstRow();
+                       
+                        foreach (var cell in headerRow.Cells())
+                        {
+                            var columnName = cell.Value.ToString();
+                            var columnIndex = cell.Address.ColumnNumber;
+                            columnNames[columnName] = columnIndex;
+                        }
+
+                        foreach (var row in rows)
+                        {
+                            // Assuming your database entity has properties like "Column1", "Column2", etc.
+                            var entity = new Users
+                            {
+                                UserMobile = row.Cell(columnNames["UserMobile"]).Value.ToString(),
+                                UserPassword = row.Cell(columnNames["UserPassword"]).Value.ToString(),
+                                CreatedAt = System.DateTime.UtcNow,
+                                CreatedBy = user.UsersId,
+                                LastUpdatedAt = System.DateTime.UtcNow,
+                                LastUpdatedBy = user.UsersId,
+                                IsActive = true,
+                                IsDeleted = false,
+                                IsMobileConfirmed=false,
+                                IsEmailConfirmed=false,
+                                UserEmail="",
+                            };
+
+                            var uploadStatusCell = row.Cell(columnNames["UploadStatus"]);
+
+                            if (entity.UserMobile.Length > 10)
+                            {
+                                uploadStatusCell.Value = "Invalid mobile number";
+                            }
+                            else if (!Regex.IsMatch(entity.UserMobile, @"^\d+$"))
+                            {
+                                uploadStatusCell.Value = "Invalid mobile number format";
+                            }
+                            else if (entity.UserPassword.Length < 5)
+                            {
+                                uploadStatusCell.Value = "Invalid password length";
+                            }
+                            else
+                            {
+                                if(_dbContext.Users.Any(i => i.UserMobile == entity.UserMobile))
+                                {
+                                    uploadStatusCell.Value = "Already Exists";
+                                }
+                                else
+                                {
+                                    _dbContext.Users.Add(entity);
+                                    _dbContext.SaveChanges();
+                                    uploadStatusCell.Value = "Successfully imported";
+                                }
+                            }
+                            
+                        }
+
+                        // Save the modified workbook to a new file
+                        string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "temp");
+                        
+                        if (!Directory.Exists(uploadsFolder))
+                        {
+                            Directory.CreateDirectory(uploadsFolder);
+                        }
+
+                        var updatedFilePath = Path.Combine(uploadsFolder, "updated_data.xlsx");
+                        workbook.SaveAs(updatedFilePath);
+
+                        // Return the updated Excel file for download
+                        var fileStream = new FileStream(updatedFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+                        return new FileStreamResult(fileStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                        {
+                            FileDownloadName = "updated_data.xlsx"
+                        };
+                    }
+                  
+                }
+                catch (Exception ex)
+                {
+                    // Handle any exceptions that may occur during the process
+                    return new JsonResult(StatusCodes.Status500InternalServerError, $"Error: {ex.Message}");
+                }
+            }
+        }
+
     }
 
 }

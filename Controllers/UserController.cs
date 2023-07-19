@@ -31,13 +31,13 @@ namespace ERP.Controllers
         {
             return await _userRepository.AddAsync(user);
         }
-        [HttpPut]
+        [HttpPost]
         [Route("put")]
         public async Task<Users> UserUpdate(Users user)
         {
             return await _userRepository.UpdateAsync(user);
         }
-        [HttpDelete]
+        [HttpGet]
         [Route("delete")]
         public async Task<Users> UserDelete(int id) 
         {
@@ -68,17 +68,29 @@ namespace ERP.Controllers
         {
             return await _userRepository.IsExists(commonSearchFilter);
         }
-        [HttpPost]
+        [HttpGet]
         [Route("IsVerified")]
         public async Task<IActionResult> IsVerified(string userMobile)
         {
             return await _userRepository.IsVerified(userMobile);
         }
-        [HttpPost]
+        [HttpGet]
         [Route("IsMobileConfirmed")]
         public async Task<IActionResult> IsMobileConfirmed(string userMobile)
         {
             return await _userRepository.IsMobileConfirmed(userMobile);
+        }
+        [HttpPost]
+        [Route("ForgotPassword")]
+        public async Task<IActionResult> ForgotPassword(ForgotPassword forgotPassword)
+        {
+            return await _userRepository.ForgotPassword(forgotPassword);
+        }
+        [HttpPost]
+        [Route("BulkUserUpload")]
+        public async Task<IActionResult> BulkUserUpload([FromForm] FileUpload fileUpload)
+        {
+            return await _userRepository.BulkUserUpload(fileUpload);
         }
     }
 }

@@ -56,10 +56,15 @@ namespace ERP.Bussiness
 
         public async Task<UserRole> UpdateAsync(UserRole userRole)
         {
-            userRole.IsDeleted = false;
-            _appDbContext.UserRole.Update(userRole);
-            await _appDbContext.SaveChangesAsync();
-            return userRole;
+            var userRoles = await _appDbContext.UserRole.Where(x => x.UserID == userRole.UserID && x.RoleID == userRole.RoleID).FirstOrDefaultAsync();
+            if (userRoles == null)
+            {
+                userRole.IsDeleted = false;
+                _appDbContext.UserRole.Update(userRole);
+                await _appDbContext.SaveChangesAsync();
+                return userRole;
+            }
+            return userRoles;
         }
 
         public async Task<UserRole> DeleteAsync(int Id)

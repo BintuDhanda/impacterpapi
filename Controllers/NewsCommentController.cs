@@ -31,13 +31,13 @@ namespace ERP.Controllers
         {
             return await _newsCommentRepository.AddAsync(newsComment);
         }
-        [HttpPut]
+        [HttpPost]
         [Route("put")]
         public async Task<NewsComment> NewsCommentUpdate(NewsComment newsComment)
         {
             return await _newsCommentRepository.UpdateAsync(newsComment);
         }
-        [HttpDelete]
+        [HttpGet]
         [Route("delete")]
         public async Task<NewsComment> NewsCommentDelete(int Id)
         {

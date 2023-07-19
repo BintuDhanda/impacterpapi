@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ERP.Models
 {
-    public class StudentDetails
+    public class StudentDetails : BaseModel
     {
         [Key]
         public int StudentId { get; set; }
@@ -16,9 +16,6 @@ namespace ERP.Models
         public int StudentWeight { get; set; }
         public string BodyRemark { get; set; }
         public int UserId { get; set; }
-        public bool? IsActive { get; set; }
-        public bool? IsDeleted { get; set;}
-        public DateTime? CreatedAt { get; set; }
         [NotMapped]
         public string? Mobile { get; set; }
         [NotMapped]

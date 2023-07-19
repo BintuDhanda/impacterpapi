@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "Hash": "IHTaHv5l8KAfzNTkyhpuUWUMsvRLj4u3z6yAVvHLcqg=",
+  "Source": "ERP",
+  "BasePath": "_content/ERP",
+  "Mode": "Default",
+  "ManifestType": "Publish",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "ERP\\wwwroot",
+      "Source": "ERP",
+      "ContentRoot": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\",
+      "BasePath": "_content/ERP",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\uploads\\2c75f39e-a6de-4a9d-8eed-659ff65433ab_94766--free-download-image_400x400.png",
+      "SourceId": "ERP",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\",
+      "BasePath": "_content/ERP",
+      "RelativePath": "uploads/2c75f39e-a6de-4a9d-8eed-659ff65433ab_94766--free-download-image_400x400.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\2c75f39e-a6de-4a9d-8eed-659ff65433ab_94766--free-download-image_400x400.png"
+    },
+    {
+      "Identity": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\uploads\\5ab02acf-9f94-49f5-a76e-3541aef19e5b_94766--free-download-image_400x400.png",
+      "SourceId": "ERP",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\",
+      "BasePath": "_content/ERP",
+      "RelativePath": "uploads/5ab02acf-9f94-49f5-a76e-3541aef19e5b_94766--free-download-image_400x400.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\5ab02acf-9f94-49f5-a76e-3541aef19e5b_94766--free-download-image_400x400.png"
+    },
+    {
+      "Identity": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\uploads\\6ceb0ace-0244-4e10-bfb6-d6589bad5fad_89109--png-free-photo_400x400.png",
+      "SourceId": "ERP",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\",
+      "BasePath": "_content/ERP",
+      "RelativePath": "uploads/6ceb0ace-0244-4e10-bfb6-d6589bad5fad_89109--png-free-photo_400x400.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\6ceb0ace-0244-4e10-bfb6-d6589bad5fad_89109--png-free-photo_400x400.png"
+    },
+    {
+      "Identity": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\uploads\\7e9b5582-83b3-477d-877a-4e8fbb38d069_94766--free-download-image_400x400.png",
+      "SourceId": "ERP",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\",
+      "BasePath": "_content/ERP",
+      "RelativePath": "uploads/7e9b5582-83b3-477d-877a-4e8fbb38d069_94766--free-download-image_400x400.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\7e9b5582-83b3-477d-877a-4e8fbb38d069_94766--free-download-image_400x400.png"
+    }
+  ]
+}

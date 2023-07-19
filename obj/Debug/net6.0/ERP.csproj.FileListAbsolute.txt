@@ -175,3 +175,10 @@ C:\Users\bintu\OneDrive\Documents\ERP\obj\Debug\net6.0\refint\ERP.dll
 C:\Users\bintu\OneDrive\Documents\ERP\obj\Debug\net6.0\ERP.pdb
 C:\Users\bintu\OneDrive\Documents\ERP\obj\Debug\net6.0\ERP.genruntimeconfig.cache
 C:\Users\bintu\OneDrive\Documents\ERP\obj\Debug\net6.0\ref\ERP.dll
+C:\Users\bintu\OneDrive\Documents\ERP\bin\Debug\net6.0\ClosedXML.dll
+C:\Users\bintu\OneDrive\Documents\ERP\bin\Debug\net6.0\DocumentFormat.OpenXml.dll
+C:\Users\bintu\OneDrive\Documents\ERP\bin\Debug\net6.0\ExcelNumberFormat.dll
+C:\Users\bintu\OneDrive\Documents\ERP\bin\Debug\net6.0\Irony.dll
+C:\Users\bintu\OneDrive\Documents\ERP\bin\Debug\net6.0\SixLabors.Fonts.dll
+C:\Users\bintu\OneDrive\Documents\ERP\bin\Debug\net6.0\System.IO.Packaging.dll
+C:\Users\bintu\OneDrive\Documents\ERP\bin\Debug\net6.0\XLParser.dll

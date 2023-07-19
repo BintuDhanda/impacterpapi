@@ -24,19 +24,31 @@ namespace ERP.Bussiness
 
         public async Task<State> AddAsync(State state)
         {
+            var states = await _appDbContext.State.Where(a => a.StateName == state.StateName).FirstOrDefaultAsync();
+            if (states == null)
+            {
             state.CreatedAt = DateTime.UtcNow;
             state.IsDeleted = false;
             _appDbContext.State.Add(state);
             await _appDbContext.SaveChangesAsync();
             return state;
+            }
+            return states;
         }
 
         public async Task<State> UpdateAsync(State state)
         {
-            state.LastUpdatedAt = DateTime.UtcNow;
-            state.IsDeleted = false;
-            _appDbContext.State.Update(state);
-            await _appDbContext.SaveChangesAsync();
+            var states = await _appDbContext.State.Where(a => a.StateId == state.StateId).FirstOrDefaultAsync();
+            if (states != null)
+            {
+                states.LastUpdatedAt = DateTime.UtcNow;
+                states.IsDeleted = false;
+                states.StateName = state.StateName;
+                states.LastUpdatedBy = state.LastUpdatedBy;
+                _appDbContext.State.Update(states);
+                await _appDbContext.SaveChangesAsync();
+                return states;
+            }
             return state;
         }
 

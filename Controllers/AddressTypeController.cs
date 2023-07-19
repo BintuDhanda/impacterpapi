@@ -32,13 +32,13 @@ namespace ERP.Controllers
         {
             return await _addressTypeRepository.AddAsync(addressType);
         }
-        [HttpPut]
+        [HttpPost]
         [Route("put")]
         public async Task<AddressType> AddressTypeUpdate(AddressType addressType)
         {
             return await _addressTypeRepository.UpdateAsync(addressType);
         }
-        [HttpDelete]
+        [HttpGet]
         [Route("delete")]
         public async Task<AddressType> AddressTypeDelete(int Id)
         {

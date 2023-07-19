@@ -1,4 +1,5 @@
-﻿using ERP.Interface;
+﻿using ERP.Bussiness;
+using ERP.Interface;
 using ERP.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,13 +32,13 @@ namespace ERP.Controllers
         {
             return await _studentBatchRepository.AddAsync(studentBatch);
         }
-        [HttpPut]
+        [HttpPost]
         [Route("put")]
         public async Task<StudentBatch> StudentBatchUpdate(StudentBatch studentBatch)
         {
             return await _studentBatchRepository.UpdateAsync(studentBatch);
         }
-        [HttpDelete]
+        [HttpGet]
         [Route("delete")]
         public async Task<StudentBatch> StudentBatchDelete(int Id)
         {
@@ -48,6 +49,18 @@ namespace ERP.Controllers
         public async Task<IEnumerable<Users>> GetStudents()
         {
             return await _studentBatchRepository.GetStudentsAsync();
+        }
+        [HttpPost]
+        [Route("IsExistsToken")]
+        public async Task<IActionResult> IsExistsToken(int TokenNumber)
+        {
+            return await _studentBatchRepository.IsExistsToken(TokenNumber);
+        }
+        [HttpPost]
+        [Route("IsExistsRegistration")]
+        public async Task<IActionResult> IsExistsRegistraion(string RegistrationNumber)
+        {
+            return await _studentBatchRepository.IsExistsRegistraion(RegistrationNumber);
         }
     }
 }

@@ -22,18 +22,30 @@ namespace ERP.Bussiness
         }
         public async Task<Qualification> AddAsync(Qualification qualification)
         {
+            var qualifications = await _appDbContext.Qualification.Where(q => q.QualificationName == qualification.QualificationName).FirstOrDefaultAsync();
+            if (qualifications == null)
+            {
             qualification.CreatedAt = DateTime.UtcNow;
             qualification.IsDeleted = false;
             _appDbContext.Qualification.Add(qualification);
             await _appDbContext.SaveChangesAsync();
             return qualification;
+            }
+            return qualifications;
         }
         public async Task<Qualification> UpdateAsync(Qualification qualification)
         {
-            qualification.LastUpdatedAt = DateTime.UtcNow;
-            qualification.IsDeleted = false;
-            _appDbContext.Qualification.Update(qualification);
-            await _appDbContext.SaveChangesAsync();
+            var qualifications = await _appDbContext.Qualification.Where(q => q.QualificationId == qualification.QualificationId).FirstOrDefaultAsync();
+            if (qualifications != null)
+            {
+                qualifications.LastUpdatedAt = DateTime.UtcNow;
+                qualifications.IsDeleted = false;
+                qualifications.QualificationName = qualification.QualificationName;
+                qualifications.LastUpdatedBy = qualification.LastUpdatedBy;
+                _appDbContext.Qualification.Update(qualifications);
+                await _appDbContext.SaveChangesAsync();
+                return qualifications;
+            }
             return qualification;
         }
         public async Task<Qualification> DeleteAsync(int Id)

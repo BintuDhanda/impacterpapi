@@ -1,6 +1,8 @@
 ﻿using ERP.ERPDbContext;
 using ERP.Interface;
 using ERP.Models;
+using ERP.SearchFilters;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ERP.Bussiness
@@ -18,7 +20,25 @@ namespace ERP.Bussiness
         }
         public async Task<StudentToken> GetByIdAsync(int Id)
         {
-            return await _appDbContext.StudentToken.FindAsync(Id);
+            var studentToken = await _appDbContext.StudentToken.Where(std => std.StudentTokenId == Id).Select(st => new StudentToken
+            {
+                StudentTokenId = st.StudentTokenId,
+                ValidFrom = st.ValidFrom,
+                ValidUpto = st.ValidUpto,
+                TokenFee = st.TokenFee,
+                StudentId = st.StudentId,
+                BatchId = st.BatchId,
+                IsActive = st.IsActive,
+                IsDeleted = st.IsDeleted,
+                CreatedAt = st.CreatedAt,
+                CreatedBy = st.CreatedBy,
+                LastUpdatedAt = st.LastUpdatedAt,
+                LastUpdatedBy = st.LastUpdatedBy,
+                IsValidForAdmission = st.IsValidForAdmission,
+                IsValidForAdmissionNonMapped = st.IsValidForAdmission.ToString(),
+            }).FirstOrDefaultAsync();
+
+            return studentToken;
         }
         //public async Task<StudentToken> AddAsync(int StudentId, int BatchId)
         //{
@@ -71,10 +91,20 @@ namespace ERP.Bussiness
 
         public async Task<StudentToken> UpdateAsync(StudentToken studentToken)
         {
-            studentToken.LastUpdatedAt = DateTime.UtcNow;
-            studentToken.IsDeleted = false;
-            _appDbContext.StudentToken.Update(studentToken);
+            var studentTokens = await _appDbContext.StudentToken.Where(st => st.StudentTokenId == studentToken.StudentTokenId).FirstOrDefaultAsync();
+            if ( studentTokens != null)
+            {
+            studentTokens.LastUpdatedAt = DateTime.UtcNow;
+            studentTokens.IsDeleted = false;
+            studentTokens.ValidFrom = studentToken.ValidFrom;
+            studentTokens.ValidUpto = studentToken.ValidUpto;
+            studentTokens.IsValidForAdmission = Convert.ToBoolean(studentToken.IsValidForAdmissionNonMapped);
+            studentTokens.TokenFee = studentToken.TokenFee;
+            studentTokens.LastUpdatedBy = studentToken.LastUpdatedBy;
+            _appDbContext.StudentToken.Update(studentTokens);
             await _appDbContext.SaveChangesAsync();
+                return studentToken;
+            } 
             return studentToken;
         }
         public async Task<StudentToken> DeleteAsync(int Id)
@@ -86,23 +116,24 @@ namespace ERP.Bussiness
         }
         public async Task<IEnumerable<StudentToken>> GetStudentTokenByStudentIdAsync(int StudentId)
         {
-            var studentToken = await (from allStudentToken in _appDbContext.StudentToken
-                                      select new StudentToken
+            var studentToken = await  _appDbContext.StudentToken.
+                                      Select(st => new StudentToken
                                       {
-                                          StudentTokenId = allStudentToken.StudentTokenId,
-                                          ValidFrom = allStudentToken.ValidFrom,
-                                          ValidUpto = allStudentToken.ValidUpto,
-                                          TokenFee = allStudentToken.TokenFee,
-                                          StudentId = allStudentToken.StudentId,
-                                          BatchId = allStudentToken.BatchId,
-                                          IsActive = allStudentToken.IsActive,
-                                          IsDeleted = allStudentToken.IsDeleted,
-                                          CreatedAt = allStudentToken.CreatedAt,
-                                          CreatedBy = allStudentToken.CreatedBy,
-                                          LastUpdatedAt = allStudentToken.LastUpdatedAt,
-                                          LastUpdatedBy = allStudentToken.LastUpdatedBy,
-                                          BatchName = _appDbContext.Batch.Where(b => b.BatchId == allStudentToken.BatchId).Select(b=>b.BatchName).FirstOrDefault(),
-                                          TokenStatus = _appDbContext.StudentToken.Where(st => DateTime.UtcNow >= st.ValidFrom && DateTime.UtcNow <= st.ValidUpto).FirstOrDefault() == null ? false : true,
+                                          StudentTokenId = st.StudentTokenId,
+                                          ValidFrom = st.ValidFrom,
+                                          ValidUpto = st.ValidUpto,
+                                          TokenFee = st.TokenFee,
+                                          StudentId = st.StudentId,
+                                          BatchId = st.BatchId,
+                                          IsActive = st.IsActive,
+                                          IsDeleted = st.IsDeleted,
+                                          CreatedAt = st.CreatedAt,
+                                          CreatedBy = st.CreatedBy,
+                                          LastUpdatedAt = st.LastUpdatedAt,
+                                          LastUpdatedBy = st.LastUpdatedBy,
+                                          BatchName = _appDbContext.Batch.Where(b => b.BatchId == st.BatchId).Select(b=>b.BatchName).FirstOrDefault(),
+                                          TokenStatus = _appDbContext.StudentToken.Where(st2 => st2.ValidFrom <= DateTime.UtcNow &&  st2.ValidUpto >=  DateTime.UtcNow ).FirstOrDefault() == null ? false : true,
+                                          IsValidForAdmissionNonMapped = st.IsValidForAdmission.ToString(),
                                       }).Where(t => t.StudentId == StudentId).OrderByDescending(b=>b.StudentTokenId).ToListAsync();
             return studentToken;
         }

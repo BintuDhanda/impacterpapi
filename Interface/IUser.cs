@@ -17,5 +17,7 @@ namespace ERP.Interface
         Task<IActionResult> IsExists(CommonSearchFilter commonSearchFilter);
         Task<IActionResult> IsVerified(string userMobile);
         Task<IActionResult> IsMobileConfirmed(string userMobile);
+        Task<IActionResult> ForgotPassword(ForgotPassword forgotPassword);
+        Task<IActionResult> BulkUserUpload(FileUpload fileUpload);
     }
 }

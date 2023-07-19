@@ -35,11 +35,18 @@ namespace ERP.Bussiness
         }
         public async Task<Roles> UpdateAsync(Roles role)
         {
-            role.LastUpdatedAt = DateTime.UtcNow;
-            role.IsDeleted = false;
-            _appDbContext.Roles.Update(role);
-            await _appDbContext.SaveChangesAsync();
-            return role;
+            var roles = await _appDbContext.Roles.Where(x => x.RolesId == role.RolesId).FirstOrDefaultAsync();
+            if (roles != null)
+            {
+                roles.LastUpdatedAt = DateTime.UtcNow;
+                roles.IsDeleted = false;
+                roles.RoleName = role.RoleName;
+                roles.LastUpdatedBy = role.LastUpdatedBy;
+                _appDbContext.Roles.Update(roles);
+                await _appDbContext.SaveChangesAsync();
+                return roles;
+            } 
+                return role;
         }
         public async Task<Roles> DeleteAsync(int Id)
         {

@@ -22,18 +22,30 @@ namespace ERP.Bussiness
         }
         public async Task<CourseCategory> AddAsync(CourseCategory courseCategory)
         {
+            var courseCategorys = await _appDbcontext.CourseCategory.Where(cC => cC.CourseCategoryName == courseCategory.CourseCategoryName).FirstOrDefaultAsync();
+            if (courseCategorys == null)
+            {
             courseCategory.CreatedAt = DateTime.UtcNow;
             courseCategory.IsDeleted = false;
             _appDbcontext.CourseCategory.Add(courseCategory);
             await _appDbcontext.SaveChangesAsync();
             return courseCategory;
+            }
+            return courseCategorys;
         }
         public async Task<CourseCategory> UpdateAsync(CourseCategory courseCategory)
         {
-            courseCategory.LastUpdatedAt = DateTime.UtcNow;
-            courseCategory.IsDeleted = false;
-            _appDbcontext.CourseCategory.Update(courseCategory);
-            await _appDbcontext.SaveChangesAsync();
+            var courseCategorys = await _appDbcontext.CourseCategory.Where(cC => cC.CourseCategoryId == courseCategory.CourseCategoryId).FirstOrDefaultAsync();
+            if (courseCategorys != null)
+            {
+                courseCategorys.LastUpdatedAt = DateTime.UtcNow;
+                courseCategorys.IsDeleted = false;
+                courseCategorys.CourseCategoryName = courseCategory.CourseCategoryName;
+                courseCategorys.LastUpdatedBy = courseCategory.LastUpdatedBy;
+                _appDbcontext.CourseCategory.Update(courseCategorys);
+                await _appDbcontext.SaveChangesAsync();
+                return courseCategorys;
+            }
             return courseCategory;
         }
         public async Task<CourseCategory> DeleteAsync(int Id)

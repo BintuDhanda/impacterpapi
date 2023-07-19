@@ -15,31 +15,31 @@ namespace ERP.Controllers
             _roleRepository = roleRepository;
         }
         [HttpGet]
-        [Route("get")]
+        [Route("roleGet")]
         public async Task<IEnumerable<Roles>> Get()
         {
             return await _roleRepository.GetAllAsync();
         }
         [HttpGet]
-        [Route("getById")]
+        [Route("roleGetById")]
         public async Task<Roles> GetById(int Id)
         {
             return await _roleRepository.GetByIdAsync(Id);
         }
         [HttpPost]
-        [Route("post")]
+        [Route("rolePost")]
         public async Task<Roles> RoleAdd(Roles role)
         {
             return await _roleRepository.AddAsync(role);
         }
-        [HttpPut]
-        [Route("put")]
+        [HttpPost]
+        [Route("roleUpdate")]
         public async Task<Roles> RoleUpdate(Roles role)
         {
             return await _roleRepository.UpdateAsync(role);
         }
-        [HttpDelete]
-        [Route("delete")]
+        [HttpGet]
+        [Route("roleDelete")]
         public async Task<Roles> RoleDelete(int Id)
         {
             return await (_roleRepository.DeleteAsync(Id));

@@ -22,18 +22,30 @@ namespace ERP.Bussiness
         }
         public async Task<AddressType> AddAsync(AddressType addressType)
         {
+            var addressTypes = await _appDbContext.AddressType.Where(at => at.AddressTypeName == addressType.AddressTypeName).FirstOrDefaultAsync();
+            if (addressTypes == null)
+            {
             addressType.CreatedAt = DateTime.UtcNow;
             addressType.IsDeleted = false;
             _appDbContext.AddressType.Add(addressType);
             await _appDbContext.SaveChangesAsync();
             return addressType;
+            }
+            return addressTypes;
         }
         public async Task<AddressType> UpdateAsync(AddressType addressType)
         {
-            addressType.LastUpdatedAt = DateTime.UtcNow;
-            addressType.IsDeleted = false;
-            _appDbContext.AddressType.Update(addressType);
-            await _appDbContext.SaveChangesAsync();
+            var addressTypes = await _appDbContext.AddressType.Where(at => at.AddressTypeId == addressType.AddressTypeId).FirstOrDefaultAsync();
+            if (addressTypes != null)
+            {
+                addressTypes.LastUpdatedAt = DateTime.UtcNow;
+                addressTypes.IsDeleted = false;
+                addressTypes.LastUpdatedBy = addressType.LastUpdatedBy;
+                addressTypes.AddressTypeName = addressType.AddressTypeName;
+                _appDbContext.AddressType.Update(addressTypes);
+                await _appDbContext.SaveChangesAsync();
+                return addressTypes;
+            }
             return addressType;
         }
         public async Task<AddressType> DeleteAsync(int Id)

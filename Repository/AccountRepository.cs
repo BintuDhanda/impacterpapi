@@ -22,18 +22,30 @@ namespace ERP.Bussiness
         }
         public async Task <Account> AddAsync(Account account)
         {
+            var accounts = await _appDbcontext.Account.Where(a => a.AccountName == account.AccountName).FirstOrDefaultAsync();
+            if (accounts == null)
+            {
             account.CreatedAt = DateTime.UtcNow;
             account.IsDeleted = false;
             _appDbcontext.Account.Add(account);
             await _appDbcontext.SaveChangesAsync();
             return account;
+            }
+            return accounts;
         }
         public async Task<Account> UpdateAsync(Account account)
         {
-            account.LastUpdatedAt = DateTime.UtcNow;
-            account.IsDeleted = false;
-            _appDbcontext.Account.Update(account);
-            await _appDbcontext.SaveChangesAsync();
+            var accounts = await _appDbcontext.Account.Where(a => a.AccountId == account.AccountId).FirstOrDefaultAsync();
+            if (accounts != null)
+            {
+                accounts.LastUpdatedAt = DateTime.UtcNow;
+                accounts.IsDeleted = false;
+                accounts.AccountName = account.AccountName;
+                accounts.LastUpdatedBy = account.LastUpdatedBy;
+                _appDbcontext.Account.Update(accounts);
+                await _appDbcontext.SaveChangesAsync();
+                return accounts;
+            }
             return account;
         }
         public async Task<Account> DeleteAsync(int Id)

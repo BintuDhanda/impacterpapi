@@ -1,4 +1,5 @@
 ﻿using ERP.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ERP.Interface
 {
@@ -10,5 +11,7 @@ namespace ERP.Interface
         Task<StudentBatch> UpdateAsync(StudentBatch studentBatch);
         Task<StudentBatch> DeleteAsync(int Id);
         Task<IEnumerable<Users>> GetStudentsAsync();
+        Task<IActionResult> IsExistsToken(int TokenNumber);
+        Task<IActionResult> IsExistsRegistraion(string RegistrationNumber);
     }
 }

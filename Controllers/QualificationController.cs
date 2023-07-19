@@ -27,17 +27,17 @@ namespace ERP.Controllers
         }
         [HttpPost]
         [Route("post")]
-        public async Task<Qualification> QualificationAdd([FromBody] Qualification qualification)
+        public async Task<Qualification> QualificationAdd(Qualification qualification)
         {
             return await _qualificationRepository.AddAsync(qualification);
         }
-        [HttpPut]
+        [HttpPost]
         [Route("put")]
         public async Task<Qualification> QualificationUpdate(Qualification qualification)
         {
             return await _qualificationRepository.UpdateAsync(qualification);
         }
-        [HttpDelete]
+        [HttpGet]
         [Route("delete")]
         public async Task<Qualification> QualificationDelete(int Id)
         {

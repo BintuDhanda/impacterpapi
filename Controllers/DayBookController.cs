@@ -33,13 +33,13 @@ namespace ERP.Controllers
         {
             return await _dayBookRepository.AddAsync(dayBook);
         }
-        [HttpPut]
+        [HttpPost]
         [Route("put")]
         public async Task<DayBook> DayBookUpdate(DayBook dayBook)
         {
             return await _dayBookRepository.UpdateAsync(dayBook);
         }
-        [HttpDelete]
+        [HttpGet]
         [Route("delete")]
         public async Task<DayBook> DayBookDelete(int Id)
         {

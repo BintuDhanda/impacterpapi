@@ -33,13 +33,13 @@ namespace ERP.Controllers
         {
             return await _attendanceRepository.AddAsync(attendance);
         }
-        [HttpPut]
+        [HttpPost]
         [Route("put")]
         public async Task<Attendance> AttendanceUpdate(Attendance attendance)
         {
             return await _attendanceRepository.UpdateAsync(attendance);
         }
-        [HttpDelete]
+        [HttpGet]
         [Route("delete")]
         public async Task<Attendance> AttendanceDelete(int Id)
         {

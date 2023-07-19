@@ -1,6 +1,7 @@
 ﻿using ERP.ERPDbContext;
 using ERP.Interface;
 using ERP.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ERP.Bussiness
@@ -19,8 +20,6 @@ namespace ERP.Bussiness
                                       {
                                           StudentBatchId = allStudentBatch.StudentBatchId,
                                           DateOfJoin = allStudentBatch.DateOfJoin,
-                                          BatchStartDate = allStudentBatch.BatchStartDate,
-                                          BatchEndDate = allStudentBatch.BatchEndDate,
                                           StudentId = allStudentBatch.StudentId,
                                           BatchId = allStudentBatch.BatchId,
                                           RegistrationNumber = allStudentBatch.RegistrationNumber,
@@ -31,6 +30,7 @@ namespace ERP.Bussiness
                                           LastUpdatedAt = allStudentBatch.LastUpdatedAt,
                                           LastUpdatedBy = allStudentBatch.LastUpdatedBy,
                                           BatchName = _appDbcontext.Batch.Where(b => b.BatchId == allStudentBatch.BatchId).Select(b => b.BatchName).FirstOrDefault(),
+                                          TokenNumber = allStudentBatch.TokenNumber,
                                       }).Where(b=>b.StudentId==Id).OrderByDescending(b => b.StudentBatchId).ToListAsync();
             return studentBatch;
         }
@@ -71,6 +71,14 @@ namespace ERP.Bussiness
                                    select allusers
                                    ).ToListAsync();
             return students;
+        }
+        public async Task<IActionResult> IsExistsToken(int TokenNumber)
+        {
+            return new JsonResult(await _appDbcontext.StudentBatch.AnyAsync(x => x.TokenNumber == TokenNumber));
+        }
+        public async Task<IActionResult> IsExistsRegistraion(string RegistrationNumber)
+        {
+            return new JsonResult(await _appDbcontext.StudentBatch.AnyAsync(x => x.RegistrationNumber == RegistrationNumber));
         }
     }
 }

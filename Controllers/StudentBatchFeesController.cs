@@ -33,13 +33,13 @@ namespace ERP.Controllers
         {
             return await _studentBatchFeesRepository.AddAsync(studentBatchFees);
         }
-        [HttpPut]
+        [HttpPost]
         [Route("put")]
         public async Task<StudentBatchFees> StudentBatchFeesUpdate(StudentBatchFees studentBatchFees)
         {
             return await _studentBatchFeesRepository.UpdateAsync(studentBatchFees);
         }
-        [HttpDelete]
+        [HttpGet]
         [Route("delete")]
         public async Task<StudentBatchFees> StudentBatchFeesDelete(int Id)
         {

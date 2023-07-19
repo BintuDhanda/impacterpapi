@@ -32,13 +32,13 @@ namespace ERP.Controllers
         {
             return await _batchRepsitory.AddAsync(batch);
         }
-        [HttpPut]
+        [HttpPost]
         [Route("put")]
         public async Task<Batch> BatchUpdate(Batch batch)
         {
             return await _batchRepsitory.UpdateAsync(batch);
         }
-        [HttpDelete]
+        [HttpGet]
         [Route("delete")]
         public async Task<Batch> BatchDelete(int Id)
         {

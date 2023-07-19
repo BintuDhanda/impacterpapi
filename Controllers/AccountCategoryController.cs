@@ -31,13 +31,13 @@ namespace ERP.Controllers
         {
             return await _accountCategoryRepository.AddAsync(accountCategory);
         }
-        [HttpPut]
+        [HttpPost]
         [Route("put")]
         public async Task<AccountCategory> AccountCategoryUpdate(AccountCategory accountCategory)
         {
             return await _accountCategoryRepository.UpdateAsync(accountCategory);
         }
-        [HttpDelete]
+        [HttpGet]
         [Route("delete")]
         public async Task<AccountCategory> AccountCategoryDelete(int Id)
         {

@@ -33,13 +33,13 @@ namespace ERP.Controllers
         {
             return await _studentTokenFeesRepository.AddAsync(studentTokenFees);
         }
-        [HttpPut]
+        [HttpPost]
         [Route("put")]
         public async Task<StudentTokenFees> StudentTokenFeesUpdate(StudentTokenFees studentTokenFees)
         {
             return await _studentTokenFeesRepository.UpdateAsync(studentTokenFees);
         }
-        [HttpDelete]
+        [HttpGet]
         [Route("delete")]
         public async Task<StudentTokenFees> StudentTokenFeesDelete(int Id)
         {

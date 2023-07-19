@@ -31,13 +31,13 @@ namespace ERP.Controllers
         {
             return await _courseCategoryRepository.AddAsync(courseCategory);
         }
-        [HttpPut]
+        [HttpPost]
         [Route("put")]
         public async Task<CourseCategory> CourseCategoryUpdate(CourseCategory courseCategory)
         {
             return await _courseCategoryRepository.UpdateAsync(courseCategory);
         }
-        [HttpDelete]
+        [HttpGet]
         [Route("delete")]
         public async Task<CourseCategory> CourseCategoryDelete(int Id)
         {

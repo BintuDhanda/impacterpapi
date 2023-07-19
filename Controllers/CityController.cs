@@ -31,13 +31,13 @@ namespace ERP.Controllers
         {
             return await _cityRepository.AddAsync(city);
         }
-        [HttpPut]
+        [HttpPost]
         [Route("put")]
         public async Task<City> CityUpdate(City city)
         {
             return await _cityRepository.UpdateAsync(city);
         }
-        [HttpDelete]
+        [HttpGet]
         [Route("delete")]
         public async Task<City> CityDelete(int Id)
         {

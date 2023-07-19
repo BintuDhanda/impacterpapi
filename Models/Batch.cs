@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ERP.Models
 {
@@ -7,9 +8,11 @@ namespace ERP.Models
         [Key]
         public int BatchId { get; set; }
         public string BatchName { get; set; }
-        public int Code { get; set; }
+        public string Code { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int CourseId { get; set; }
+        [NotMapped] 
+        public string? Duration { get; set; }
     }
 }

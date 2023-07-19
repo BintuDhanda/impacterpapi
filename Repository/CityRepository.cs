@@ -22,18 +22,30 @@ namespace ERP.Bussiness
         }
         public async Task<City> AddAsync(City city)
         {
+            var citys = await _appDbContext.City.Where(c => c.CityName == city.CityName).FirstOrDefaultAsync();
+            if (citys == null)
+            {
             city.CreatedAt = DateTime.UtcNow;
             city.IsDeleted = false;
             _appDbContext.City.Add(city);
             await _appDbContext.SaveChangesAsync();
             return city;
+            }
+            return citys;
         }
         public async Task <City> UpdateAsync(City city)
         {
-            city.LastUpdatedAt = DateTime.UtcNow;
-            city.IsDeleted = false;
-            _appDbContext.City.Update(city);
-            await _appDbContext.SaveChangesAsync();
+            var citys = await _appDbContext.City.Where(c => c.CityId == city.CityId).FirstOrDefaultAsync();
+            if (citys != null)
+            {
+                citys.LastUpdatedAt = DateTime.UtcNow;
+                citys.IsDeleted = false;
+                citys.CityName = city.CityName;
+                citys.LastUpdatedBy = city.LastUpdatedBy;
+                _appDbContext.City.Update(citys);
+                await _appDbContext.SaveChangesAsync();
+                return citys;
+            }
             return city;
         }
         public async Task<City> DeleteAsync(int Id)

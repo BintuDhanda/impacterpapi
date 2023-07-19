@@ -20,7 +20,7 @@ namespace ERP.Controllers
         {
             return await _userRoleRepository.AddAsync(userRole);
         }
-        [HttpPut]
+        [HttpPost]
         [Route("update")]
         public async Task<UserRole> Update(UserRole userRole)
         {
@@ -32,7 +32,7 @@ namespace ERP.Controllers
         {
             return  await _userRoleRepository.GetByUserIdAsync(UserId);
         }
-        [HttpDelete]
+        [HttpGet]
         [Route("delete")]
         public async Task<UserRole> DeleteAsync (int Id)
         {

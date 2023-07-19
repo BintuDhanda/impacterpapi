@@ -22,16 +22,30 @@ namespace ERP.Bussiness
         }
         public async Task<Course> AddAsync(Course course)
         {
+            var courses = await _appDbcontext.Course.Where(c => c.CourseName == course.CourseName).FirstOrDefaultAsync();
+            if (courses == null)
+            {
             course.CreatedAt = DateTime.UtcNow;
             course.IsDeleted = false;
             _appDbcontext.Course.Add(course);
             await _appDbcontext.SaveChangesAsync();
             return course;
+            }
+            return courses;
         }
         public async Task<Course> UpdateAsync(Course course)
         {
-            _appDbcontext.Course.Update(course);
-            await _appDbcontext.SaveChangesAsync();
+            var courses = await _appDbcontext.Course.Where(c => c.CourseId == course.CourseId).FirstOrDefaultAsync();
+            if (courses != null)
+            {
+                courses.LastUpdatedAt = DateTime.UtcNow;
+                courses.IsDeleted = false;
+                courses.CourseName = course.CourseName;
+                courses.LastUpdatedBy = course.LastUpdatedBy;
+                _appDbcontext.Course.Update(courses);
+                await _appDbcontext.SaveChangesAsync();
+                return courses;
+            }
             return course;
         }
         public async Task<Course> DeleteAsync(int Id)
