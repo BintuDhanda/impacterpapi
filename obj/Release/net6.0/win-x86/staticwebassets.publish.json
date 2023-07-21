@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "IHTaHv5l8KAfzNTkyhpuUWUMsvRLj4u3z6yAVvHLcqg=",
+  "Hash": "BPKPxd5zzJ96j6gnux7WmF4ZByeq2SUT4czWFa5sRDM=",
   "Source": "ERP",
   "BasePath": "_content/ERP",
   "Mode": "Default",
@@ -17,12 +17,12 @@
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\uploads\\2c75f39e-a6de-4a9d-8eed-659ff65433ab_94766--free-download-image_400x400.png",
+      "Identity": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\temp\\updated_data.xlsx",
       "SourceId": "ERP",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\",
       "BasePath": "_content/ERP",
-      "RelativePath": "uploads/2c75f39e-a6de-4a9d-8eed-659ff65433ab_94766--free-download-image_400x400.png",
+      "RelativePath": "temp/updated_data.xlsx",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -31,58 +31,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\2c75f39e-a6de-4a9d-8eed-659ff65433ab_94766--free-download-image_400x400.png"
-    },
-    {
-      "Identity": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\uploads\\5ab02acf-9f94-49f5-a76e-3541aef19e5b_94766--free-download-image_400x400.png",
-      "SourceId": "ERP",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\",
-      "BasePath": "_content/ERP",
-      "RelativePath": "uploads/5ab02acf-9f94-49f5-a76e-3541aef19e5b_94766--free-download-image_400x400.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\5ab02acf-9f94-49f5-a76e-3541aef19e5b_94766--free-download-image_400x400.png"
-    },
-    {
-      "Identity": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\uploads\\6ceb0ace-0244-4e10-bfb6-d6589bad5fad_89109--png-free-photo_400x400.png",
-      "SourceId": "ERP",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\",
-      "BasePath": "_content/ERP",
-      "RelativePath": "uploads/6ceb0ace-0244-4e10-bfb6-d6589bad5fad_89109--png-free-photo_400x400.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\6ceb0ace-0244-4e10-bfb6-d6589bad5fad_89109--png-free-photo_400x400.png"
-    },
-    {
-      "Identity": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\uploads\\7e9b5582-83b3-477d-877a-4e8fbb38d069_94766--free-download-image_400x400.png",
-      "SourceId": "ERP",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\",
-      "BasePath": "_content/ERP",
-      "RelativePath": "uploads/7e9b5582-83b3-477d-877a-4e8fbb38d069_94766--free-download-image_400x400.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\7e9b5582-83b3-477d-877a-4e8fbb38d069_94766--free-download-image_400x400.png"
+      "OriginalItemSpec": "wwwroot\\temp\\updated_data.xlsx"
     }
   ]
 }

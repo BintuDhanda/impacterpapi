@@ -29,14 +29,41 @@ namespace ERP.Controllers
         }
         [HttpPost]
         [Route("post")]
-        public async Task<News> CreateNews([FromForm] News news)
+        public async Task<News> CreateNews(IFormCollection obj)
         {
+            var news = new News()
+            {
+                NewsId = 0,
+                NewsText = obj["NewsText"],
+                Image = obj.Files["Image"],
+                NewsTitle = obj["NewsTitle"],
+                CreatedAt = DateTime.UtcNow,
+                CreatedBy = Convert.ToInt32(obj["CreatedBy"]),
+                LastUpdatedAt = DateTime.UtcNow,
+                LastUpdatedBy= Convert.ToInt32(obj["CreatedBy"]),
+                IsActive=true,
+                IsDeleted=false,
+            };
+
             return await _newsRepository.AddAsync(news);
         }
         [HttpPost]
-        [Route("put")]
-        public async Task<News> NewsUpdate([FromForm] News news)
+        [Route("update")]
+        public async Task<News> NewsUpdate(IFormCollection obj)
         {
+            var news = new News()
+            {
+                NewsId = Convert.ToInt32(obj["NewsId"]),
+                NewsText = obj["NewsText"],
+                Image = obj.Files["Image"],
+                NewsTitle = obj["NewsTitle"],
+                CreatedAt = DateTime.UtcNow,
+                CreatedBy = Convert.ToInt32(obj["CreatedBy"]),
+                LastUpdatedAt = DateTime.UtcNow,
+                LastUpdatedBy = Convert.ToInt32(obj["CreatedBy"]),
+                IsActive = true,
+                IsDeleted = false,
+            };
             return await _newsRepository.UpdateAsync(news);
         }
         [HttpGet]

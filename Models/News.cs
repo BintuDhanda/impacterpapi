@@ -7,9 +7,9 @@ namespace ERP.Models
     {
         [Key]
         public int NewsId { get; set; }
-        public string NewsText { get; set; }
+        public string? NewsText { get; set; }
         public string? NewsImage { get; set; }
-        public string NewsTitle { get; set; }
+        public string? NewsTitle { get; set; }
         [NotMapped] 
         public int? TotalNews { get; set; }
         [NotMapped]
@@ -21,6 +21,6 @@ namespace ERP.Models
         [NotMapped]
         public bool? IsCommented { get; set; } = false;
         [NotMapped]
-        public IFormFile Image { get; set; }
+        public IFormFile? Image { get; set; }
     }
 }

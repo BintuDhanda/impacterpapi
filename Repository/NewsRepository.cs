@@ -82,12 +82,13 @@ namespace ERP.Bussiness
             {
                 if (news.Image != null)
                 {
-                    if(File.Exists(record.NewsImage))
+                    var path = "wwwroot" + record.NewsImage;
+                    if (File.Exists(path))
                     {
-                        File.Delete(record.NewsImage);
+                        File.Delete(path);
                     }
                     
-                    string uploadsFolder = Path.Combine(_webHostEnvironment.ContentRootPath, "uploads");
+                    string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
                     if (!Directory.Exists(uploadsFolder))
                     {
                         Directory.CreateDirectory(uploadsFolder);
@@ -100,23 +101,36 @@ namespace ERP.Bussiness
                     {
                         await news.Image.CopyToAsync(fileStream);
                     }
-                    record.NewsImage = filePath;
+                    filePath = "/uploads/" + uniqueFileName;
                 }
+                record.NewsImage = filePath;
                 record.NewsText=news.NewsText;
                 record.LastUpdatedAt = DateTime.UtcNow;
                 record.IsActive = news.IsActive;
                 _appDbContext.News.Update(record);
                 await _appDbContext.SaveChangesAsync();
             }
-            return record;
+            return news; 
         }
 
         public async Task<News> DeleteAsync(int Id)
         {
-            var news = await _appDbContext.News.FindAsync(Id);
-            _appDbContext.News.Remove(news);
-            await _appDbContext.SaveChangesAsync();
-            return news;
+
+            var record = await _appDbContext.News.Where(w => w.NewsId == Id).FirstOrDefaultAsync();
+            if (record != null)
+            {
+                var path = "wwwroot"+ record.NewsImage;
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
+
+                _appDbContext.News.Remove(record);
+                await _appDbContext.SaveChangesAsync();
+            }
+
+            return record;
+
         }
     }
 }
