@@ -19,5 +19,6 @@ namespace ERP.Interface
         Task<IActionResult> IsMobileConfirmed(string userMobile);
         Task<IActionResult> ForgotPassword(ForgotPassword forgotPassword);
         Task<IActionResult> BulkUserUpload(FileUpload fileUpload);
+        Task<IActionResult> GetStudentIdByUserId(int UserId);
     }
 }

@@ -10,9 +10,11 @@ namespace ERP.Bussiness
     public class StudentTokenRepository:IStudentToken
     {
         private readonly AppDbContext _appDbContext;
-        public StudentTokenRepository(AppDbContext apDbContext)
+        private readonly IConfiguration _configuration;
+        public StudentTokenRepository(AppDbContext apDbContext, IConfiguration configuration)
         {
             _appDbContext = apDbContext;
+            _configuration = configuration;
         }
         public async Task<IEnumerable<StudentToken>> GetAllAsync()
         {
@@ -82,10 +84,22 @@ namespace ERP.Bussiness
 
         public async Task<StudentToken> AddAsync(StudentToken studentToken)
         {
+            int tokenValidity = _configuration.GetValue<int>("TokenValidity");
+            studentToken.ValidFrom = DateTime.UtcNow;
+            studentToken.ValidUpto = DateTime.UtcNow.AddDays(tokenValidity);
             studentToken.CreatedAt = DateTime.UtcNow;
             studentToken.IsDeleted = false;
-            _appDbContext.StudentToken.Add(studentToken);
-            await _appDbContext.SaveChangesAsync();
+            var studentTokens = await _appDbContext.StudentToken.Where(st =>  st.StudentId == studentToken.StudentId && st.ValidUpto > DateTime.UtcNow && st.BatchId == studentToken.BatchId).FirstOrDefaultAsync();
+            if(studentTokens==null)
+            {
+                _appDbContext.StudentToken.Add(studentToken);
+                await _appDbContext.SaveChangesAsync();
+                studentToken.Message = "Token Created Successfully!";
+            }
+            else
+            {
+                studentToken.Message = "Token Already Exist For This Batch";
+            }
             return studentToken;
         }
 

@@ -22,6 +22,7 @@ namespace ERP.Bussiness
             .Select( sd => new StudentDetails 
             {
                 StudentId = sd.StudentId,
+                StudentImage = sd.StudentImage,
                 FirstName = sd.FirstName,
                 LastName = sd.LastName,
                 FatherName = sd.FatherName,
@@ -49,10 +50,19 @@ namespace ERP.Bussiness
         }
         public async Task<StudentDetails> AddAsync(StudentDetails studentDetails)
         {
+            var student = await _appDbcontext.StudentDetails.Where(sd => sd.UserId == studentDetails.UserId).FirstOrDefaultAsync();
+            if(student == null)
+            {
             studentDetails.CreatedAt = DateTime.UtcNow;
             studentDetails.IsDeleted = false;
             _appDbcontext.StudentDetails.Add(studentDetails);
             await _appDbcontext.SaveChangesAsync();
+            studentDetails.Message = "This Student Already Exist";
+            }
+            else
+            {
+                studentDetails.Message = "Created Sucessfully";
+            }
             return studentDetails;
         }
         public async Task<StudentDetails> UpdateAsync([FromBody] StudentDetails studentDetails)

@@ -7,6 +7,7 @@ namespace ERP.Models
     {
         [Key]
         public int StudentId { get; set; }
+        public string? StudentImage { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string FatherName { get; set; }
@@ -20,5 +21,7 @@ namespace ERP.Models
         public string? Mobile { get; set; }
         [NotMapped]
         public int? TotalStudent { get; set; }
+        [NotMapped]
+        public string? Message { get;set; }
     }
 }

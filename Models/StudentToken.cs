@@ -23,5 +23,7 @@ namespace ERP.Models
         public string? TotalDeposit { get; set;}
         [NotMapped]
         public string? TotalRefund { get; set;}
+        [NotMapped]
+        public string? Message { get; set; } = string.Empty;
     }
 }

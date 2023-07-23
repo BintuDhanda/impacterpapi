@@ -66,8 +66,8 @@ namespace ERP.Bussiness
             user.CreatedAt = DateTime.UtcNow;
             user.IsDeleted = false;
             user.IsEmailConfirmed = false;
-            user.IsMobileConfirmed = false;
-            var users = await _dbContext.Users.Where(x=>x.UserEmail == ((string.IsNullOrEmpty(user.UserEmail)) ? "": user.UserEmail) || x.UserMobile == user.UserMobile).FirstOrDefaultAsync();
+            
+            var users = await _dbContext.Users.Where(x=> x.UserMobile == user.UserMobile).FirstOrDefaultAsync();
             if (users == null)
             {
                 _dbContext.Users.Add(user);
@@ -75,7 +75,7 @@ namespace ERP.Bussiness
                 return user;
             }
 
-            return users;
+            return new Users();
         }
 
         public async Task<Users> UpdateAsync(Users user)
@@ -104,22 +104,29 @@ namespace ERP.Bussiness
 
         public async Task<UserRole> AddUserToRole(Users user)
         {
-            var roleId = await _dbContext.Roles.Where(r=>r.RoleName=="Student").Select(s=>s.RolesId).FirstOrDefaultAsync();
-
-            var userRole = new UserRole()
+            if (user.UsersId == 0) return new UserRole();
+            else
             {
-                RoleID = roleId,
-                UserID = user.UsersId
-            };
-             _dbContext.UserRole.Add(userRole);
-            await _dbContext.SaveChangesAsync();
-            return userRole;
+                var roleId = await _dbContext.Roles.Where(r => r.RoleName == "Student").Select(s => s.RolesId).FirstOrDefaultAsync();
+                var userRole = new UserRole()
+                {
+                    RoleID = roleId,
+                    UserID = user.UsersId
+                };
+                _dbContext.UserRole.Add(userRole);
+                await _dbContext.SaveChangesAsync();
+                return userRole;
+            }
         }
         public async Task<UserSignUpResponse> SignUpAsync(Users user)
         {
+            var response = new UserSignUpResponse();
             var newUser = AddAsync(user).Result;
-            var userRole = AddUserToRole(user).Result;
-            var response = GenerateJWT(newUser);
+            var userRole = AddUserToRole(newUser).Result;
+            if(userRole != null)
+            {
+                response = GenerateJWT(newUser);
+            }
             return response;
         }
 
@@ -175,6 +182,10 @@ namespace ERP.Bussiness
         {
             return new JsonResult(await _dbContext.Users.AnyAsync(x => x.UserMobile == commonSearchFilter.Mobile));
         }
+        public async Task<IActionResult> GetStudentIdByUserId(int UserId)
+        {
+            return new JsonResult(await _dbContext.StudentDetails.Where(x => x.UserId == UserId).Select(sd => new { sd.StudentId }).FirstOrDefaultAsync());
+        }
         public async Task<IActionResult> IsVerified(string userMobile)
         {
             return new JsonResult(await _dbContext.Users.Where(x => x.UserMobile == userMobile).Select(s=>s.IsMobileConfirmed).FirstOrDefaultAsync());
@@ -212,7 +223,7 @@ namespace ERP.Bussiness
                 {
                     new Claim("UsersId", user.UsersId.ToString()),
                     new Claim("UserMobile", user.UserMobile),
-                    new Claim("Role", roleList),
+                    new Claim(ClaimTypes.Role, roleList),
              }),
                 Expires = DateTime.UtcNow.AddDays(30),
                 Issuer = issuer,

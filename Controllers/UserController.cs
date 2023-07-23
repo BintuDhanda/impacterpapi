@@ -44,7 +44,7 @@ namespace ERP.Controllers
             return await _userRepository.DeleteAsync(id);
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("signUp")]
         public async Task<UserSignUpResponse> UserSignUp(Users user)
         {
@@ -67,6 +67,12 @@ namespace ERP.Controllers
         public async Task<IActionResult> IsExists([FromBody] CommonSearchFilter commonSearchFilter)
         {
             return await _userRepository.IsExists(commonSearchFilter);
+        }
+        [HttpGet]
+        [Route("getStudentIdByUserId")]
+        public async Task<IActionResult> GetStudentIdByUserId(int UserId)
+        {
+            return await _userRepository.GetStudentIdByUserId(UserId);
         }
         [HttpGet]
         [Route("IsVerified")]
