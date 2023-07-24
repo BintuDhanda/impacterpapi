@@ -23,5 +23,7 @@ namespace ERP.Models
         public int? TotalStudent { get; set; }
         [NotMapped]
         public string? Message { get;set; }
+        [NotMapped]
+        public IFormFile? Image { get; set; }
     }
 }

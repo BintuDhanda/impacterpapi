@@ -105,6 +105,7 @@ namespace ERP.Bussiness
                 }
                 record.NewsImage = filePath;
                 record.NewsText=news.NewsText;
+                record.NewsTitle = news.NewsTitle;
                 record.LastUpdatedAt = DateTime.UtcNow;
                 record.IsActive = news.IsActive;
                 _appDbContext.News.Update(record);

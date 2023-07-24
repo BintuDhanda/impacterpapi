@@ -1,8 +1,6 @@
-﻿using ERP.Bussiness;
-using ERP.Interface;
+﻿using ERP.Interface;
 using ERP.Models;
 using ERP.SearchFilters;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ERP.Controllers
@@ -30,14 +28,55 @@ namespace ERP.Controllers
         }
         [HttpPost]
         [Route("post")]
-        public async Task<StudentDetails> StudentDetailsAdd(StudentDetails studentDetails)
+        public async Task<StudentDetails> StudentDetailsAdd(IFormCollection obj)
         {
+            var studentDetails =  new StudentDetails()
+            {
+                StudentId = 0,
+                Image = obj.Files["Image"],
+                FirstName = obj["FirstName"],
+                LastName = obj["LastName"],
+                FatherName = obj["FatherName"],
+                MotherName = obj["MotherName"],
+                Gender = obj["Gender"],
+                StudentHeight = Convert.ToInt32(obj["StudentHeight"]),
+                StudentWeight = Convert.ToInt32(obj["StudentWeight"]),
+                BodyRemark = obj["BodyRemark"],
+                UserId = Convert.ToInt32(obj["UserId"]),
+                IsActive = true,
+                IsDeleted = false,
+                CreatedAt = DateTime.UtcNow,
+                CreatedBy = Convert.ToInt32(obj["CreatedBy"]),
+                LastUpdatedAt = DateTime.UtcNow,
+                LastUpdatedBy = Convert.ToInt32(obj["LastUpdatedBy"]),
+            };
+
             return await _studentDetailsRepository.AddAsync(studentDetails);
         }
         [HttpPost]
         [Route("put")]
-        public async Task<StudentDetails> StudentDetailsUpdate(StudentDetails studentDetails)
+        public async Task<StudentDetails> StudentDetailsUpdate(IFormCollection obj)
         {
+            var studentDetails = new StudentDetails()
+            {
+                StudentId = Convert.ToInt32(obj["StudentId"]),
+                Image = obj.Files["Image"],
+                FirstName = obj["FirstName"],
+                LastName = obj["LastName"],
+                FatherName = obj["FatherName"],
+                MotherName = obj["MotherName"],
+                Gender = obj["Gender"],
+                StudentHeight = Convert.ToInt32(obj["StudentHeight"]),
+                StudentWeight = Convert.ToInt32(obj["StudentWeight"]),
+                BodyRemark = obj["BodyRemark"],
+                UserId = Convert.ToInt32(obj["UserId"]),
+                IsActive = true,
+                IsDeleted = false,
+                CreatedAt = DateTime.UtcNow,
+                CreatedBy = Convert.ToInt32(obj["CreatedBy"]),
+                LastUpdatedAt = DateTime.UtcNow,
+                LastUpdatedBy = Convert.ToInt32(obj["LastUpdatedBy"]),
+            };
             return await _studentDetailsRepository.UpdateAsync(studentDetails);
         }
         [HttpGet]
