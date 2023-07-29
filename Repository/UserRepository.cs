@@ -164,10 +164,25 @@ namespace ERP.Bussiness
             return users;
         }
 
-        public async Task<UserSignUpResponse> LogInAsync(UserLogin userLogin)
+        public async Task<UserSignUpResponse> UserLogInAsync(UserLogin userLogin)
         {
             var userRecord = await _dbContext.Users.Where(x=>x.UserMobile == userLogin.UserMobile && x.UserPassword == userLogin.UserPassword).FirstOrDefaultAsync();
-            if (userRecord!=null)
+            var userIsStudent = await _dbContext.Roles.Where(w => w.RolesId == (_dbContext.UserRole.Where(u => u.UserID == ( userRecord == null ? 0 : userRecord.UsersId)).Select(s => s.RoleID).FirstOrDefault())).Select(r=>r.RoleName).ToListAsync();
+            if (userRecord!=null && userIsStudent.Contains("Student"))
+            {
+            var response = GenerateJWT(userRecord);
+            return response;
+            }
+            else
+            {
+                return new UserSignUpResponse();
+            }
+        }
+        public async Task<UserSignUpResponse> ERPLogInAsync(UserLogin userLogin)
+        {
+            var userRecord = await _dbContext.Users.Where(x=>x.UserMobile == userLogin.UserMobile && x.UserPassword == userLogin.UserPassword).FirstOrDefaultAsync();
+            var userIsStudent = await _dbContext.Roles.Where(w => w.RolesId == (_dbContext.UserRole.Where(u => u.UserID == (userRecord == null?0:userRecord.UsersId)).Select(s => s.RoleID).FirstOrDefault())).Select(r => r.RoleName).ToListAsync();
+            if (userRecord!=null && userIsStudent.Contains("Admin") || userIsStudent.Contains("Staff"))
             {
             var response = GenerateJWT(userRecord);
             return response;

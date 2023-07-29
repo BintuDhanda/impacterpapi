@@ -51,10 +51,16 @@ namespace ERP.Controllers
             return await _userRepository.SignUpAsync(user);
         }
         [HttpPost]
-        [Route("login")]
+        [Route("userlogin")]
         public async Task<UserSignUpResponse> UserLogin(UserLogin userLogin)
         {
-            return await _userRepository.LogInAsync(userLogin);
+            return await _userRepository.UserLogInAsync(userLogin);
+        }
+        [HttpPost]
+        [Route("ERPlogin")]
+        public async Task<UserSignUpResponse> ERPLogin(UserLogin userLogin)
+        {
+            return await _userRepository.ERPLogInAsync(userLogin);
         }
         [HttpPost]
         [Route("search")]

@@ -5,6 +5,14 @@
       "PackagePath": "staticwebassets\\temp\\updated_data.xlsx"
     },
     {
+      "Id": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\uploads\\494ff6a0-9406-48ca-96a9-9f687bd53947_c9ad1e79-7b7e-4e0b-b78d-5205a9e39bca.jpg",
+      "PackagePath": "staticwebassets\\uploads\\494ff6a0-9406-48ca-96a9-9f687bd53947_c9ad1e79-7b7e-4e0b-b78d-5205a9e39bca.jpg"
+    },
+    {
+      "Id": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\uploads\\907211e1-3949-44e9-8999-a7661c5d8b48_7dd563c7-4c4a-462a-82df-ca4897417544.jpg",
+      "PackagePath": "staticwebassets\\uploads\\907211e1-3949-44e9-8999-a7661c5d8b48_7dd563c7-4c4a-462a-82df-ca4897417544.jpg"
+    },
+    {
       "Id": "obj\\Release\\net6.0\\staticwebassets\\msbuild.ERP.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },

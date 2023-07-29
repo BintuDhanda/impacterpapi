@@ -12,7 +12,8 @@ namespace ERP.Interface
         Task <Users> UpdateAsync(Users user);
         Task <Users> DeleteAsync(int Id);
         Task<UserSignUpResponse> SignUpAsync(Users user);
-        Task<UserSignUpResponse> LogInAsync(UserLogin userLogin);
+        Task<UserSignUpResponse> UserLogInAsync(UserLogin userLogin);
+        Task<UserSignUpResponse> ERPLogInAsync(UserLogin userLogin);
         Task<IEnumerable<Users>> SearchAsync(UserSearch userSearch);
         Task<IActionResult> IsExists(CommonSearchFilter commonSearchFilter);
         Task<IActionResult> IsVerified(string userMobile);
