@@ -74,8 +74,12 @@ namespace ERP.Bussiness
                 await _dbContext.SaveChangesAsync();
                 return user;
             }
+            else
+            {
+                return users;
+            }
 
-            return new Users();
+            
         }
 
         public async Task<Users> UpdateAsync(Users user)
@@ -108,14 +112,37 @@ namespace ERP.Bussiness
             else
             {
                 var roleId = await _dbContext.Roles.Where(r => r.RoleName == "Student").Select(s => s.RolesId).FirstOrDefaultAsync();
+                if(roleId == 0)
+                {
+                    var role = new Roles()
+                    {
+                        CreatedAt = DateTime.UtcNow,
+                        CreatedBy = user.UsersId,
+                        LastUpdatedAt= DateTime.UtcNow,
+                        IsDeleted = false,
+                        LastUpdatedBy= user.UsersId,
+                        IsActive = true,
+                        RoleName="Student"
+                    };
+                     _dbContext.Roles.Add(role);
+                    await _dbContext.SaveChangesAsync();
+                    roleId = await _dbContext.Roles.Where(r => r.RoleName == "Student").Select(s => s.RolesId).FirstOrDefaultAsync();
+                }
                 var userRole = new UserRole()
                 {
                     RoleID = roleId,
                     UserID = user.UsersId
                 };
-                _dbContext.UserRole.Add(userRole);
-                await _dbContext.SaveChangesAsync();
-                return userRole;
+
+                var userRoleIsExits = await _dbContext.UserRole.Where(r => r.UserID == user.UsersId && r.RoleID == roleId).FirstOrDefaultAsync();
+                if(userRoleIsExits==null)
+                {
+                    _dbContext.UserRole.Add(userRole);
+                    await _dbContext.SaveChangesAsync();
+                    return userRole;
+                }
+               
+                return userRoleIsExits;
             }
         }
         public async Task<UserSignUpResponse> SignUpAsync(Users user)
