@@ -9,6 +9,9 @@ namespace ERP.ERPDbContext
        {
        }
         public DbSet<Users> Users { get; set; }
+        public DbSet<UserNotification> UserNotification { get; set; }
+        public DbSet<UserDeviceToken> UserDeviceToken { get; set; }
+        public DbSet<UserSendNotification> UserSendNotification { get; set; }
         public DbSet<UserRole> UserRole { get; set; }
         public DbSet<Roles> Roles { get; set;}
         public DbSet<Attendance> Attendance { get; set; }

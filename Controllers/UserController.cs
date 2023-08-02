@@ -104,5 +104,23 @@ namespace ERP.Controllers
         {
             return await _userRepository.BulkUserUpload(fileUpload);
         }
+        [HttpPost]
+        [Route("UserNotification")]
+        public async Task<UserNotification> UserNotificationAdd ([FromBody] UserNotification userNotification)
+        {
+            return await _userRepository.AddAsync(userNotification);
+        }
+        [HttpGet]
+        [Route("UserNotificationDelete")]
+        public async Task<UserNotification> UserNotificationDelete (int Id)
+        {
+            return await _userRepository.UserNotificationDeleteAsync(Id);
+        }
+        [HttpPost]
+        [Route("UserDeviceToken")]
+        public async Task<UserDeviceToken> UserDeviceTokenAdd([FromBody] UserDeviceToken userDeviceToken)
+        {
+            return await _userRepository.UserDeviceTokenAddAsync(userDeviceToken);
+        }
     }
 }

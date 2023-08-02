@@ -403,7 +403,45 @@ namespace ERP.Bussiness
                 }
             }
         }
+        public async Task<UserNotification> AddAsync(UserNotification userNotification)
+        {
+            userNotification.CreatedAt = DateTime.UtcNow;
+            userNotification.IsDeleted = false;
+            userNotification.IsProcessed = false;
 
+            var userNotifications = await _dbContext.UserNotification.Where(x => x.Title == userNotification.Title && x.Body == userNotification.Body).FirstOrDefaultAsync();
+            if (userNotifications == null)
+            {
+                _dbContext.UserNotification.Add(userNotification);
+                await _dbContext.SaveChangesAsync();
+                return userNotification;
+            }
+            else
+            {
+                return userNotifications;
+            }
+        }
+        public async Task<UserNotification> UserNotificationDeleteAsync(int Id)
+        {
+            var userNotification = await _dbContext.UserNotification.FindAsync(Id);
+            _dbContext.UserNotification.Remove(userNotification);
+            await _dbContext.SaveChangesAsync();
+            return userNotification;
+        }
+        public async Task<UserDeviceToken> UserDeviceTokenAddAsync(UserDeviceToken userDeviceToken)
+        {
+            var userDeviceTokens = await _dbContext.UserDeviceToken.Where(x => x.UserId == userDeviceToken.UserId && x.UserToken == userDeviceToken.UserToken).FirstOrDefaultAsync();
+            if (userDeviceTokens == null)
+            {
+                _dbContext.UserDeviceToken.Add(userDeviceToken);
+                await _dbContext.SaveChangesAsync();
+                return userDeviceToken;
+            }
+            else
+            {
+                return userDeviceTokens;
+            }
+        }
     }
 
 }
