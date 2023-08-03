@@ -9,7 +9,7 @@ namespace ERP.Models
         public string? Title { get; set; }
         public string? Body { get; set; }
         public string? SendToType { get; set; }
-        public int? SendToId { get; set; }
+        public string? SendToId { get; set; }
         public bool? IsProcessed { get; set; }
     }
 }
