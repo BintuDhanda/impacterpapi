@@ -43,5 +43,7 @@ namespace ERP.ERPDbContext
         public DbSet<News> News { get; set; }
         public DbSet<NewsLike> NewsLike { get; set; }
         public DbSet<NewsComment> NewsComment { get; set; }
+        public DbSet<IdentityType> IdentityType { get; set; }
+        public DbSet<StudentIdentities> StudentIdentities { get; set; }
     }
 }
