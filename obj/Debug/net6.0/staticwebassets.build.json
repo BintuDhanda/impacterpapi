@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "XMJNh3jtHjw3NTQq1TYurWYNA7UhBjgYrxnAI6ISEdY=",
+  "Hash": "AIKPR+E7zv/1RvB47NXiggX2OQcity70yTeulYKf3Zs=",
   "Source": "ERP",
   "BasePath": "_content/ERP",
   "Mode": "Default",
@@ -16,6 +16,23 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\slider\\806df710-e737-458d-a9ea-6c11149c2d7d_d6f95263-f544-49e1-a5e1-dd81f7d448e6.jpg",
+      "SourceId": "ERP",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\",
+      "BasePath": "_content/ERP",
+      "RelativePath": "slider/806df710-e737-458d-a9ea-6c11149c2d7d_d6f95263-f544-49e1-a5e1-dd81f7d448e6.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\slider\\806df710-e737-458d-a9ea-6c11149c2d7d_d6f95263-f544-49e1-a5e1-dd81f7d448e6.jpg"
+    },
     {
       "Identity": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\temp\\updated_data.xlsx",
       "SourceId": "ERP",

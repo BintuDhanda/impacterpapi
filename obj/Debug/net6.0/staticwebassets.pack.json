@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\slider\\806df710-e737-458d-a9ea-6c11149c2d7d_d6f95263-f544-49e1-a5e1-dd81f7d448e6.jpg",
+      "PackagePath": "staticwebassets\\slider\\806df710-e737-458d-a9ea-6c11149c2d7d_d6f95263-f544-49e1-a5e1-dd81f7d448e6.jpg"
+    },
+    {
       "Id": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\temp\\updated_data.xlsx",
       "PackagePath": "staticwebassets\\temp\\updated_data.xlsx"
     },

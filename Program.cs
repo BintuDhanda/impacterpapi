@@ -84,6 +84,7 @@ builder.Services.AddScoped<INewsLike, NewsLikeRepository>();
 builder.Services.AddScoped<INewsComment, NewsCommentRepository>();
 builder.Services.AddScoped<IIdentityType, IdentityTypeRepository>();
 builder.Services.AddScoped<IStudentIdentities, StudentIdentitiesRepository>();
+builder.Services.AddScoped<ISlider, SliderRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

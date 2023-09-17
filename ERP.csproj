@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <Folder Include="DataAccess\" />
+    <Folder Include="wwwroot\slider\" />
     <Folder Include="wwwroot\temp\" />
     <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
