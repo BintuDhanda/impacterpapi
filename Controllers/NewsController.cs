@@ -21,6 +21,12 @@ namespace ERP.Controllers
         {
             return await _newsRepository.GetAllAsync(newsSearchFilter);
         }
+        [HttpPost]
+        [Route("getAllNews")]
+        public async Task<IEnumerable<News>> GetAllNews(NewsSearchFilter newsSearchFilter)
+        {
+            return await _newsRepository.GetAllNewsAsync(newsSearchFilter);
+        }
         [HttpGet]
         [Route("getById")]
         public async Task<News> GetById(int Id)

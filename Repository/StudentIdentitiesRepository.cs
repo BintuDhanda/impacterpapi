@@ -1,6 +1,7 @@
 ﻿using ERP.ERPDbContext;
 using ERP.Interface;
 using ERP.Models;
+using ERP.Utility;
 using Microsoft.EntityFrameworkCore;
 
 namespace ERP.Repository
@@ -25,7 +26,7 @@ namespace ERP.Repository
                 IdentityTypeName = _appDbContext.IdentityType.Where(it => it.IdentityTypeId == si.IdentityTypeId).Select(i => i.Name).FirstOrDefault(),
                 IsActive = si.IsActive,
                 IsDeleted = si.IsDeleted,
-                CreatedAt = si.CreatedAt,
+                CreatedAt = TimeZoneConvert.UtcToIST(si.CreatedAt),
                 CreatedBy = si.CreatedBy,
                 LastUpdatedAt = si.LastUpdatedAt,
                 LastUpdatedBy = si.LastUpdatedBy,

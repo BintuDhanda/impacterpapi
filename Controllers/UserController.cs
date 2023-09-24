@@ -1,4 +1,5 @@
-﻿using ERP.Interface;
+﻿using ERP.Bussiness;
+using ERP.Interface;
 using ERP.Models;
 using ERP.SearchFilters;
 using Microsoft.AspNetCore.Mvc;
@@ -103,6 +104,12 @@ namespace ERP.Controllers
         public async Task<IActionResult> BulkUserUpload([FromForm] FileUpload fileUpload)
         {
             return await _userRepository.BulkUserUpload(fileUpload);
+        }
+        [HttpPost]
+        [Route("getAllNotification")]
+        public async Task<IEnumerable<UserSendNotification>> GetAllNotification(CommonSearchFilter commonSearchFilter)
+        {
+            return await _userRepository.GetAllNotificationAsync(commonSearchFilter);
         }
         [HttpPost]
         [Route("UserNotification")]

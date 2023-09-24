@@ -403,6 +403,22 @@ namespace ERP.Bussiness
                 }
             }
         }
+        public async Task<IEnumerable<UserSendNotification>> GetAllNotificationAsync(CommonSearchFilter commonSearchFilter)
+        {
+            var notification = await _dbContext.UserSendNotification
+                        .Where(n=> n.IsDeleted == false && n.UserId == commonSearchFilter.UserId)
+                        .Select(n => new UserSendNotification
+                        {
+                            UserSendNotificationId = n.UserSendNotificationId,
+                            Title = (_dbContext.UserNotification.Where(u=>u.UserNotificationId==n.UserNotificationId).Select(s=>s.Title).FirstOrDefault()),
+                            Body = (_dbContext.UserNotification.Where(u => u.UserNotificationId == n.UserNotificationId).Select(s => s.Body).FirstOrDefault()),
+                        })
+                        .OrderByDescending(o => o.UserSendNotificationId)
+                        .Skip(commonSearchFilter.Skip)
+                        .Take(commonSearchFilter.Take)
+                        .ToListAsync();
+            return notification;
+        }
         public async Task<UserNotification> AddAsync(UserNotification userNotification)
         {
             userNotification.CreatedAt = DateTime.UtcNow;

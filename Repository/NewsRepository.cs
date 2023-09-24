@@ -33,7 +33,30 @@ namespace ERP.Bussiness
                             TotalComments = _appDbContext.NewsComment.Where(w => w.NewsId == n.NewsId).Count(),
                             IsLiked= (_appDbContext.NewsLike.Where(w => w.NewsId == n.NewsId && w.CreatedBy== newsSearchFilter.CreatedBy).FirstOrDefault()==null)?false:true,
                             IsCommented= (_appDbContext.NewsComment.Where(w => w.NewsId == n.NewsId && w.CreatedBy == newsSearchFilter.CreatedBy).FirstOrDefault() == null )? false : true,
-                            TotalNews = _appDbContext.NewsLike.Where(u => u.IsActive == true).Count(),
+                            TotalNews = _appDbContext.News.Where(u => u.IsActive == true).Count(),
+                        })
+                        .OrderByDescending(o => o.NewsId)
+                        .Skip(newsSearchFilter.Skip)
+                        .Take(newsSearchFilter.Take)
+                        .ToListAsync();
+            return news;
+        }
+        public async Task<IEnumerable<News>> GetAllNewsAsync(NewsSearchFilter newsSearchFilter)
+        {
+            var news = await _appDbContext.News
+                        .Select(n => new News
+                        {
+                            NewsId = n.NewsId,
+                            NewsImage = n.NewsImage,
+                            NewsText = n.NewsText,
+                            NewsTitle = n.NewsTitle,
+                            IsActive = n.IsActive,
+                            CreatedAt = n.CreatedAt,
+                            TotalLikes = _appDbContext.NewsLike.Where(w=>w.NewsId==n.NewsId).Count(),
+                            TotalComments = _appDbContext.NewsComment.Where(w => w.NewsId == n.NewsId).Count(),
+                            IsLiked= (_appDbContext.NewsLike.Where(w => w.NewsId == n.NewsId && w.CreatedBy== newsSearchFilter.CreatedBy).FirstOrDefault()==null)?false:true,
+                            IsCommented= (_appDbContext.NewsComment.Where(w => w.NewsId == n.NewsId && w.CreatedBy == newsSearchFilter.CreatedBy).FirstOrDefault() == null )? false : true,
+                            TotalNews = _appDbContext.News.Where(u => u.IsActive == true).Count(),
                         })
                         .OrderByDescending(o => o.NewsId)
                         .Skip(newsSearchFilter.Skip)

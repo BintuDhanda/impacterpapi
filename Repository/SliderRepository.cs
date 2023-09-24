@@ -17,7 +17,7 @@ namespace ERP.Repository
         }
         public async Task<IEnumerable<Slider>> GetAllAsync()
         {
-            return await _appDbcontext.Slider.ToListAsync();
+            return await _appDbcontext.Slider.OrderBy(o=>o.OrderBy).ToListAsync();
         }
         public async Task<Slider> GetByIdAsync(int Id)
         {

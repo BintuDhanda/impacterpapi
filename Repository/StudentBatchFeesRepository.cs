@@ -2,6 +2,7 @@
 using ERP.Interface;
 using ERP.Models;
 using ERP.SearchFilters;
+using ERP.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -61,7 +62,7 @@ namespace ERP.Bussiness
                                           Particulars = sbf.Particulars,
                                           IsActive = sbf.IsActive,
                                           IsDeleted = sbf.IsDeleted,
-                                          CreatedAt = sbf.CreatedAt,
+                                          CreatedAt = TimeZoneConvert.UtcToIST(sbf.CreatedAt),
                                           CreatedBy = sbf.CreatedBy,
                                           LastUpdatedAt = sbf.LastUpdatedAt,
                                           LastUpdatedBy = sbf.LastUpdatedBy,

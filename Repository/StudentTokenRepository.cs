@@ -2,6 +2,7 @@
 using ERP.Interface;
 using ERP.Models;
 using ERP.SearchFilters;
+using ERP.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -134,8 +135,8 @@ namespace ERP.Bussiness
                                       Select( st => new StudentToken
                                       {
                                           StudentTokenId = st.StudentTokenId,
-                                          ValidFrom = st.ValidFrom,
-                                          ValidUpto = st.ValidUpto,
+                                          ValidFrom = TimeZoneConvert.UtcToIST(st.ValidFrom),
+                                          ValidUpto = TimeZoneConvert.UtcToIST(st.ValidUpto),
                                           TokenFee = st.TokenFee,
                                           StudentId = st.StudentId,
                                           BatchId = st.BatchId,

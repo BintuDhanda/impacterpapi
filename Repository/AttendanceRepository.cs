@@ -2,6 +2,7 @@
 using ERP.Interface;
 using ERP.Models;
 using ERP.SearchFilters;
+using ERP.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,7 +25,7 @@ namespace ERP.Bussiness
                             StudentBatchId = s.StudentBatchId,
                             StudentId = s.StudentId,
                             AttendanceType = s.AttendanceType,
-                            PunchTime = s.PunchTime,
+                            PunchTime = TimeZoneConvert.UtcToIST(s.PunchTime),
                             RegistrationNumber = _appDbContext.StudentBatch.Where(w=>w.RegistrationNumber == attendanceSearch.RegistrationNumber).Select(s=>s.RegistrationNumber).FirstOrDefault(),
                             IsActive = s.IsActive,
                             IsDeleted = s.IsDeleted,

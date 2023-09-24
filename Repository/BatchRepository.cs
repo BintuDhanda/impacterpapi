@@ -1,6 +1,7 @@
 ﻿using ERP.ERPDbContext;
 using ERP.Interface;
 using ERP.Models;
+using ERP.Utility;
 using Microsoft.EntityFrameworkCore;
 
 namespace ERP.Bussiness
@@ -67,8 +68,8 @@ namespace ERP.Bussiness
                 BatchName = s.BatchName,
                 Code = s.Code,
                 CourseId = s.CourseId,
-                StartDate = s.StartDate,
-                EndDate = s.EndDate,
+                StartDate = TimeZoneConvert.UtcToIST(s.StartDate),
+                EndDate = TimeZoneConvert.UtcToIST(s.EndDate),
                 IsActive = s.IsActive,
                 IsDeleted = s.IsDeleted,
                 CreatedAt = s.CreatedAt,

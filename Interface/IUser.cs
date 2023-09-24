@@ -21,6 +21,7 @@ namespace ERP.Interface
         Task<IActionResult> ForgotPassword(ForgotPassword forgotPassword);
         Task<IActionResult> BulkUserUpload(FileUpload fileUpload);
         Task<IActionResult> GetStudentIdByUserId(int UserId);
+        Task<IEnumerable<UserSendNotification>> GetAllNotificationAsync(CommonSearchFilter commonSearchFilter);
         Task<UserNotification> AddAsync(UserNotification userNotification);
         Task<UserNotification> UserNotificationDeleteAsync(int Id);
         Task<UserDeviceToken> UserDeviceTokenAddAsync(UserDeviceToken userDeviceToken);

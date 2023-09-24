@@ -2,6 +2,7 @@
 using ERP.Interface;
 using ERP.Models;
 using ERP.SearchFilters;
+using ERP.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,7 +26,7 @@ namespace ERP.Bussiness
                                                    Particulars = allDayBook.Particulars,
                                                    Credit = allDayBook.Credit,
                                                    Debit = allDayBook.Debit,
-                                                   CreatedAt = allDayBook.CreatedAt,
+                                                   CreatedAt = TimeZoneConvert.UtcToIST(allDayBook.CreatedAt),
                                                    AccountId = allDayBook.AccountId,
                                                    IsActive = allDayBook.IsActive,
                                                    Account = _appDbContext.Account.Where(w=>w.AccountId== allDayBook.AccountId).Select(s=>s.AccountName).FirstOrDefault(),
@@ -47,7 +48,7 @@ namespace ERP.Bussiness
                                      Particulars = d.Particulars,
                                      Credit = d.Credit,
                                      Debit = d.Debit,
-                                     CreatedAt = d.CreatedAt,
+                                     CreatedAt = TimeZoneConvert.UtcToIST(d.CreatedAt),
                                      AccountId = d.AccountId,
                                      IsActive = d.IsActive,
                                      Account = _appDbContext.Account.Where(w => w.AccountId == d.AccountId).Select(s => s.AccountName).FirstOrDefault(),

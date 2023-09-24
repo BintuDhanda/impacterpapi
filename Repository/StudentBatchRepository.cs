@@ -1,6 +1,7 @@
 ﻿using ERP.ERPDbContext;
 using ERP.Interface;
 using ERP.Models;
+using ERP.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,7 +20,7 @@ namespace ERP.Bussiness
                                       select new StudentBatch
                                       {
                                           StudentBatchId = allStudentBatch.StudentBatchId,
-                                          DateOfJoin = allStudentBatch.DateOfJoin,
+                                          DateOfJoin = TimeZoneConvert.UtcToIST(allStudentBatch.DateOfJoin),
                                           StudentId = allStudentBatch.StudentId,
                                           BatchId = allStudentBatch.BatchId,
                                           RegistrationNumber = allStudentBatch.RegistrationNumber,
