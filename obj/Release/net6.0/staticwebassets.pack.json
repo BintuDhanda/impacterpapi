@@ -1,6 +1,30 @@
 {
   "Files": [
     {
+      "Id": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\slider\\2e85de10-3007-416b-aa41-8b5961edbd40_75196618-d873-4f2b-8b18-1b4dc5d3607b.jpg",
+      "PackagePath": "staticwebassets\\slider\\2e85de10-3007-416b-aa41-8b5961edbd40_75196618-d873-4f2b-8b18-1b4dc5d3607b.jpg"
+    },
+    {
+      "Id": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\slider\\38d5bef6-e7db-40cd-ad62-b43c933c0605_c65d8f26-3c5e-410e-bb21-cbe5cd9f2df5.jpg",
+      "PackagePath": "staticwebassets\\slider\\38d5bef6-e7db-40cd-ad62-b43c933c0605_c65d8f26-3c5e-410e-bb21-cbe5cd9f2df5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\slider\\806df710-e737-458d-a9ea-6c11149c2d7d_d6f95263-f544-49e1-a5e1-dd81f7d448e6.jpg",
+      "PackagePath": "staticwebassets\\slider\\806df710-e737-458d-a9ea-6c11149c2d7d_d6f95263-f544-49e1-a5e1-dd81f7d448e6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\slider\\980be5d9-295d-4d03-8c54-ea480727df19_ef216763-3593-4aa7-83e5-4ba4bef63c4f.jpg",
+      "PackagePath": "staticwebassets\\slider\\980be5d9-295d-4d03-8c54-ea480727df19_ef216763-3593-4aa7-83e5-4ba4bef63c4f.jpg"
+    },
+    {
+      "Id": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\slider\\a97cb14f-016f-4bd5-8bf6-6d2550ba18cf_ef216763-3593-4aa7-83e5-4ba4bef63c4f.jpg",
+      "PackagePath": "staticwebassets\\slider\\a97cb14f-016f-4bd5-8bf6-6d2550ba18cf_ef216763-3593-4aa7-83e5-4ba4bef63c4f.jpg"
+    },
+    {
+      "Id": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\slider\\e746b4b5-7366-4d0d-8c2b-a87afee17002_3ca38af7-2808-41c7-9969-634ffe81f95f.jpg",
+      "PackagePath": "staticwebassets\\slider\\e746b4b5-7366-4d0d-8c2b-a87afee17002_3ca38af7-2808-41c7-9969-634ffe81f95f.jpg"
+    },
+    {
       "Id": "C:\\Users\\bintu\\OneDrive\\Documents\\ERP\\wwwroot\\temp\\updated_data.xlsx",
       "PackagePath": "staticwebassets\\temp\\updated_data.xlsx"
     },

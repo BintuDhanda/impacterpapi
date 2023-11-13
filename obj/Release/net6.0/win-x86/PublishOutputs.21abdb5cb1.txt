@@ -9,6 +9,13 @@ C:\Users\bintu\OneDrive\Documents\ERP\obj\Release\net6.0\win-x86\PubTmp\Out\Azur
 C:\Users\bintu\OneDrive\Documents\ERP\obj\Release\net6.0\win-x86\PubTmp\Out\ClosedXML.dll
 C:\Users\bintu\OneDrive\Documents\ERP\obj\Release\net6.0\win-x86\PubTmp\Out\DocumentFormat.OpenXml.dll
 C:\Users\bintu\OneDrive\Documents\ERP\obj\Release\net6.0\win-x86\PubTmp\Out\ExcelNumberFormat.dll
+C:\Users\bintu\OneDrive\Documents\ERP\obj\Release\net6.0\win-x86\PubTmp\Out\FirebaseAdmin.dll
+C:\Users\bintu\OneDrive\Documents\ERP\obj\Release\net6.0\win-x86\PubTmp\Out\Google.Api.Gax.dll
+C:\Users\bintu\OneDrive\Documents\ERP\obj\Release\net6.0\win-x86\PubTmp\Out\Google.Api.Gax.Rest.dll
+C:\Users\bintu\OneDrive\Documents\ERP\obj\Release\net6.0\win-x86\PubTmp\Out\Google.Apis.dll
+C:\Users\bintu\OneDrive\Documents\ERP\obj\Release\net6.0\win-x86\PubTmp\Out\Google.Apis.Auth.PlatformServices.dll
+C:\Users\bintu\OneDrive\Documents\ERP\obj\Release\net6.0\win-x86\PubTmp\Out\Google.Apis.Auth.dll
+C:\Users\bintu\OneDrive\Documents\ERP\obj\Release\net6.0\win-x86\PubTmp\Out\Google.Apis.Core.dll
 C:\Users\bintu\OneDrive\Documents\ERP\obj\Release\net6.0\win-x86\PubTmp\Out\Irony.dll
 C:\Users\bintu\OneDrive\Documents\ERP\obj\Release\net6.0\win-x86\PubTmp\Out\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\bintu\OneDrive\Documents\ERP\obj\Release\net6.0\win-x86\PubTmp\Out\Microsoft.Bcl.AsyncInterfaces.dll
@@ -37,6 +44,7 @@ C:\Users\bintu\OneDrive\Documents\ERP\obj\Release\net6.0\win-x86\PubTmp\Out\Micr
 C:\Users\bintu\OneDrive\Documents\ERP\obj\Release\net6.0\win-x86\PubTmp\Out\Microsoft.OpenApi.dll
 C:\Users\bintu\OneDrive\Documents\ERP\obj\Release\net6.0\win-x86\PubTmp\Out\Microsoft.SqlServer.Server.dll
 C:\Users\bintu\OneDrive\Documents\ERP\obj\Release\net6.0\win-x86\PubTmp\Out\Microsoft.Win32.SystemEvents.dll
+C:\Users\bintu\OneDrive\Documents\ERP\obj\Release\net6.0\win-x86\PubTmp\Out\Newtonsoft.Json.dll
 C:\Users\bintu\OneDrive\Documents\ERP\obj\Release\net6.0\win-x86\PubTmp\Out\SixLabors.Fonts.dll
 C:\Users\bintu\OneDrive\Documents\ERP\obj\Release\net6.0\win-x86\PubTmp\Out\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\bintu\OneDrive\Documents\ERP\obj\Release\net6.0\win-x86\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerGen.dll

@@ -82,3 +82,11 @@ C:\Users\bintu\OneDrive\Documents\ERP\bin\Release\net6.0\win-x86\Irony.dll
 C:\Users\bintu\OneDrive\Documents\ERP\bin\Release\net6.0\win-x86\SixLabors.Fonts.dll
 C:\Users\bintu\OneDrive\Documents\ERP\bin\Release\net6.0\win-x86\System.IO.Packaging.dll
 C:\Users\bintu\OneDrive\Documents\ERP\bin\Release\net6.0\win-x86\XLParser.dll
+C:\Users\bintu\OneDrive\Documents\ERP\bin\Release\net6.0\win-x86\FirebaseAdmin.dll
+C:\Users\bintu\OneDrive\Documents\ERP\bin\Release\net6.0\win-x86\Google.Api.Gax.dll
+C:\Users\bintu\OneDrive\Documents\ERP\bin\Release\net6.0\win-x86\Google.Api.Gax.Rest.dll
+C:\Users\bintu\OneDrive\Documents\ERP\bin\Release\net6.0\win-x86\Google.Apis.dll
+C:\Users\bintu\OneDrive\Documents\ERP\bin\Release\net6.0\win-x86\Google.Apis.Auth.PlatformServices.dll
+C:\Users\bintu\OneDrive\Documents\ERP\bin\Release\net6.0\win-x86\Google.Apis.Auth.dll
+C:\Users\bintu\OneDrive\Documents\ERP\bin\Release\net6.0\win-x86\Google.Apis.Core.dll
+C:\Users\bintu\OneDrive\Documents\ERP\bin\Release\net6.0\win-x86\Newtonsoft.Json.dll
