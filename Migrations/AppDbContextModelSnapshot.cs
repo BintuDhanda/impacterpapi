@@ -942,120 +942,141 @@ namespace ERP.Migrations
                     b.HasData(
                         new
                         {
-                            RolesId = 6,
-                            CreatedAt = new DateTime(2024, 1, 15, 11, 34, 24, 970, DateTimeKind.Utc).AddTicks(8600),
+                            RolesId = 1,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3533),
+                            IsStatic = false,
+                            RoleName = "Admin"
+                        },
+                        new
+                        {
+                            RolesId = 2,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3587),
+                            IsStatic = false,
+                            RoleName = "Staff"
+                        },
+                        new
+                        {
+                            RolesId = 3,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3662),
+                            IsStatic = false,
+                            RoleName = "Student"
+                        },
+                        new
+                        {
+                            RolesId = 4,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3678),
                             IsStatic = true,
                             RoleName = "UserScreen"
                         },
                         new
                         {
-                            RolesId = 7,
-                            CreatedAt = new DateTime(2024, 1, 15, 11, 34, 24, 970, DateTimeKind.Utc).AddTicks(8636),
+                            RolesId = 5,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3691),
                             IsStatic = true,
                             RoleName = "RolesScreen"
                         },
                         new
                         {
-                            RolesId = 8,
-                            CreatedAt = new DateTime(2024, 1, 15, 11, 34, 24, 970, DateTimeKind.Utc).AddTicks(8648),
+                            RolesId = 6,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3709),
                             IsStatic = true,
                             RoleName = "StudentDetailsScreen"
                         },
                         new
                         {
-                            RolesId = 9,
-                            CreatedAt = new DateTime(2024, 1, 15, 11, 34, 24, 970, DateTimeKind.Utc).AddTicks(8657),
+                            RolesId = 7,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3723),
                             IsStatic = true,
                             RoleName = "QualificationScreen"
                         },
                         new
                         {
-                            RolesId = 10,
-                            CreatedAt = new DateTime(2024, 1, 15, 11, 34, 24, 970, DateTimeKind.Utc).AddTicks(8666),
+                            RolesId = 8,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3737),
                             IsStatic = true,
                             RoleName = "CountryScreen"
                         },
                         new
                         {
-                            RolesId = 11,
-                            CreatedAt = new DateTime(2024, 1, 15, 11, 34, 24, 970, DateTimeKind.Utc).AddTicks(8677),
+                            RolesId = 9,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3750),
                             IsStatic = true,
                             RoleName = "CourseCategoryScreen"
                         },
                         new
                         {
-                            RolesId = 12,
-                            CreatedAt = new DateTime(2024, 1, 15, 11, 34, 24, 970, DateTimeKind.Utc).AddTicks(8686),
+                            RolesId = 10,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3767),
                             IsStatic = true,
                             RoleName = "AddressTypeScreen"
                         },
                         new
                         {
-                            RolesId = 13,
-                            CreatedAt = new DateTime(2024, 1, 15, 11, 34, 24, 970, DateTimeKind.Utc).AddTicks(8694),
+                            RolesId = 11,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3780),
                             IsStatic = true,
                             RoleName = "EnterAccountScreen"
                         },
                         new
                         {
-                            RolesId = 14,
-                            CreatedAt = new DateTime(2024, 1, 15, 11, 34, 24, 970, DateTimeKind.Utc).AddTicks(8702),
+                            RolesId = 12,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3793),
                             IsStatic = true,
                             RoleName = "StudentBatchFeesScreen"
                         },
                         new
                         {
-                            RolesId = 15,
-                            CreatedAt = new DateTime(2024, 1, 15, 11, 34, 24, 970, DateTimeKind.Utc).AddTicks(8712),
+                            RolesId = 13,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3805),
                             IsStatic = true,
                             RoleName = "StudentTokenFeesScreen"
                         },
                         new
                         {
-                            RolesId = 16,
-                            CreatedAt = new DateTime(2024, 1, 15, 11, 34, 24, 970, DateTimeKind.Utc).AddTicks(8720),
+                            RolesId = 14,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3819),
                             IsStatic = true,
                             RoleName = "AttendanceScreen"
                         },
                         new
                         {
-                            RolesId = 17,
-                            CreatedAt = new DateTime(2024, 1, 15, 11, 34, 24, 970, DateTimeKind.Utc).AddTicks(8728),
+                            RolesId = 15,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3831),
                             IsStatic = true,
                             RoleName = "NewsScreen"
                         },
                         new
                         {
-                            RolesId = 18,
-                            CreatedAt = new DateTime(2024, 1, 15, 11, 34, 24, 970, DateTimeKind.Utc).AddTicks(8736),
+                            RolesId = 16,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3844),
                             IsStatic = true,
                             RoleName = "SendNotificationScreen"
                         },
                         new
                         {
-                            RolesId = 19,
-                            CreatedAt = new DateTime(2024, 1, 15, 11, 34, 24, 970, DateTimeKind.Utc).AddTicks(8776),
+                            RolesId = 17,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3858),
                             IsStatic = true,
                             RoleName = "IdentityTypeScreen"
                         },
                         new
                         {
-                            RolesId = 20,
-                            CreatedAt = new DateTime(2024, 1, 15, 11, 34, 24, 970, DateTimeKind.Utc).AddTicks(8788),
+                            RolesId = 18,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3874),
                             IsStatic = true,
                             RoleName = "SliderScreen"
                         },
                         new
                         {
-                            RolesId = 21,
-                            CreatedAt = new DateTime(2024, 1, 15, 11, 34, 24, 970, DateTimeKind.Utc).AddTicks(8796),
+                            RolesId = 19,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3887),
                             IsStatic = true,
                             RoleName = "Hostels"
                         },
                         new
                         {
-                            RolesId = 22,
-                            CreatedAt = new DateTime(2024, 1, 15, 11, 34, 24, 970, DateTimeKind.Utc).AddTicks(8804),
+                            RolesId = 20,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3900),
                             IsStatic = true,
                             RoleName = "StudentHostelRoomBads"
                         });

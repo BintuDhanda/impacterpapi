@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace ERP.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -268,14 +270,42 @@ namespace ERP.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "HostelRoomBadStudentRents",
+                columns: table => new
+                {
+                    HostelRoomBadStudentRentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    HostelRoomBadStudentId = table.Column<int>(type: "int", nullable: false),
+                    Month = table.Column<int>(type: "int", nullable: false),
+                    Year = table.Column<int>(type: "int", nullable: false),
+                    PaymentMode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PaymentType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ReceivedAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    RefundAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<int>(type: "int", nullable: true),
+                    LastUpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastUpdatedBy = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HostelRoomBadStudentRents", x => x.HostelRoomBadStudentRentId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "HostelRoomBadStudents",
                 columns: table => new
                 {
                     HostelRoomBadStudentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    HostelId = table.Column<int>(type: "int", nullable: false),
+                    HostelRoomId = table.Column<int>(type: "int", nullable: false),
                     HostelRoomBadId = table.Column<int>(type: "int", nullable: false),
                     StudentId = table.Column<int>(type: "int", nullable: false),
-                    MonthlyRent = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedBy = table.Column<int>(type: "int", nullable: true),
                     LastUpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -462,6 +492,7 @@ namespace ERP.Migrations
                     RolesId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoleName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsStatic = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedBy = table.Column<int>(type: "int", nullable: true),
                     LastUpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -855,6 +886,33 @@ namespace ERP.Migrations
                 {
                     table.PrimaryKey("PK_UserSendNotification", x => x.UserSendNotificationId);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "RolesId", "CreatedAt", "CreatedBy", "IsActive", "IsDeleted", "IsStatic", "LastUpdatedAt", "LastUpdatedBy", "RoleName" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3533), null, null, null, false, null, null, "Admin" },
+                    { 2, new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3587), null, null, null, false, null, null, "Staff" },
+                    { 3, new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3662), null, null, null, false, null, null, "Student" },
+                    { 4, new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3678), null, null, null, true, null, null, "UserScreen" },
+                    { 5, new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3691), null, null, null, true, null, null, "RolesScreen" },
+                    { 6, new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3709), null, null, null, true, null, null, "StudentDetailsScreen" },
+                    { 7, new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3723), null, null, null, true, null, null, "QualificationScreen" },
+                    { 8, new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3737), null, null, null, true, null, null, "CountryScreen" },
+                    { 9, new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3750), null, null, null, true, null, null, "CourseCategoryScreen" },
+                    { 10, new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3767), null, null, null, true, null, null, "AddressTypeScreen" },
+                    { 11, new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3780), null, null, null, true, null, null, "EnterAccountScreen" },
+                    { 12, new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3793), null, null, null, true, null, null, "StudentBatchFeesScreen" },
+                    { 13, new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3805), null, null, null, true, null, null, "StudentTokenFeesScreen" },
+                    { 14, new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3819), null, null, null, true, null, null, "AttendanceScreen" },
+                    { 15, new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3831), null, null, null, true, null, null, "NewsScreen" },
+                    { 16, new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3844), null, null, null, true, null, null, "SendNotificationScreen" },
+                    { 17, new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3858), null, null, null, true, null, null, "IdentityTypeScreen" },
+                    { 18, new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3874), null, null, null, true, null, null, "SliderScreen" },
+                    { 19, new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3887), null, null, null, true, null, null, "Hostels" },
+                    { 20, new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3900), null, null, null, true, null, null, "StudentHostelRoomBads" }
+                });
         }
 
         /// <inheritdoc />
@@ -898,6 +956,9 @@ namespace ERP.Migrations
 
             migrationBuilder.DropTable(
                 name: "HostelRoomBads");
+
+            migrationBuilder.DropTable(
+                name: "HostelRoomBadStudentRents");
 
             migrationBuilder.DropTable(
                 name: "HostelRoomBadStudents");

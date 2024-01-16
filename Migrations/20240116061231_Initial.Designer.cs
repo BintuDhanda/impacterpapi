@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERP.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240112234913_hostelroombadstudenttableupdate")]
-    partial class hostelroombadstudenttableupdate
+    [Migration("20240116061231_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -607,7 +607,41 @@ namespace ERP.Migrations
                     b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsRent")
+                    b.Property<DateTime?>("LastUpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("LastUpdatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("HostelRoomBadStudentId");
+
+                    b.ToTable("HostelRoomBadStudents");
+                });
+
+            modelBuilder.Entity("ERP.Models.HostelRoomBadStudentRent", b =>
+                {
+                    b.Property<int>("HostelRoomBadStudentRentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HostelRoomBadStudentRentId"));
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HostelRoomBadStudentId")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("LastUpdatedAt")
@@ -616,15 +650,33 @@ namespace ERP.Migrations
                     b.Property<int?>("LastUpdatedBy")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("MonthlyRent")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("StudentId")
+                    b.Property<int>("Month")
                         .HasColumnType("int");
 
-                    b.HasKey("HostelRoomBadStudentId");
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("datetime2");
 
-                    b.ToTable("HostelRoomBadStudents");
+                    b.Property<string>("PaymentMode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PaymentType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("ReceivedAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("RefundAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
+                    b.HasKey("HostelRoomBadStudentRentId");
+
+                    b.ToTable("HostelRoomBadStudentRents");
                 });
 
             modelBuilder.Entity("ERP.Models.IdentityType", b =>
@@ -873,6 +925,9 @@ namespace ERP.Migrations
                     b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsStatic")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime?>("LastUpdatedAt")
                         .HasColumnType("datetime2");
 
@@ -886,6 +941,148 @@ namespace ERP.Migrations
                     b.HasKey("RolesId");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            RolesId = 1,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3533),
+                            IsStatic = false,
+                            RoleName = "Admin"
+                        },
+                        new
+                        {
+                            RolesId = 2,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3587),
+                            IsStatic = false,
+                            RoleName = "Staff"
+                        },
+                        new
+                        {
+                            RolesId = 3,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3662),
+                            IsStatic = false,
+                            RoleName = "Student"
+                        },
+                        new
+                        {
+                            RolesId = 4,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3678),
+                            IsStatic = true,
+                            RoleName = "UserScreen"
+                        },
+                        new
+                        {
+                            RolesId = 5,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3691),
+                            IsStatic = true,
+                            RoleName = "RolesScreen"
+                        },
+                        new
+                        {
+                            RolesId = 6,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3709),
+                            IsStatic = true,
+                            RoleName = "StudentDetailsScreen"
+                        },
+                        new
+                        {
+                            RolesId = 7,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3723),
+                            IsStatic = true,
+                            RoleName = "QualificationScreen"
+                        },
+                        new
+                        {
+                            RolesId = 8,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3737),
+                            IsStatic = true,
+                            RoleName = "CountryScreen"
+                        },
+                        new
+                        {
+                            RolesId = 9,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3750),
+                            IsStatic = true,
+                            RoleName = "CourseCategoryScreen"
+                        },
+                        new
+                        {
+                            RolesId = 10,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3767),
+                            IsStatic = true,
+                            RoleName = "AddressTypeScreen"
+                        },
+                        new
+                        {
+                            RolesId = 11,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3780),
+                            IsStatic = true,
+                            RoleName = "EnterAccountScreen"
+                        },
+                        new
+                        {
+                            RolesId = 12,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3793),
+                            IsStatic = true,
+                            RoleName = "StudentBatchFeesScreen"
+                        },
+                        new
+                        {
+                            RolesId = 13,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3805),
+                            IsStatic = true,
+                            RoleName = "StudentTokenFeesScreen"
+                        },
+                        new
+                        {
+                            RolesId = 14,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3819),
+                            IsStatic = true,
+                            RoleName = "AttendanceScreen"
+                        },
+                        new
+                        {
+                            RolesId = 15,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3831),
+                            IsStatic = true,
+                            RoleName = "NewsScreen"
+                        },
+                        new
+                        {
+                            RolesId = 16,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3844),
+                            IsStatic = true,
+                            RoleName = "SendNotificationScreen"
+                        },
+                        new
+                        {
+                            RolesId = 17,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3858),
+                            IsStatic = true,
+                            RoleName = "IdentityTypeScreen"
+                        },
+                        new
+                        {
+                            RolesId = 18,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3874),
+                            IsStatic = true,
+                            RoleName = "SliderScreen"
+                        },
+                        new
+                        {
+                            RolesId = 19,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3887),
+                            IsStatic = true,
+                            RoleName = "Hostels"
+                        },
+                        new
+                        {
+                            RolesId = 20,
+                            CreatedAt = new DateTime(2024, 1, 16, 6, 12, 30, 500, DateTimeKind.Utc).AddTicks(3900),
+                            IsStatic = true,
+                            RoleName = "StudentHostelRoomBads"
+                        });
                 });
 
             modelBuilder.Entity("ERP.Models.Slider", b =>
