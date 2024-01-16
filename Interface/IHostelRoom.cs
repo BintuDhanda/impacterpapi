@@ -2,13 +2,12 @@
 
 namespace ERP.Interface
 {
-    public interface IHostalRoom
+    public interface IHostelRoom
     {
-        Task<IEnumerable<HostelRoom>> GetAllAsync();
-        Task<Account> GetByIdAsync(int Id);
-        Task<Account> AddAsync(HostelRoom account);
-        Task<Account> UpdateAsync(HostelRoom account);
-        Task<Account> DeleteAsync(int Id);
-        Task<IEnumerable<HostelRoom>> GetAccountByAccountCategoryIdAsync(int Id);
+        Task<IEnumerable<HostelRoom>> GetAllAsync(int Id);
+        Task<HostelRoom> GetByIdAsync(int Id);
+        Task<HostelRoom> AddAsync(HostelRoom payload);
+        Task<HostelRoom> UpdateAsync(HostelRoom payload);
+        Task<HostelRoom> DeleteAsync(int Id);
     }
 }

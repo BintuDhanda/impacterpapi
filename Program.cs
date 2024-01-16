@@ -85,6 +85,11 @@ builder.Services.AddScoped<INewsComment, NewsCommentRepository>();
 builder.Services.AddScoped<IIdentityType, IdentityTypeRepository>();
 builder.Services.AddScoped<IStudentIdentities, StudentIdentitiesRepository>();
 builder.Services.AddScoped<ISlider, SliderRepository>();
+builder.Services.AddScoped<IHostel, HostelRepository>();
+builder.Services.AddScoped<IHostelRoom, HostelRoomRepository>();
+builder.Services.AddScoped<IHostelRoomBad, HostelRoomBadRepository>();
+builder.Services.AddScoped<IHostelRoomBadStudent, HostelRoomBadStudentRepository>();
+builder.Services.AddScoped<IHostelRoomBadStudentRent, HostelRoomBadStudentRentRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -105,7 +110,11 @@ if (app.Environment.IsProduction())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
+}
 app.UseStaticFiles();
 
 app.UseCors("CorsPolicy");

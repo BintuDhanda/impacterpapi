@@ -8,6 +8,10 @@ namespace ERP.ERPDbContext
        public AppDbContext(DbContextOptions<AppDbContext>options):base(options) 
        {
        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            Seeder.RoleSeeder(modelBuilder);
+        }
         public DbSet<Users> Users { get; set; }
         public DbSet<UserNotification> UserNotification { get; set; }
         public DbSet<UserDeviceToken> UserDeviceToken { get; set; }
@@ -46,5 +50,10 @@ namespace ERP.ERPDbContext
         public DbSet<IdentityType> IdentityType { get; set; }
         public DbSet<StudentIdentities> StudentIdentities { get; set; }
         public DbSet<Slider> Slider { get; set; }
+        public DbSet<Hostel> Hostels { get; set; }
+        public DbSet<HostelRoom> HostelRooms { get; set; }
+        public DbSet<HostelRoomBad> HostelRoomBads { get; set; }
+        public DbSet<HostelRoomBadStudent> HostelRoomBadStudents { get; set; }
+        public DbSet<HostelRoomBadStudentRent> HostelRoomBadStudentRents { get; set; }
     }
 }
