@@ -43,7 +43,8 @@ namespace ERP.Repository
                 var currentMonth = DateTime.Now.Month;
                 if (lastPayment != null && lastPayment.Month == currentMonth)
                 {
-                    var due = item.DueAmount - lastPayment.ReceivedAmount - lastPayment.RefundAmount;
+                    var receivedAmount = lastPayment.ReceivedAmount - lastPayment.RefundAmount;
+                    var due = item.DueAmount - receivedAmount;
                     item.DueAmount = due;
                     if (due == 0)
                     {
