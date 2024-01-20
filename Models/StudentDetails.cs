@@ -8,14 +8,14 @@ namespace ERP.Models
         [Key]
         public int StudentId { get; set; }
         public string? StudentImage { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string FatherName { get; set; }
-        public string MotherName { get; set; }
-        public string Gender { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? FatherName { get; set; }
+        public string? MotherName { get; set; }
+        public string? Gender { get; set; }
         public int StudentHeight { get; set; }
         public int StudentWeight { get; set; }
-        public string BodyRemark { get; set; }
+        public string? BodyRemark { get; set; }
         public int UserId { get; set; }
         [NotMapped]
         public string? Mobile { get; set; }

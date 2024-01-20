@@ -16,7 +16,7 @@ namespace ERP.Models
         [NotMapped]
         public int? TotalCount { get; set; }
         [NotMapped]
-        public bool ? IsStudentCreated { get; set; }
+        public bool? IsStudentCreated { get; set; }
         [NotMapped]
         public int? TotalUser { get; set; }
     }

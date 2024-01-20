@@ -133,7 +133,13 @@ namespace ERP.Bussiness
                     RoleID = roleId,
                     UserID = user.UsersId
                 };
-
+                var studentDetailExist = await _dbContext.StudentDetails.Where(g=>g.UserId == user.UsersId).FirstOrDefaultAsync();
+                if(studentDetailExist == null)
+                {
+                    var studentDetail = new StudentDetails();
+                    await _dbContext.StudentDetails.AddAsync(studentDetail);
+                    await _dbContext.SaveChangesAsync();
+                }
                 var userRoleIsExits = await _dbContext.UserRole.Where(r => r.UserID == user.UsersId && r.RoleID == roleId).FirstOrDefaultAsync();
                 if(userRoleIsExits==null)
                 {
