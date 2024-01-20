@@ -22,7 +22,7 @@ namespace ERP.Repository
                           on hrb.HostelRoomId equals hr.HostelRoomId
                           join h in _appDbContext.Hostels
                           on hr.HostelId equals h.HostelId
-                          where hrb.IsAllocated == true && sh.IsDeleted != true
+                          where sh.IsDeleted != true
                           select new HostelRoomBadStudent
                           {
                               HostelRoomBadStudentId = sh.HostelRoomBadStudentId,

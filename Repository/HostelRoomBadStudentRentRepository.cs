@@ -15,7 +15,7 @@ namespace ERP.Repository
         }
         public async Task<IEnumerable<HostelRoomBadStudentRent>> GetAllAsync()
         {
-            return await _appDbContext.HostelRoomBadStudentRents.ToListAsync();
+            return await _appDbContext.HostelRoomBadStudentRents.Where(g => g.IsDeleted != true).ToListAsync();
         }
         public async Task<HostelRoomBadStudentRent> GetByIdAsync(int Id)
         {
@@ -23,25 +23,21 @@ namespace ERP.Repository
         }
         public async Task<HostelRoomBadStudentRent> AddAsync(HostelRoomBadStudentRent payload)
         {
-            var fetch = await _appDbContext.HostelRoomBadStudentRents.Where(b => b.HostelRoomBadStudentId == payload.HostelRoomBadStudentId && b.IsActive == true).FirstOrDefaultAsync();
-            if (fetch == null)
+            try
             {
                 payload.Year = DateTime.UtcNow.Year;
                 payload.CreatedAt = DateTime.UtcNow;
                 payload.IsDeleted = false;
 
-                var newBad = await _appDbContext.HostelRoomBads.FindAsync(payload.HostelRoomBadStudentId);
-                if (newBad != null)
-                {
-                    newBad.IsAllocated = true;
-                    _appDbContext.HostelRoomBads.Update(newBad);
-                }
                 await _appDbContext.SaveChangesAsync();
                 _appDbContext.HostelRoomBadStudentRents.Add(payload);
                 await _appDbContext.SaveChangesAsync();
                 return payload;
             }
-            return fetch;
+            catch (Exception ex)
+            {
+                return payload;
+            }
         }
         public async Task<HostelRoomBadStudentRent> UpdateAsync(HostelRoomBadStudentRent payload)
         {
@@ -69,12 +65,6 @@ namespace ERP.Repository
         public async Task<HostelRoomBadStudentRent> DeleteAsync(int Id)
         {
             var fetch = await _appDbContext.HostelRoomBadStudentRents.FindAsync(Id);
-            var previousBad = await _appDbContext.HostelRoomBads.FindAsync(fetch.HostelRoomBadStudentId);
-            if (previousBad != null)
-            {
-                previousBad.IsAllocated = false;
-                _appDbContext.HostelRoomBads.Update(previousBad);
-            }
             fetch.IsDeleted = true;
             _appDbContext.HostelRoomBadStudentRents.Update(fetch);
             await _appDbContext.SaveChangesAsync();
