@@ -13,9 +13,9 @@ namespace ERP.Repository
         {
             _appDbContext = appDbContext;
         }
-        public async Task<IEnumerable<HostelRoomBadStudentRent>> GetAllAsync()
+        public async Task<IEnumerable<HostelRoomBadStudentRent>> GetAllAsync(int Id)
         {
-            return await _appDbContext.HostelRoomBadStudentRents.Where(g => g.IsDeleted != true).ToListAsync();
+            return await _appDbContext.HostelRoomBadStudentRents.Where(g => g.IsDeleted != true && g.HostelRoomBadStudentId == Id).ToListAsync();
         }
         public async Task<HostelRoomBadStudentRent> GetByIdAsync(int Id)
         {
