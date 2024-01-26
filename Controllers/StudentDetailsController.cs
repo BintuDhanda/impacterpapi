@@ -1,4 +1,5 @@
-﻿using ERP.Interface;
+﻿using ERP.Bussiness;
+using ERP.Interface;
 using ERP.Models;
 using ERP.SearchFilters;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,7 @@ namespace ERP.Controllers
             var studentDetails =  new StudentDetails()
             {
                 StudentId = 0,
-                Image = obj.Files["Image"],
+                Image = obj.Files["StudentImage"],
                 FirstName = obj["FirstName"],
                 LastName = obj["LastName"],
                 FatherName = obj["FatherName"],
@@ -60,7 +61,7 @@ namespace ERP.Controllers
             var studentDetails = new StudentDetails()
             {
                 StudentId = Convert.ToInt32(obj["StudentId"]),
-                Image = obj.Files["Image"],
+                Image = obj.Files["StudentImage"],
                 FirstName = obj["FirstName"],
                 LastName = obj["LastName"],
                 FatherName = obj["FatherName"],
@@ -90,6 +91,12 @@ namespace ERP.Controllers
         public async Task<StudentDetails> GetStudentDetailsByUserId(int UserId)
         {
             return await _studentDetailsRepository.GetStudentDetailsByUserIdAsync(UserId);
+        }
+        [HttpGet]
+        [Route("getStudentIdByRegistrationNumber")]
+        public async Task<IActionResult> GetStudentIdByRegistrationNumber(string RegistrationNumber)
+        {
+            return await _studentDetailsRepository.GetStudentIdByRegistrationNumber(RegistrationNumber);
         }
     }
 }

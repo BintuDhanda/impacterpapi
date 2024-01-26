@@ -158,5 +158,9 @@ namespace ERP.Bussiness
         {
             return await _appDbcontext.StudentDetails.Where(s => s.UserId == UserId).FirstOrDefaultAsync();
         }
+        public async Task<IActionResult> GetStudentIdByRegistrationNumber(string RegistrationNumber)
+        {
+            return new JsonResult(await _appDbcontext.StudentBatch.Where(x => x.RegistrationNumber == RegistrationNumber).Select(sd => new { sd.StudentId }).FirstOrDefaultAsync());
+        }
     }
 }
