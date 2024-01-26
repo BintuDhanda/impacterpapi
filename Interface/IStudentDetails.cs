@@ -1,5 +1,6 @@
 ﻿using ERP.Models;
 using ERP.SearchFilters;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ERP.Interface
 {
@@ -11,5 +12,6 @@ namespace ERP.Interface
         Task<StudentDetails> UpdateAsync(StudentDetails studentDetails);
         Task<StudentDetails> DeleteAsync(int Id);
         Task<StudentDetails> GetStudentDetailsByUserIdAsync(int userId);
+        Task<IActionResult> GetStudentIdByRegistrationNumber(string RegistrationNumber);
     }
 }
