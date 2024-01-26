@@ -15,9 +15,9 @@ namespace ERP.Controllers
         }
         [HttpGet]
         [Route("get")]
-        public async Task<IEnumerable<HostelRoomBadStudent>> Get()
+        public async Task<IEnumerable<HostelRoomBadStudent>> Get(int Id)
         {
-            return await _repository.GetAllAsync();
+            return await _repository.GetAllAsync(Id);
         }
         [HttpGet]
         [Route("getById")]

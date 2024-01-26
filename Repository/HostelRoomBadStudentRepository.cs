@@ -13,23 +13,43 @@ namespace ERP.Repository
         {
             _appDbContext = appDbContext;
         }
-        public async Task<IEnumerable<HostelRoomBadStudent>> GetAllAsync()
+        public async Task<IEnumerable<HostelRoomBadStudent>> GetAllAsync(int Id)
         {
-            return await (from sh in _appDbContext.HostelRoomBadStudents
-                          join hrb in _appDbContext.HostelRoomBads
-                          on sh.HostelRoomBadId equals hrb.HostelRoomBadId
-                          join hr in _appDbContext.HostelRooms
-                          on hrb.HostelRoomId equals hr.HostelRoomId
-                          join h in _appDbContext.Hostels
-                          on hr.HostelId equals h.HostelId
-                          where sh.IsDeleted != true
-                          select new HostelRoomBadStudent
-                          {
-                              HostelRoomBadStudentId = sh.HostelRoomBadStudentId,
-                              HostelRoomBadId = sh.HostelRoomBadId,
-                              StudentId = sh.StudentId,
-                              HostelRoomBad = h.HostelName + "/" + hr.HostelRoomNo + "/" + hrb.HostelRoomBadNo
-                          }).ToListAsync();
+            var query = (from sh in _appDbContext.HostelRoomBadStudents
+                         join hrb in _appDbContext.HostelRoomBads
+                         on sh.HostelRoomBadId equals hrb.HostelRoomBadId
+                         join hr in _appDbContext.HostelRooms
+                         on hrb.HostelRoomId equals hr.HostelRoomId
+                         join h in _appDbContext.Hostels
+                         on hr.HostelId equals h.HostelId
+                         where sh.IsDeleted != true
+                         select new HostelRoomBadStudent
+                         {
+                             HostelRoomBadStudentId = sh.HostelRoomBadStudentId,
+                             HostelRoomBadId = sh.HostelRoomBadId,
+                             StudentId = sh.StudentId,
+                             HostelRoomBad = h.HostelName + "/" + hr.HostelRoomNo + "/" + hrb.HostelRoomBadNo
+                         });
+
+            if(Id != 0)
+            {
+                query = (from sh in _appDbContext.HostelRoomBadStudents
+                         join hrb in _appDbContext.HostelRoomBads
+                         on sh.HostelRoomBadId equals hrb.HostelRoomBadId
+                         join hr in _appDbContext.HostelRooms
+                         on hrb.HostelRoomId equals hr.HostelRoomId
+                         join h in _appDbContext.Hostels
+                         on hr.HostelId equals h.HostelId
+                         where sh.IsDeleted != true && sh.StudentId == Id
+                         select new HostelRoomBadStudent
+                         {
+                             HostelRoomBadStudentId = sh.HostelRoomBadStudentId,
+                             HostelRoomBadId = sh.HostelRoomBadId,
+                             StudentId = sh.StudentId,
+                             HostelRoomBad = h.HostelName + "/" + hr.HostelRoomNo + "/" + hrb.HostelRoomBadNo
+                         });
+            }
+            return await query.ToListAsync();
         }
         public async Task<HostelRoomBadStudent> GetByIdAsync(int Id)
         {
