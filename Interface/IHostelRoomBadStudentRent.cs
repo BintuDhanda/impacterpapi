@@ -4,7 +4,7 @@ namespace ERP.Interface
 {
     public interface IHostelRoomBadStudentRent
     {
-        Task<IEnumerable<HostelRoomBadStudentRent>> GetAllAsync();
+        Task<IEnumerable<HostelRoomBadStudentRent>> GetAllAsync(int Id);
         Task<HostelRoomBadStudentRent> GetByIdAsync(int Id);
         Task<HostelRoomBadStudentRent> AddAsync(HostelRoomBadStudentRent payload);
         Task<HostelRoomBadStudentRent> UpdateAsync(HostelRoomBadStudentRent payload);
