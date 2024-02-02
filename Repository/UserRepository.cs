@@ -133,7 +133,6 @@ namespace ERP.Bussiness
                     RoleID = roleId,
                     UserID = user.UsersId
                 };
-                
                 var userRoleIsExits = await _dbContext.UserRole.Where(r => r.UserID == user.UsersId && r.RoleID == roleId).FirstOrDefaultAsync();
                 if(userRoleIsExits==null)
                 {
