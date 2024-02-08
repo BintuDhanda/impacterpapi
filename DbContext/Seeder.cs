@@ -30,5 +30,11 @@ namespace ERP.ERPDbContext
             modelBuilder.Entity<Roles>().HasData(new Roles { RolesId = 19, RoleName = "Hostels", IsStatic = true });
             modelBuilder.Entity<Roles>().HasData(new Roles { RolesId = 20, RoleName = "StudentHostelRoomBads", IsStatic = true });
         }
+
+        public static void AcademySeeder(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Academy>().HasData(new Academy { AcademyId = 1, AcademyName = "Impact Academy, Hisar" });
+            modelBuilder.Entity<Academy>().HasData(new Academy { AcademyId = 2, AcademyName = "Impact Academy, Chaudhariwas" });
+        }
     }
 }

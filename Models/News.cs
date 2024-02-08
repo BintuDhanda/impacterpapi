@@ -7,6 +7,7 @@ namespace ERP.Models
     {
         [Key]
         public int NewsId { get; set; }
+        public int AcademyId { get; set; }
         public string? NewsText { get; set; }
         public string? NewsImage { get; set; }
         public string? NewsTitle { get; set; }

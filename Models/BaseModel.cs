@@ -2,6 +2,12 @@
 {
     public class BaseModel
     {
+        public BaseModel()
+        {
+            IsActive = true;
+            IsDeleted = false;
+            CreatedAt = DateTime.Now;
+        }
         public DateTime? CreatedAt { get; set; } = System.DateTime.UtcNow;
         public int? CreatedBy { get; set; }
         public DateTime? LastUpdatedAt { get; set; }

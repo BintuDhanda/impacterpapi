@@ -55,5 +55,6 @@ namespace ERP.ERPDbContext
         public DbSet<HostelRoomBad> HostelRoomBads { get; set; }
         public DbSet<HostelRoomBadStudent> HostelRoomBadStudents { get; set; }
         public DbSet<HostelRoomBadStudentRent> HostelRoomBadStudentRents { get; set; }
+        public DbSet<Academy> Academies { get; set; }
     }
 }

@@ -6,6 +6,7 @@ namespace ERP.Models
     {
         [Key]
         public int CourseCategoryId { get; set; }
+        public int AcademyId { get; set; }
         public string CourseCategoryName { get; set; }
     }
 }
