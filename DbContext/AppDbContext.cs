@@ -11,6 +11,7 @@ namespace ERP.ERPDbContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             Seeder.RoleSeeder(modelBuilder);
+            Seeder.AcademySeeder(modelBuilder);
         }
         public DbSet<Users> Users { get; set; }
         public DbSet<UserNotification> UserNotification { get; set; }
