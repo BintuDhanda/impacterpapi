@@ -38,16 +38,20 @@ namespace ERP.Bussiness
 
         public async Task<State> UpdateAsync(State state)
         {
-            var states = await _appDbContext.State.Where(a => a.StateId == state.StateId).FirstOrDefaultAsync();
-            if (states != null)
+            var isExist = await _appDbContext.State.Where(a => a.StateName == state.StateName && a.StateId != state.StateId).AnyAsync();
+            if (!isExist)
             {
-                states.LastUpdatedAt = DateTime.UtcNow;
-                states.IsDeleted = false;
-                states.StateName = state.StateName;
-                states.LastUpdatedBy = state.LastUpdatedBy;
-                _appDbContext.State.Update(states);
-                await _appDbContext.SaveChangesAsync();
-                return states;
+                var states = await _appDbContext.State.Where(a => a.StateId == state.StateId).FirstOrDefaultAsync();
+                if (states != null)
+                {
+                    states.LastUpdatedAt = DateTime.UtcNow;
+                    states.IsDeleted = false;
+                    states.StateName = state.StateName;
+                    states.LastUpdatedBy = state.LastUpdatedBy;
+                    _appDbContext.State.Update(states);
+                    await _appDbContext.SaveChangesAsync();
+                    return states;
+                }
             }
             return state;
         }

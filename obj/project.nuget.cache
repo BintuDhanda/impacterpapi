@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "dWp1Oo9CUk9GtSSOt7dGLpT2iybzQnv5nc07X5N99dwonx4DE8OSyFkzyoVCRCr4tk0lBrScmT+yknbkFvcLqg==",
+  "dgSpecHash": "D/O4EWR+prdv5l1kdd8M100VjAcvC1z01Q3/b0BJBMVS6JNBvRgN56NawFZw6bXsh/YRDDiNrAc7JvWMqfrMtA==",
   "success": true,
   "projectFilePath": "G:\\Balwant Dhanda\\impacterpapi\\ERP.csproj",
   "expectedPackageFiles": [
@@ -158,18 +158,7 @@
     "C:\\Users\\dharm\\.nuget\\packages\\system.windows.extensions\\5.0.0\\system.windows.extensions.5.0.0.nupkg.sha512",
     "C:\\Users\\dharm\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\dharm\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\dharm\\.nuget\\packages\\xlparser\\1.5.2\\xlparser.1.5.2.nupkg.sha512",
-    "C:\\Users\\dharm\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.26\\microsoft.windowsdesktop.app.ref.6.0.26.nupkg.sha512",
-    "C:\\Users\\dharm\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.26\\microsoft.netcore.app.ref.6.0.26.nupkg.sha512",
-    "C:\\Users\\dharm\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.26\\microsoft.aspnetcore.app.ref.6.0.26.nupkg.sha512",
-    "C:\\Users\\dharm\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.26\\microsoft.netcore.app.host.win-x64.6.0.26.nupkg.sha512"
+    "C:\\Users\\dharm\\.nuget\\packages\\xlparser\\1.5.2\\xlparser.1.5.2.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1900",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Error occurred while getting package vulnerability data: The download of 'https://api.nuget.org/v3-vulnerabilities/2024.01.24.05.35.05/vulnerability.base.json' timed out because no data was received for 60000ms."
-    }
-  ]
+  "logs": []
 }

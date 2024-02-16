@@ -12,7 +12,7 @@ namespace ERP.Bussiness
         {
             _appDbContext = context;
         }
-        public async Task <IEnumerable<City>> GetAllAsync()
+        public async Task<IEnumerable<City>> GetAllAsync()
         {
             return await _appDbContext.City.ToListAsync();
         }
@@ -25,26 +25,30 @@ namespace ERP.Bussiness
             var citys = await _appDbContext.City.Where(c => c.CityName == city.CityName).FirstOrDefaultAsync();
             if (citys == null)
             {
-            city.CreatedAt = DateTime.UtcNow;
-            city.IsDeleted = false;
-            _appDbContext.City.Add(city);
-            await _appDbContext.SaveChangesAsync();
-            return city;
+                city.CreatedAt = DateTime.UtcNow;
+                city.IsDeleted = false;
+                _appDbContext.City.Add(city);
+                await _appDbContext.SaveChangesAsync();
+                return city;
             }
             return citys;
         }
-        public async Task <City> UpdateAsync(City city)
+        public async Task<City> UpdateAsync(City city)
         {
-            var citys = await _appDbContext.City.Where(c => c.CityId == city.CityId).FirstOrDefaultAsync();
-            if (citys != null)
+            var isExist = await _appDbContext.City.Where(c => c.CityName == city.CityName && c.CityId != city.CityId).AnyAsync();
+            if (!isExist)
             {
-                citys.LastUpdatedAt = DateTime.UtcNow;
-                citys.IsDeleted = false;
-                citys.CityName = city.CityName;
-                citys.LastUpdatedBy = city.LastUpdatedBy;
-                _appDbContext.City.Update(citys);
-                await _appDbContext.SaveChangesAsync();
-                return citys;
+                var citys = await _appDbContext.City.Where(c => c.CityId == city.CityId).FirstOrDefaultAsync();
+                if (citys != null)
+                {
+                    citys.LastUpdatedAt = DateTime.UtcNow;
+                    citys.IsDeleted = false;
+                    citys.CityName = city.CityName;
+                    citys.LastUpdatedBy = city.LastUpdatedBy;
+                    _appDbContext.City.Update(citys);
+                    await _appDbContext.SaveChangesAsync();
+                    return citys;
+                }
             }
             return city;
         }
@@ -57,7 +61,7 @@ namespace ERP.Bussiness
         }
         public async Task<IEnumerable<City>> GetCityByStateIdAsync(int Id)
         {
-            return await _appDbContext.City.Where(c=>c.StateId== Id).ToListAsync();
+            return await _appDbContext.City.Where(c => c.StateId == Id).ToListAsync();
         }
     }
 }

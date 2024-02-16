@@ -36,16 +36,20 @@ namespace ERP.Repository
         }
         public async Task<HostelRoom> UpdateAsync(HostelRoom payload)
         {
-            var fetch = await _appDbContext.HostelRooms.Where(b => b.HostelRoomId == payload.HostelRoomId).FirstOrDefaultAsync();
-            if (fetch != null)
+            var isExist = await _appDbContext.HostelRooms.Where(b => b.HostelId == payload.HostelId && b.HostelRoomNo == payload.HostelRoomNo && b.HostelRoomId!= payload.HostelRoomId).AnyAsync();
+            if (!isExist)
             {
-                fetch.LastUpdatedAt = DateTime.UtcNow;
-                fetch.IsDeleted = false;
-                fetch.HostelRoomNo = payload.HostelRoomNo;
-                fetch.LastUpdatedBy = payload.LastUpdatedBy;
-                _appDbContext.HostelRooms.Update(fetch);
-                await _appDbContext.SaveChangesAsync();
-                return fetch;
+                var fetch = await _appDbContext.HostelRooms.Where(b => b.HostelRoomId == payload.HostelRoomId).FirstOrDefaultAsync();
+                if (fetch != null)
+                {
+                    fetch.LastUpdatedAt = DateTime.UtcNow;
+                    fetch.IsDeleted = false;
+                    fetch.HostelRoomNo = payload.HostelRoomNo;
+                    fetch.LastUpdatedBy = payload.LastUpdatedBy;
+                    _appDbContext.HostelRooms.Update(fetch);
+                    await _appDbContext.SaveChangesAsync();
+                    return fetch;
+                }
             }
             return payload;
         }

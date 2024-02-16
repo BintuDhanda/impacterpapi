@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ERP.Bussiness
 {
-    public class BatchRepository:IBatch
+    public class BatchRepository : IBatch
     {
         private readonly AppDbContext _appDbContext;
         public BatchRepository(AppDbContext appDbContext)
@@ -26,30 +26,34 @@ namespace ERP.Bussiness
             var batchs = await _appDbContext.Batch.Where(b => b.BatchName == batch.BatchName).FirstOrDefaultAsync();
             if (batchs == null)
             {
-            batch.CreatedAt = DateTime.UtcNow;
-            batch.IsDeleted = false;
-            _appDbContext.Batch.Add(batch);
-            await _appDbContext.SaveChangesAsync();
-            return batch;
+                batch.CreatedAt = DateTime.UtcNow;
+                batch.IsDeleted = false;
+                _appDbContext.Batch.Add(batch);
+                await _appDbContext.SaveChangesAsync();
+                return batch;
             }
             return batchs;
         }
         public async Task<Batch> UpdateAsync(Batch batch)
         {
-            var batchs = await _appDbContext.Batch.Where(b => b.BatchId == batch.BatchId).FirstOrDefaultAsync();
-            if (batchs != null)
+            var isExist = await _appDbContext.Batch.Where(b => b.BatchName == batch.BatchName && b.BatchId != batch.BatchId).AnyAsync();
+            if (!isExist)
             {
-                batchs.LastUpdatedAt = DateTime.UtcNow;
-                batchs.IsDeleted = false;
-                batchs.BatchName = batch.BatchName;
-                batchs.StartDate = batch.StartDate;
-                batchs.EndDate = batch.EndDate;
-                batchs.Code = batch.Code;
-                batchs.CourseId = batch.CourseId;
-                batchs.LastUpdatedBy = batch.LastUpdatedBy;
-                _appDbContext.Batch.Update(batchs);
-                await _appDbContext.SaveChangesAsync();
-                return batchs;
+                var batchs = await _appDbContext.Batch.Where(b => b.BatchId == batch.BatchId).FirstOrDefaultAsync();
+                if (batchs != null)
+                {
+                    batchs.LastUpdatedAt = DateTime.UtcNow;
+                    batchs.IsDeleted = false;
+                    batchs.BatchName = batch.BatchName;
+                    batchs.StartDate = batch.StartDate;
+                    batchs.EndDate = batch.EndDate;
+                    batchs.Code = batch.Code;
+                    batchs.CourseId = batch.CourseId;
+                    batchs.LastUpdatedBy = batch.LastUpdatedBy;
+                    _appDbContext.Batch.Update(batchs);
+                    await _appDbContext.SaveChangesAsync();
+                    return batchs;
+                }
             }
             return batch;
         }

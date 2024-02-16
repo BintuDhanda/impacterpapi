@@ -25,26 +25,30 @@ namespace ERP.Bussiness
             var courseCategorys = await _appDbcontext.CourseCategory.Where(cC => cC.CourseCategoryName == courseCategory.CourseCategoryName).FirstOrDefaultAsync();
             if (courseCategorys == null)
             {
-            courseCategory.CreatedAt = DateTime.UtcNow;
-            courseCategory.IsDeleted = false;
-            _appDbcontext.CourseCategory.Add(courseCategory);
-            await _appDbcontext.SaveChangesAsync();
-            return courseCategory;
+                courseCategory.CreatedAt = DateTime.UtcNow;
+                courseCategory.IsDeleted = false;
+                _appDbcontext.CourseCategory.Add(courseCategory);
+                await _appDbcontext.SaveChangesAsync();
+                return courseCategory;
             }
             return courseCategorys;
         }
         public async Task<CourseCategory> UpdateAsync(CourseCategory courseCategory)
         {
-            var courseCategorys = await _appDbcontext.CourseCategory.Where(cC => cC.CourseCategoryId == courseCategory.CourseCategoryId).FirstOrDefaultAsync();
-            if (courseCategorys != null)
+            var isExist = await _appDbcontext.CourseCategory.Where(cC => cC.CourseCategoryName == courseCategory.CourseCategoryName && cC.CourseCategoryId != courseCategory.CourseCategoryId).AnyAsync();
+            if (!isExist)
             {
-                courseCategorys.LastUpdatedAt = DateTime.UtcNow;
-                courseCategorys.IsDeleted = false;
-                courseCategorys.CourseCategoryName = courseCategory.CourseCategoryName;
-                courseCategorys.LastUpdatedBy = courseCategory.LastUpdatedBy;
-                _appDbcontext.CourseCategory.Update(courseCategorys);
-                await _appDbcontext.SaveChangesAsync();
-                return courseCategorys;
+                var courseCategorys = await _appDbcontext.CourseCategory.Where(cC => cC.CourseCategoryId == courseCategory.CourseCategoryId).FirstOrDefaultAsync();
+                if (courseCategorys != null)
+                {
+                    courseCategorys.LastUpdatedAt = DateTime.UtcNow;
+                    courseCategorys.IsDeleted = false;
+                    courseCategorys.CourseCategoryName = courseCategory.CourseCategoryName;
+                    courseCategorys.LastUpdatedBy = courseCategory.LastUpdatedBy;
+                    _appDbcontext.CourseCategory.Update(courseCategorys);
+                    await _appDbcontext.SaveChangesAsync();
+                    return courseCategorys;
+                }
             }
             return courseCategory;
         }

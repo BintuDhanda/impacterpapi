@@ -20,31 +20,35 @@ namespace ERP.Bussiness
         {
             return await _appDbcontext.Account.FindAsync(Id);
         }
-        public async Task <Account> AddAsync(Account account)
+        public async Task<Account> AddAsync(Account account)
         {
             var accounts = await _appDbcontext.Account.Where(a => a.AccountName == account.AccountName).FirstOrDefaultAsync();
             if (accounts == null)
             {
-            account.CreatedAt = DateTime.UtcNow;
-            account.IsDeleted = false;
-            _appDbcontext.Account.Add(account);
-            await _appDbcontext.SaveChangesAsync();
-            return account;
+                account.CreatedAt = DateTime.UtcNow;
+                account.IsDeleted = false;
+                _appDbcontext.Account.Add(account);
+                await _appDbcontext.SaveChangesAsync();
+                return account;
             }
             return accounts;
         }
         public async Task<Account> UpdateAsync(Account account)
         {
-            var accounts = await _appDbcontext.Account.Where(a => a.AccountId == account.AccountId).FirstOrDefaultAsync();
-            if (accounts != null)
+            var isExist = await _appDbcontext.Account.Where(a => a.AccountId != account.AccountId && a.AccountName != account.AccountName).AnyAsync();
+            if (!isExist)
             {
-                accounts.LastUpdatedAt = DateTime.UtcNow;
-                accounts.IsDeleted = false;
-                accounts.AccountName = account.AccountName;
-                accounts.LastUpdatedBy = account.LastUpdatedBy;
-                _appDbcontext.Account.Update(accounts);
-                await _appDbcontext.SaveChangesAsync();
-                return accounts;
+                var accounts = await _appDbcontext.Account.Where(a => a.AccountId == account.AccountId).FirstOrDefaultAsync();
+                if (accounts != null)
+                {
+                    accounts.LastUpdatedAt = DateTime.UtcNow;
+                    accounts.IsDeleted = false;
+                    accounts.AccountName = account.AccountName;
+                    accounts.LastUpdatedBy = account.LastUpdatedBy;
+                    _appDbcontext.Account.Update(accounts);
+                    await _appDbcontext.SaveChangesAsync();
+                    return accounts;
+                }
             }
             return account;
         }
@@ -57,7 +61,7 @@ namespace ERP.Bussiness
         }
         public async Task<IEnumerable<Account>> GetAccountByAccountCategoryIdAsync(int Id)
         {
-            return await _appDbcontext.Account.Where(a=>a.AccCategoryId == Id).ToListAsync();
+            return await _appDbcontext.Account.Where(a => a.AccCategoryId == Id).ToListAsync();
         }
     }
 }

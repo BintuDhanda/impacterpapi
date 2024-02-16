@@ -19,15 +19,15 @@ namespace ERP.Bussiness
         public async Task<Country> AddAsync(Country country)
         {
             var countrys = await _dbContext.Country.Where(c => c.CountryName == country.CountryName).FirstOrDefaultAsync();
-            if(countrys == null)
+            if (countrys == null)
             {
-            country.CreatedAt = DateTime.UtcNow;
-            country.IsDeleted = false;
-            _dbContext.Country.Add(country);
-            await _dbContext.SaveChangesAsync();
-            return country;
+                country.CreatedAt = DateTime.UtcNow;
+                country.IsDeleted = false;
+                _dbContext.Country.Add(country);
+                await _dbContext.SaveChangesAsync();
+                return country;
             }
-            return  countrys;
+            return countrys;
         }
 
         public async Task<Country> DeleteAsync(int Id)
@@ -40,16 +40,20 @@ namespace ERP.Bussiness
 
         public async Task<Country> UpdateAsync(Country country)
         {
-            var countrys = await _dbContext.Country.Where(c => c.CountryId == country.CountryId).FirstOrDefaultAsync();
-            if(countrys != null)
+            var isExist = await _dbContext.Country.Where(c => c.CountryName == country.CountryName && c.CountryId != country.CountryId).AnyAsync();
+            if (!isExist)
             {
-                countrys.LastUpdatedAt = DateTime.UtcNow;
-                countrys.IsDeleted = false;
-                countrys.CountryName = country.CountryName;
-                countrys.LastUpdatedBy = country.LastUpdatedBy;
-            _dbContext.Country.Update(countrys);
-            await _dbContext.SaveChangesAsync();
-            return countrys;
+                var countrys = await _dbContext.Country.Where(c => c.CountryId == country.CountryId).FirstOrDefaultAsync();
+                if (countrys != null)
+                {
+                    countrys.LastUpdatedAt = DateTime.UtcNow;
+                    countrys.IsDeleted = false;
+                    countrys.CountryName = country.CountryName;
+                    countrys.LastUpdatedBy = country.LastUpdatedBy;
+                    _dbContext.Country.Update(countrys);
+                    await _dbContext.SaveChangesAsync();
+                    return countrys;
+                }
             }
             return country;
         }

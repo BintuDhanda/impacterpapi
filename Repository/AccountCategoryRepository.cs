@@ -20,31 +20,35 @@ namespace ERP.Bussiness
         {
             return await _appdbContext.AccountCategory.FindAsync(Id);
         }
-        public async Task <AccountCategory> AddAsync(AccountCategory accountCategory)
+        public async Task<AccountCategory> AddAsync(AccountCategory accountCategory)
         {
             var accountCategorys = await _appdbContext.AccountCategory.Where(ac => ac.AccCategoryName == accountCategory.AccCategoryName).FirstOrDefaultAsync();
             if (accountCategorys == null)
             {
-            accountCategory.CreatedAt = DateTime.UtcNow;
-            accountCategory.IsDeleted = false;
-            _appdbContext.AccountCategory.Add(accountCategory);
-            await _appdbContext.SaveChangesAsync();
-            return accountCategory;
+                accountCategory.CreatedAt = DateTime.UtcNow;
+                accountCategory.IsDeleted = false;
+                _appdbContext.AccountCategory.Add(accountCategory);
+                await _appdbContext.SaveChangesAsync();
+                return accountCategory;
             }
             return accountCategorys;
         }
-        public async Task <AccountCategory> UpdateAsync(AccountCategory accountCategory)
+        public async Task<AccountCategory> UpdateAsync(AccountCategory accountCategory)
         {
-            var accountCategorys = await _appdbContext.AccountCategory.Where(ac => ac.AccountCategoryId == accountCategory.AccountCategoryId).FirstOrDefaultAsync();
-            if (accountCategorys != null)
+            var isExist = await _appdbContext.AccountCategory.Where(ac => ac.AccountCategoryId != accountCategory.AccountCategoryId && ac.AccCategoryName == accountCategory.AccCategoryName).AnyAsync();
+            if (!isExist)
             {
-                accountCategorys.LastUpdatedAt = DateTime.UtcNow;
-                accountCategorys.IsDeleted = false;
-                accountCategorys.AccCategoryName = accountCategory.AccCategoryName;
-                accountCategorys.LastUpdatedBy = accountCategory.LastUpdatedBy;
-                _appdbContext.AccountCategory.Update(accountCategorys);
-                await _appdbContext.SaveChangesAsync();
-                return accountCategorys;
+                var accountCategorys = await _appdbContext.AccountCategory.Where(ac => ac.AccountCategoryId == accountCategory.AccountCategoryId).FirstOrDefaultAsync();
+                if (accountCategorys != null)
+                {
+                    accountCategorys.LastUpdatedAt = DateTime.UtcNow;
+                    accountCategorys.IsDeleted = false;
+                    accountCategorys.AccCategoryName = accountCategory.AccCategoryName;
+                    accountCategorys.LastUpdatedBy = accountCategory.LastUpdatedBy;
+                    _appdbContext.AccountCategory.Update(accountCategorys);
+                    await _appdbContext.SaveChangesAsync();
+                    return accountCategorys;
+                }
             }
             return accountCategory;
         }

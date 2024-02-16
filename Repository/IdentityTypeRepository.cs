@@ -35,16 +35,20 @@ namespace ERP.Repository
         }
         public async Task<IdentityType> UpdateAsync(IdentityType identityType)
         {
-            var identityTypes = await _appDbContext.IdentityType.Where(at => at.IdentityTypeId == identityType.IdentityTypeId).FirstOrDefaultAsync();
-            if (identityTypes != null)
+            var isExist = await _appDbContext.IdentityType.Where(at => at.Name == identityType.Name && at.IdentityTypeId != identityType.IdentityTypeId).AnyAsync();
+            if (!isExist)
             {
-                identityTypes.LastUpdatedAt = DateTime.UtcNow;
-                identityTypes.IsDeleted = false;
-                identityTypes.LastUpdatedBy = identityType.LastUpdatedBy;
-                identityTypes.Name = identityType.Name;
-                _appDbContext.IdentityType.Update(identityTypes);
-                await _appDbContext.SaveChangesAsync();
-                return identityTypes;
+                var identityTypes = await _appDbContext.IdentityType.Where(at => at.IdentityTypeId == identityType.IdentityTypeId).FirstOrDefaultAsync();
+                if (identityTypes != null)
+                {
+                    identityTypes.LastUpdatedAt = DateTime.UtcNow;
+                    identityTypes.IsDeleted = false;
+                    identityTypes.LastUpdatedBy = identityType.LastUpdatedBy;
+                    identityTypes.Name = identityType.Name;
+                    _appDbContext.IdentityType.Update(identityTypes);
+                    await _appDbContext.SaveChangesAsync();
+                    return identityTypes;
+                }
             }
             return identityType;
         }

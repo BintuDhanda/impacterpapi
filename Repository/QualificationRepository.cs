@@ -35,16 +35,20 @@ namespace ERP.Bussiness
         }
         public async Task<Qualification> UpdateAsync(Qualification qualification)
         {
-            var qualifications = await _appDbContext.Qualification.Where(q => q.QualificationId == qualification.QualificationId).FirstOrDefaultAsync();
-            if (qualifications != null)
+            var isExist = await _appDbContext.Qualification.Where(q => q.QualificationName == qualification.QualificationName && q.QualificationId != qualification.QualificationId).AnyAsync();
+            if (!isExist)
             {
-                qualifications.LastUpdatedAt = DateTime.UtcNow;
-                qualifications.IsDeleted = false;
-                qualifications.QualificationName = qualification.QualificationName;
-                qualifications.LastUpdatedBy = qualification.LastUpdatedBy;
-                _appDbContext.Qualification.Update(qualifications);
-                await _appDbContext.SaveChangesAsync();
-                return qualifications;
+                var qualifications = await _appDbContext.Qualification.Where(q => q.QualificationId == qualification.QualificationId).FirstOrDefaultAsync();
+                if (qualifications != null)
+                {
+                    qualifications.LastUpdatedAt = DateTime.UtcNow;
+                    qualifications.IsDeleted = false;
+                    qualifications.QualificationName = qualification.QualificationName;
+                    qualifications.LastUpdatedBy = qualification.LastUpdatedBy;
+                    _appDbContext.Qualification.Update(qualifications);
+                    await _appDbContext.SaveChangesAsync();
+                    return qualifications;
+                }
             }
             return qualification;
         }

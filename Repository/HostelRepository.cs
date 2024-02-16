@@ -15,7 +15,7 @@ namespace ERP.Repository
         }
         public async Task<IEnumerable<Hostel>> GetAllAsync()
         {
-            return await _appDbContext.Hostels.Where(g=>g.IsDeleted != true).ToListAsync();
+            return await _appDbContext.Hostels.Where(g => g.IsDeleted != true).ToListAsync();
         }
         public async Task<Hostel> GetByIdAsync(int Id)
         {
@@ -36,16 +36,20 @@ namespace ERP.Repository
         }
         public async Task<Hostel> UpdateAsync(Hostel payload)
         {
-            var fetch = await _appDbContext.Hostels.Where(b => b.HostelId == payload.HostelId).FirstOrDefaultAsync();
-            if (fetch != null)
+            var isExist = await _appDbContext.Hostels.Where(b => b.HostelName == payload.HostelName && b.HostelId != payload.HostelId).AnyAsync();
+            if (!isExist)
             {
-                fetch.LastUpdatedAt = DateTime.UtcNow;
-                fetch.IsDeleted = false;
-                fetch.HostelName = payload.HostelName;
-                fetch.LastUpdatedBy = payload.LastUpdatedBy;
-                _appDbContext.Hostels.Update(fetch);
-                await _appDbContext.SaveChangesAsync();
-                return fetch;
+                var fetch = await _appDbContext.Hostels.Where(b => b.HostelId == payload.HostelId).FirstOrDefaultAsync();
+                if (fetch != null)
+                {
+                    fetch.LastUpdatedAt = DateTime.UtcNow;
+                    fetch.IsDeleted = false;
+                    fetch.HostelName = payload.HostelName;
+                    fetch.LastUpdatedBy = payload.LastUpdatedBy;
+                    _appDbContext.Hostels.Update(fetch);
+                    await _appDbContext.SaveChangesAsync();
+                    return fetch;
+                }
             }
             return payload;
         }

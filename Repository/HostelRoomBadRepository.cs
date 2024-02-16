@@ -41,18 +41,22 @@ namespace ERP.Repository
         }
         public async Task<HostelRoomBad> UpdateAsync(HostelRoomBad payload)
         {
-            var fetch = await _appDbContext.HostelRoomBads.Where(b => b.HostelRoomBadId == payload.HostelRoomBadId).FirstOrDefaultAsync();
-            if (fetch != null)
+            var isExist = await _appDbContext.HostelRoomBads.Where(b => b.HostelRoomId == payload.HostelRoomId && b.HostelRoomBadNo == payload.HostelRoomBadNo && b.HostelRoomBadId != payload.HostelRoomBadId).AnyAsync();
+            if (!isExist)
             {
-                fetch.LastUpdatedAt = DateTime.UtcNow;
-                fetch.HostelRoomBadNo = payload.HostelRoomBadNo;
-                fetch.HostelRoomBadSecurity = payload.HostelRoomBadSecurity;
-                fetch.HostelRoomBadAmount = payload.HostelRoomBadAmount;
-                fetch.IsDeleted = false;
-                fetch.LastUpdatedBy = payload.LastUpdatedBy;
-                _appDbContext.HostelRoomBads.Update(fetch);
-                await _appDbContext.SaveChangesAsync();
-                return fetch;
+                var fetch = await _appDbContext.HostelRoomBads.Where(b => b.HostelRoomBadId == payload.HostelRoomBadId).FirstOrDefaultAsync();
+                if (fetch != null)
+                {
+                    fetch.LastUpdatedAt = DateTime.UtcNow;
+                    fetch.HostelRoomBadNo = payload.HostelRoomBadNo;
+                    fetch.HostelRoomBadSecurity = payload.HostelRoomBadSecurity;
+                    fetch.HostelRoomBadAmount = payload.HostelRoomBadAmount;
+                    fetch.IsDeleted = false;
+                    fetch.LastUpdatedBy = payload.LastUpdatedBy;
+                    _appDbContext.HostelRoomBads.Update(fetch);
+                    await _appDbContext.SaveChangesAsync();
+                    return fetch;
+                }
             }
             return payload;
         }
