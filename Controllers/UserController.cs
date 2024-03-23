@@ -1,4 +1,5 @@
-﻿using ERP.Bussiness;
+﻿using ERP.ApiModels;
+using ERP.Bussiness;
 using ERP.Interface;
 using ERP.Models;
 using ERP.SearchFilters;
@@ -10,9 +11,21 @@ namespace ERP.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUser _userRepository;
-        public UserController(IUser user)
+        private readonly ICommon _commonService;
+        public UserController(IUser user, ICommon commonService)
         {
             _userRepository = user;
+            _commonService = commonService;
+        }
+        [HttpPost]
+        [Route("SendOTP")]
+        public IActionResult SendOTPSMS([FromBody] Message payload)
+        {
+            if (payload == null)
+            {
+                return new JsonResult("Something went wrong");
+            }
+            return new JsonResult(_commonService.SendSMS(payload.number, payload.msg));
         }
         [HttpPost]
         [Route("get")]
