@@ -92,6 +92,7 @@ builder.Services.AddScoped<IHostelRoomBadStudent, HostelRoomBadStudentRepository
 builder.Services.AddScoped<IHostelRoomBadStudentRent, HostelRoomBadStudentRentRepository>();
 builder.Services.AddScoped<IStudentHostelRoomBadRent, StudentHostelRoomBadRentRepository>();
 builder.Services.AddScoped<IAcademy, AcademyRepository>();
+builder.Services.AddScoped<ICommon, CommonRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
