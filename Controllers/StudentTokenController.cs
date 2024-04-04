@@ -37,6 +37,7 @@ namespace ERP.Controllers
         [Route("post")]
         public async Task<StudentToken> StudentTokenAdd(StudentToken studentToken)
         {
+            studentToken.StudentId = studentToken.CreatedBy;
             return await _studentTokenRepository.AddAsync(studentToken);
         }
         [HttpPost]

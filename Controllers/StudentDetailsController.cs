@@ -29,29 +29,8 @@ namespace ERP.Controllers
         }
         [HttpPost]
         [Route("post")]
-        public async Task<StudentDetails> StudentDetailsAdd(IFormCollection obj)
+        public async Task<StudentDetails> StudentDetailsAdd([FromBody] StudentDetails studentDetails)
         {
-            var studentDetails =  new StudentDetails()
-            {
-                StudentId = 0,
-                Image = obj.Files["StudentImage"],
-                FirstName = obj["FirstName"],
-                LastName = obj["LastName"],
-                FatherName = obj["FatherName"],
-                MotherName = obj["MotherName"],
-                Gender = obj["Gender"],
-                StudentHeight = Convert.ToInt32(obj["StudentHeight"]),
-                StudentWeight = Convert.ToInt32(obj["StudentWeight"]),
-                BodyRemark = obj["BodyRemark"],
-                UserId = Convert.ToInt32(obj["UserId"]),
-                IsActive = true,
-                IsDeleted = false,
-                CreatedAt = DateTime.UtcNow,
-                CreatedBy = Convert.ToInt32(obj["CreatedBy"]),
-                LastUpdatedAt = DateTime.UtcNow,
-                LastUpdatedBy = Convert.ToInt32(obj["LastUpdatedBy"]),
-            };
-
             return await _studentDetailsRepository.AddAsync(studentDetails);
         }
         [HttpPost]

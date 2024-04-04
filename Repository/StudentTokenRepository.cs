@@ -90,7 +90,7 @@ namespace ERP.Bussiness
             studentToken.ValidUpto = DateTime.UtcNow.AddDays(tokenValidity);
             studentToken.CreatedAt = DateTime.UtcNow;
             studentToken.IsDeleted = false;
-            var studentTokens = await _appDbContext.StudentToken.Where(st =>  st.StudentId == studentToken.StudentId && st.ValidUpto > DateTime.UtcNow && st.BatchId == studentToken.BatchId).FirstOrDefaultAsync();
+            var studentTokens = await _appDbContext.StudentToken.Where(st =>  st.StudentId == studentToken.StudentId && st.ValidUpto > DateTime.UtcNow && st.BatchId == studentToken.BatchId && st.CreatedBy == studentToken.CreatedBy).FirstOrDefaultAsync();
             if(studentTokens==null)
             {
                 _appDbContext.StudentToken.Add(studentToken);
@@ -131,8 +131,8 @@ namespace ERP.Bussiness
         }
         public async Task<IEnumerable<StudentToken>> GetStudentTokenByStudentIdAsync(int StudentId)
         {
-            var studentToken = await  _appDbContext.StudentToken.
-                                      Select( st => new StudentToken
+            var studentToken = await  _appDbContext.StudentToken
+                                      .Where(t => t.StudentId == StudentId).Select( st => new StudentToken
                                       {
                                           StudentTokenId = st.StudentTokenId,
                                           ValidFrom = TimeZoneConvert.UtcToIST(st.ValidFrom),
@@ -151,7 +151,7 @@ namespace ERP.Bussiness
                                           IsValidForAdmissionNonMapped = st.IsValidForAdmission.ToString(),
                                           TotalDeposit =  _appDbContext.StudentTokenFees.Where(d => d.StudentTokenId == st.StudentTokenId).Sum(s => s.Deposit).ToString(),
                                           TotalRefund =  _appDbContext.StudentTokenFees.Where(d => d.StudentTokenId == st.StudentTokenId).Sum(s => s.Refund).ToString(),
-                                      }).Where(t => t.StudentId == StudentId).OrderByDescending(b=>b.StudentTokenId).ToListAsync();
+                                      }).OrderByDescending(b=>b.StudentTokenId).ToListAsync();
             return studentToken;
         }
     }

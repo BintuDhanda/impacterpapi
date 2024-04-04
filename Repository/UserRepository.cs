@@ -15,12 +15,12 @@ using System.Text.RegularExpressions;
 
 namespace ERP.Bussiness
 {
-    public  class UserRepository : IUser
+    public class UserRepository : IUser
     {
         public IConfiguration _configration;
         private readonly AppDbContext _dbContext;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public UserRepository(AppDbContext appDbContext,IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
+        public UserRepository(AppDbContext appDbContext, IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
         {
             _dbContext = appDbContext;
             _configration = configuration;
@@ -30,9 +30,9 @@ namespace ERP.Bussiness
         public async Task<IEnumerable<Users>> GetAllAsync(CommonSearchFilter commonSearchFilter)
         {
             var users = await _dbContext.Users
-                        .Where (u => !string.IsNullOrEmpty(commonSearchFilter.Mobile) ? u.UserMobile==commonSearchFilter.Mobile : u.CreatedAt >= Convert.ToDateTime(commonSearchFilter.From).ToUniversalTime() &&
+                        .Where(u => !string.IsNullOrEmpty(commonSearchFilter.Mobile) ? u.UserMobile == commonSearchFilter.Mobile : u.CreatedAt >= Convert.ToDateTime(commonSearchFilter.From).ToUniversalTime() &&
                          u.CreatedAt <= Convert.ToDateTime(commonSearchFilter.To).ToUniversalTime())
-                        .Select( u =>  new Users
+                        .Select(u => new Users
                         {
                             UsersId = u.UsersId,
                             UserEmail = u.UserEmail,
@@ -46,11 +46,11 @@ namespace ERP.Bussiness
                             CreatedBy = u.CreatedBy,
                             LastUpdatedAt = u.LastUpdatedAt,
                             LastUpdatedBy = u.LastUpdatedBy,
-                            IsStudentCreated = _dbContext.StudentDetails.Where(f=>f.UserId==u.UsersId).FirstOrDefault() == null ? false:true,
-                            TotalUser = _dbContext.Users.Where(u=>u.IsActive == true).Count(),
+                            IsStudentCreated = _dbContext.StudentDetails.Where(f => f.UserId == u.UsersId).FirstOrDefault() == null ? false : true,
+                            TotalUser = _dbContext.Users.Where(u => u.IsActive == true).Count(),
                         })
-                        .OrderByDescending(o=>o.UsersId)
-                        .Skip(commonSearchFilter.Skip) 
+                        .OrderByDescending(o => o.UsersId)
+                        .Skip(commonSearchFilter.Skip)
                         .Take(commonSearchFilter.Take)
                         .ToListAsync();
             return users;
@@ -66,8 +66,8 @@ namespace ERP.Bussiness
             user.CreatedAt = DateTime.UtcNow;
             user.IsDeleted = false;
             user.IsEmailConfirmed = false;
-            
-            var users = await _dbContext.Users.Where(x=> x.UserMobile == user.UserMobile).FirstOrDefaultAsync();
+
+            var users = await _dbContext.Users.Where(x => x.UserMobile == user.UserMobile).FirstOrDefaultAsync();
             if (users == null)
             {
                 _dbContext.Users.Add(user);
@@ -79,7 +79,7 @@ namespace ERP.Bussiness
                 return users;
             }
 
-            
+
         }
 
         public async Task<Users> UpdateAsync(Users user)
@@ -100,7 +100,7 @@ namespace ERP.Bussiness
 
         public async Task<Users> DeleteAsync(int Id)
         {
-            var user = await  _dbContext.Users.FindAsync(Id);
+            var user = await _dbContext.Users.FindAsync(Id);
             _dbContext.Users.Remove(user);
             await _dbContext.SaveChangesAsync();
             return user;
@@ -112,19 +112,19 @@ namespace ERP.Bussiness
             else
             {
                 var roleId = await _dbContext.Roles.Where(r => r.RoleName == "Student").Select(s => s.RolesId).FirstOrDefaultAsync();
-                if(roleId == 0)
+                if (roleId == 0)
                 {
                     var role = new Roles()
                     {
                         CreatedAt = DateTime.UtcNow,
                         CreatedBy = user.UsersId,
-                        LastUpdatedAt= DateTime.UtcNow,
+                        LastUpdatedAt = DateTime.UtcNow,
                         IsDeleted = false,
-                        LastUpdatedBy= user.UsersId,
+                        LastUpdatedBy = user.UsersId,
                         IsActive = true,
-                        RoleName="Student"
+                        RoleName = "Student"
                     };
-                     _dbContext.Roles.Add(role);
+                    _dbContext.Roles.Add(role);
                     await _dbContext.SaveChangesAsync();
                     roleId = await _dbContext.Roles.Where(r => r.RoleName == "Student").Select(s => s.RolesId).FirstOrDefaultAsync();
                 }
@@ -134,13 +134,13 @@ namespace ERP.Bussiness
                     UserID = user.UsersId
                 };
                 var userRoleIsExits = await _dbContext.UserRole.Where(r => r.UserID == user.UsersId && r.RoleID == roleId).FirstOrDefaultAsync();
-                if(userRoleIsExits==null)
+                if (userRoleIsExits == null)
                 {
                     _dbContext.UserRole.Add(userRole);
                     await _dbContext.SaveChangesAsync();
                     return userRole;
                 }
-               
+
                 return userRoleIsExits;
             }
         }
@@ -149,7 +149,7 @@ namespace ERP.Bussiness
             var response = new UserSignUpResponse();
             var newUser = AddAsync(user).Result;
             var userRole = AddUserToRole(newUser).Result;
-            if(userRole != null)
+            if (userRole != null)
             {
                 response = GenerateJWT(newUser);
             }
@@ -160,30 +160,30 @@ namespace ERP.Bussiness
         {
             int currentPage = userSearch.CurrentPage;
             int recordsPerPage = userSearch.Take;
-            int skip = userSearch.CurrentPage==1? 0: (userSearch.CurrentPage-1)*userSearch.Take;
+            int skip = userSearch.CurrentPage == 1 ? 0 : (userSearch.CurrentPage - 1) * userSearch.Take;
 
 
-            var count =  await _dbContext.Users.Where(w =>
-               
+            var count = await _dbContext.Users.Where(w =>
+
                (string.IsNullOrEmpty(userSearch.UserMobile) || w.UserMobile.Contains(userSearch.UserMobile))
                && (string.IsNullOrEmpty(userSearch.IsActive) || w.IsActive == Convert.ToBoolean(userSearch.IsActive))
                && (string.IsNullOrEmpty(userSearch.From) && string.IsNullOrEmpty(userSearch.To) && !w.CreatedAt.HasValue) || w.CreatedAt.Value.Date >= Convert.ToDateTime(userSearch.From) || w.CreatedAt <= Convert.ToDateTime(userSearch.To)
-               ).Select(s=>s.UsersId).CountAsync(); 
+               ).Select(s => s.UsersId).CountAsync();
 
             var users = await _dbContext.Users.Where(w =>
                 (string.IsNullOrEmpty(userSearch.UserMobile) || w.UserMobile.Contains(userSearch.UserMobile))
-               && (string.IsNullOrEmpty(userSearch.IsActive)||w.IsActive == Convert.ToBoolean(userSearch.IsActive))
-               && (string.IsNullOrEmpty(userSearch.From) && string.IsNullOrEmpty(userSearch.To) && !w.CreatedAt.HasValue ) ||  w.CreatedAt.Value.Date >= Convert.ToDateTime(userSearch.From) || w.CreatedAt <= Convert.ToDateTime(userSearch.To)
+               && (string.IsNullOrEmpty(userSearch.IsActive) || w.IsActive == Convert.ToBoolean(userSearch.IsActive))
+               && (string.IsNullOrEmpty(userSearch.From) && string.IsNullOrEmpty(userSearch.To) && !w.CreatedAt.HasValue) || w.CreatedAt.Value.Date >= Convert.ToDateTime(userSearch.From) || w.CreatedAt <= Convert.ToDateTime(userSearch.To)
                ).Take(userSearch.Take).
                Skip(skip)
-               .Select(s=>new Users
-               {    
-                    CreatedAt = s.CreatedAt.HasValue?s.CreatedAt.Value.Date: null,
-                     UsersId =s.UsersId,
-                      IsActive=s.IsActive.HasValue?s.IsActive.Value: null,
-                      UserMobile=s.UserMobile,
-                      UserPassword= "",
-                      TotalCount=count
+               .Select(s => new Users
+               {
+                   CreatedAt = s.CreatedAt.HasValue ? s.CreatedAt.Value.Date : null,
+                   UsersId = s.UsersId,
+                   IsActive = s.IsActive.HasValue ? s.IsActive.Value : null,
+                   UserMobile = s.UserMobile,
+                   UserPassword = "",
+                   TotalCount = count
                }).
                ToListAsync();
 
@@ -192,12 +192,12 @@ namespace ERP.Bussiness
 
         public async Task<UserSignUpResponse> UserLogInAsync(UserLogin userLogin)
         {
-            var userRecord = await _dbContext.Users.Where(x=>x.UserMobile == userLogin.UserMobile && x.UserPassword == userLogin.UserPassword).FirstOrDefaultAsync();
-            var userIsStudent = await _dbContext.Roles.Where(w => w.RolesId == (_dbContext.UserRole.Where(u => u.UserID == ( userRecord == null ? 0 : userRecord.UsersId)).Select(s => s.RoleID).FirstOrDefault())).Select(r=>r.RoleName).ToListAsync();
-            if (userRecord!=null && userIsStudent.Contains("Student"))
+            var userRecord = await _dbContext.Users.Where(x => x.UserMobile == userLogin.UserMobile && x.UserPassword == userLogin.UserPassword).FirstOrDefaultAsync();
+            var userIsStudent = await _dbContext.Roles.Where(w => w.RolesId == (_dbContext.UserRole.Where(u => u.UserID == (userRecord == null ? 0 : userRecord.UsersId)).Select(s => s.RoleID).FirstOrDefault())).Select(r => r.RoleName).ToListAsync();
+            if (userRecord != null && userIsStudent.Contains("Student"))
             {
-            var response = GenerateJWT(userRecord);
-            return response;
+                var response = GenerateJWT(userRecord);
+                return response;
             }
             else
             {
@@ -206,12 +206,12 @@ namespace ERP.Bussiness
         }
         public async Task<UserSignUpResponse> ERPLogInAsync(UserLogin userLogin)
         {
-            var userRecord = await _dbContext.Users.Where(x=>x.UserMobile == userLogin.UserMobile && x.UserPassword == userLogin.UserPassword).FirstOrDefaultAsync();
-            var userIsStudent = await _dbContext.Roles.Where(w => w.RolesId == (_dbContext.UserRole.Where(u => u.UserID == (userRecord == null?0:userRecord.UsersId)).Select(s => s.RoleID).FirstOrDefault())).Select(r => r.RoleName).ToListAsync();
-            if (userRecord!=null && userIsStudent.Contains("Admin") || userIsStudent.Contains("Staff"))
+            var userRecord = await _dbContext.Users.Where(x => x.UserMobile == userLogin.UserMobile && x.UserPassword == userLogin.UserPassword).FirstOrDefaultAsync();
+            var userIsStudent = await _dbContext.Roles.Where(w => w.RolesId == (_dbContext.UserRole.Where(u => u.UserID == (userRecord == null ? 0 : userRecord.UsersId)).Select(s => s.RoleID).FirstOrDefault())).Select(r => r.RoleName).ToListAsync();
+            if (userRecord != null && userIsStudent.Contains("Admin") || userIsStudent.Contains("Staff"))
             {
-            var response = GenerateJWT(userRecord);
-            return response;
+                var response = GenerateJWT(userRecord);
+                return response;
             }
             else
             {
@@ -225,11 +225,12 @@ namespace ERP.Bussiness
         }
         public async Task<IActionResult> GetStudentIdByUserId(int UserId)
         {
-            return new JsonResult(await _dbContext.StudentDetails.Where(x => x.UserId == UserId).Select(sd => new { sd.StudentId }).FirstOrDefaultAsync());
+            var res = await _dbContext.StudentDetails.Where(x => x.UserId == UserId).Select(sd => new { id = sd.StudentId }).FirstOrDefaultAsync();
+            return new JsonResult(res);
         }
         public async Task<IActionResult> IsVerified(string userMobile)
         {
-            return new JsonResult(await _dbContext.Users.Where(x => x.UserMobile == userMobile).Select(s=>s.IsMobileConfirmed).FirstOrDefaultAsync());
+            return new JsonResult(await _dbContext.Users.Where(x => x.UserMobile == userMobile).Select(s => s.IsMobileConfirmed).FirstOrDefaultAsync());
         }
         public async Task<IActionResult> IsMobileConfirmed(string userMobile)
         {
@@ -250,10 +251,11 @@ namespace ERP.Bussiness
 
         private UserSignUpResponse GenerateJWT(Users user)
         {
-            var roleList = string.Join(',',(from ur in _dbContext.UserRole join
+            var roleList = string.Join(',', (from ur in _dbContext.UserRole
+                                             join
                            r in _dbContext.Roles on ur.RoleID equals r.RolesId
-                           where ur.UserID == user.UsersId
-                           select r.RoleName));
+                                             where ur.UserID == user.UsersId
+                                             select r.RoleName));
 
             var issuer = _configration["Jwt:Issuer"];
             var audience = _configration["Jwt:Audience"];
@@ -291,7 +293,7 @@ namespace ERP.Bussiness
         {
             var user = _dbContext.Users.Where(u => u.UserMobile == fileUpload.UserMobile && u.UserPassword == fileUpload.UserPassword).FirstOrDefault();
 
-            if(user == null)
+            if (user == null)
             {
                 return new JsonResult("User Does Not Exists");
             }
@@ -314,12 +316,12 @@ namespace ERP.Bussiness
                         var worksheet = workbook.Worksheet(1); // Assuming the data is in the first worksheet
 
                         var rows = worksheet.RowsUsed().Skip(1); // Skip the header row
-                       
+
                         var columnNames = new Dictionary<string, int>();
 
                         // Read the column names from the header row
                         var headerRow = worksheet.FirstRow();
-                       
+
                         foreach (var cell in headerRow.Cells())
                         {
                             var columnName = cell.Value.ToString();
@@ -340,9 +342,9 @@ namespace ERP.Bussiness
                                 LastUpdatedBy = user.UsersId,
                                 IsActive = true,
                                 IsDeleted = false,
-                                IsMobileConfirmed=false,
-                                IsEmailConfirmed=false,
-                                UserEmail="",
+                                IsMobileConfirmed = false,
+                                IsEmailConfirmed = false,
+                                UserEmail = "",
                             };
 
                             var uploadStatusCell = row.Cell(columnNames["UploadStatus"]);
@@ -361,7 +363,7 @@ namespace ERP.Bussiness
                             }
                             else
                             {
-                                if(_dbContext.Users.Any(i => i.UserMobile == entity.UserMobile))
+                                if (_dbContext.Users.Any(i => i.UserMobile == entity.UserMobile))
                                 {
                                     uploadStatusCell.Value = "Already Exists";
                                 }
@@ -372,12 +374,12 @@ namespace ERP.Bussiness
                                     uploadStatusCell.Value = "Successfully imported";
                                 }
                             }
-                            
+
                         }
 
                         // Save the modified workbook to a new file
                         string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "temp");
-                        
+
                         if (!Directory.Exists(uploadsFolder))
                         {
                             Directory.CreateDirectory(uploadsFolder);
@@ -393,7 +395,7 @@ namespace ERP.Bussiness
                             FileDownloadName = "updated_data.xlsx"
                         };
                     }
-                  
+
                 }
                 catch (Exception ex)
                 {
@@ -405,11 +407,11 @@ namespace ERP.Bussiness
         public async Task<IEnumerable<UserSendNotification>> GetAllNotificationAsync(CommonSearchFilter commonSearchFilter)
         {
             var notification = await _dbContext.UserSendNotification
-                        .Where(n=> n.IsDeleted == false && n.UserId == commonSearchFilter.UserId)
+                        .Where(n => n.IsDeleted == false && n.UserId == commonSearchFilter.UserId)
                         .Select(n => new UserSendNotification
                         {
                             UserSendNotificationId = n.UserSendNotificationId,
-                            Title = (_dbContext.UserNotification.Where(u=>u.UserNotificationId==n.UserNotificationId).Select(s=>s.Title).FirstOrDefault()),
+                            Title = (_dbContext.UserNotification.Where(u => u.UserNotificationId == n.UserNotificationId).Select(s => s.Title).FirstOrDefault()),
                             Body = (_dbContext.UserNotification.Where(u => u.UserNotificationId == n.UserNotificationId).Select(s => s.Body).FirstOrDefault()),
                         })
                         .OrderByDescending(o => o.UserSendNotificationId)

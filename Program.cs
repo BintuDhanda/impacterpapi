@@ -11,8 +11,9 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<AppDbContext>(options=>
-options.UseSqlServer(builder.Configuration.GetConnectionString("ERPContext")));
+var env = builder.Configuration["EnvironmentVariable"];
+builder.Services.AddDbContext<AppDbContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("ERPContext" + env)));
 
 // Register the PushNotificationService.
 builder.Services.AddScoped<PushNotificationService>();
@@ -67,7 +68,7 @@ builder.Services.AddScoped<IBoard, BoardRepository>();
 builder.Services.AddScoped<IUniversity, UniversityRepository>();
 builder.Services.AddScoped<IStudentDetails, StudentDetailsRepository>();
 builder.Services.AddScoped<IQualification, QualificationRepository>();
-builder.Services.AddScoped<IStudentQualification,StudentQualificationRepository>();
+builder.Services.AddScoped<IStudentQualification, StudentQualificationRepository>();
 builder.Services.AddScoped<IStudentContact, StudentContactRepository>();
 builder.Services.AddScoped<IStudentAddress, StudentAddressRepository>();
 builder.Services.AddScoped<IAddressType, AddressTypeRepository>();
@@ -123,7 +124,7 @@ app.UseStaticFiles();
 app.UseCors("CorsPolicy");
 //app.UseHttpsRedirection();
 app.UseAuthentication();
-app.UseAuthorization(); 
+app.UseAuthorization();
 
 app.MapControllers();
 
