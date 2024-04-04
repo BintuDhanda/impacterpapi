@@ -12,8 +12,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var env = builder.Configuration["EnvironmentVariable"];
+var connectionString = builder.Configuration.GetConnectionString("ERPContext" + env);
 builder.Services.AddDbContext<AppDbContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("ERPContext" + env)));
+options.UseSqlServer(connectionString));
 
 // Register the PushNotificationService.
 builder.Services.AddScoped<PushNotificationService>();
