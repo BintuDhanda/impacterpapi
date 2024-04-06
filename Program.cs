@@ -123,7 +123,7 @@ using (var scope = app.Services.CreateScope())
 app.UseStaticFiles();
 
 app.UseCors("CorsPolicy");
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
