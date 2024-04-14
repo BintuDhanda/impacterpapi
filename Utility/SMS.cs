@@ -25,13 +25,19 @@ namespace LMS.Utilities
         {
             try
             {
+                string msg = message;
+                if (message.Contains("Dear Student, Your Registration OTP is"))
+                {
+                    var otpIndex = ("Dear Student, Your Registration OTP is ").Length;
+                    msg = "Dear Student, Your Registration OTP is " + message.Substring(otpIndex, 4).Trim() + " Mobile No. 9050546000 Impact Academy, Hisar";
+                }
                 string user = "impactcampus";
                 string password = "K9F2HDNY";
-                string senderId = "IIMPCT";
+                string senderId = "IMPHSR";
                 string entityId = "";
-                string strUrl = "http://www.getwaysms.com/vendorsms/pushsms.aspx?user=" 
-                    + user + "&password=" + password + "&msisdn=" + mobile 
-                    + "&msg=" + message + "&sid=" + senderId + "&fl=0&gwid=2";
+                string strUrl = "http://www.getwaysms.com/vendorsms/pushsms.aspx?user="
+                    + user + "&password=" + password + "&msisdn=" + mobile
+                    + "&msg=" + msg + "&sid=" + senderId + "&fl=0&gwid=2";
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 System.Net.WebRequest request = System.Net.WebRequest.Create(strUrl);
@@ -42,6 +48,10 @@ namespace LMS.Utilities
                 s.Close();
                 readStream.Close();
                 response.Close();
+                if (!dataString.Contains("SUCCESS"))
+                {
+                    return false;
+                }
                 return true;
             }
             catch { return false; }
