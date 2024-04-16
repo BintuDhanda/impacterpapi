@@ -29,7 +29,7 @@ namespace LMS.Utilities
                 if (message.Contains("Dear Student, Your Registration OTP is"))
                 {
                     var otpIndex = ("Dear Student, Your Registration OTP is ").Length;
-                    msg = "Dear Student, Your Registration OTP is " + message.Substring(otpIndex, 4).Trim() + " Mobile No. 9050546000 Impact Academy, Hisar";
+                    msg = "Dear Student, Your Registration OTP is " + message.Substring(otpIndex, 4).Trim() + " Mobile No. " + mobile + " Impact Academy, Hisar";
                 }
                 string user = "impactcampus";
                 string password = "K9F2HDNY";
