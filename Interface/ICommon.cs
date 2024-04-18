@@ -4,6 +4,6 @@ namespace ERP.Interface
 {
     public interface ICommon
     {
-        public string SendSMS(string phoneNumber, string message);
+        public string SendSMS(string phoneNumber, string message, string type);
     }
 }

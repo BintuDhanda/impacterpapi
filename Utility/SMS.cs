@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FirebaseAdmin.Messaging;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -13,31 +14,33 @@ namespace LMS.Utilities
     {
         private readonly string mobile;
         private readonly string message;
-        private readonly string templateId;
+        private readonly string type;
 
-        public SMS(string mobile, string message, string templateId)
+        public SMS(string mobile, string message, string type)
         {
             this.mobile = mobile;
             this.message = message;
-            this.templateId = templateId;
+            this.type = type;
         }
         public bool Send()
         {
             try
             {
-                string msg = message;
-                if (message.Contains("Dear Student, Your Registration OTP is"))
+                string msg = "";
+                switch (type)
                 {
-                    var otpIndex = ("Dear Student, Your Registration OTP is ").Length;
-                    msg = "Dear Student, Your Registration OTP is " + message.Substring(otpIndex, 4).Trim() + " Mobile No. " + mobile + " Impact Academy, Hisar";
+                    case "OTPSMS":
+                        msg = "Your Mobile number verification OTP is " + message + " Regards, Impact Academy Hisar	";
+                        break;
                 }
+
                 string user = "impactcampus";
                 string password = "K9F2HDNY";
                 string senderId = "IMPHSR";
                 string entityId = "";
                 string strUrl = "http://www.getwaysms.com/vendorsms/pushsms.aspx?user="
                     + user + "&password=" + password + "&msisdn=" + mobile
-                    + "&msg=" + msg + "&sid=" + senderId + "&fl=0&gwid=2";
+                     + "&sid=" + senderId + "&msg=" + msg + "&fl=0&gwid=2";
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 System.Net.WebRequest request = System.Net.WebRequest.Create(strUrl);

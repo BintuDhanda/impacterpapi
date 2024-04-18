@@ -6,9 +6,9 @@ namespace ERP.Repository
 {
     public class CommonRepository : ICommon
     {
-        public string SendSMS(string phoneNumber, string message)
+        public string SendSMS(string phoneNumber, string message, string type)
         {
-            var result = new SMS(phoneNumber, message, null).Send();
+            var result = new SMS(phoneNumber, message, type).Send();
             if (result)
             {
                 return "Ok";

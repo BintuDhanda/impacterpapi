@@ -25,7 +25,7 @@ namespace ERP.Controllers
             {
                 return new JsonResult("Something went wrong");
             }
-            return new JsonResult(_commonService.SendSMS(payload.number, payload.msg));
+            return new JsonResult(_commonService.SendSMS(payload.number, payload.msg, payload.type));
         }
         [HttpPost]
         [Route("get")]
