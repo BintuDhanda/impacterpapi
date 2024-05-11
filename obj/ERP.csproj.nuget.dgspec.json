@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Balwant Dhanda\\impacterpapi\\ERP.csproj": {}
+    "D:\\ERP\\ERP.csproj": {}
   },
   "projects": {
-    "D:\\Balwant Dhanda\\impacterpapi\\ERP.csproj": {
+    "D:\\ERP\\ERP.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Balwant Dhanda\\impacterpapi\\ERP.csproj",
+        "projectUniqueName": "D:\\ERP\\ERP.csproj",
         "projectName": "ERP",
-        "projectPath": "D:\\Balwant Dhanda\\impacterpapi\\ERP.csproj",
+        "projectPath": "D:\\ERP\\ERP.csproj",
         "packagesPath": "C:\\Users\\dharm\\.nuget\\packages\\",
-        "outputPath": "D:\\Balwant Dhanda\\impacterpapi\\obj\\",
+        "outputPath": "D:\\ERP\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\dharm\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -47,15 +47,15 @@
           "dependencies": {
             "ClosedXML": {
               "target": "Package",
-              "version": "[0.102.0, )"
+              "version": "[0.102.2, )"
             },
             "FirebaseAdmin": {
               "target": "Package",
-              "version": "[2.4.0, )"
+              "version": "[3.0.0, )"
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
-              "version": "[6.0.16, )"
+              "version": "[6.0.29, )"
             },
             "Microsoft.AspNetCore.Cors": {
               "target": "Package",
@@ -63,21 +63,21 @@
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[7.0.5, )"
+              "version": "[6.0.29, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[7.0.5, )"
+              "version": "[6.0.29, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[7.0.5, )"
+              "version": "[6.0.29, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[6.2.3, )"
+              "version": "[6.5.0, )"
             },
             "System.Security.Cryptography.Cng": {
               "target": "Package",

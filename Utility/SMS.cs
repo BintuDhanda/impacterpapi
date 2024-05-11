@@ -30,7 +30,7 @@ namespace LMS.Utilities
                 switch (type)
                 {
                     case "OTPSMS":
-                        msg = "Your Mobile number verification OTP is " + message + " Regards, Impact Academy Hisar	";
+                        msg = "Your Mobile number verification OTP is " + message + " Regards, Impact Academy Hisar";
                         break;
                 }
 

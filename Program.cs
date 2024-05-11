@@ -10,6 +10,10 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.WebHost.UseUrls(
+    "http://0.0.0.0:5000",
+    "https://0.0.0.0:5001"
+    );
 // Add services to the container.
 var env = builder.Configuration["EnvironmentVariable"];
 var connectionString = builder.Configuration.GetConnectionString("ERPContext" + env);
@@ -123,7 +127,7 @@ using (var scope = app.Services.CreateScope())
 app.UseStaticFiles();
 
 app.UseCors("CorsPolicy");
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 

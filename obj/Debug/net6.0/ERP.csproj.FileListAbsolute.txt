@@ -1,105 +1,91 @@
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\appsettings.Development.json
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\appsettings.json
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\ERP.staticwebassets.runtime.json
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\ERP.exe
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\ERP.deps.json
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\ERP.runtimeconfig.json
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\ERP.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\ERP.pdb
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Azure.Core.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Azure.Identity.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\ClosedXML.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\DocumentFormat.OpenXml.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\ExcelNumberFormat.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\FirebaseAdmin.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Google.Api.Gax.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Google.Api.Gax.Rest.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Google.Apis.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Google.Apis.Auth.PlatformServices.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Google.Apis.Auth.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Google.Apis.Core.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Humanizer.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Irony.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Microsoft.Extensions.Caching.Abstractions.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Microsoft.Extensions.Logging.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Microsoft.Identity.Client.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Microsoft.Identity.Client.Extensions.Msal.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Microsoft.OpenApi.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Microsoft.SqlServer.Server.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Mono.TextTemplating.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Newtonsoft.Json.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\SixLabors.Fonts.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\System.CodeDom.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\System.Drawing.Common.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\System.IO.Packaging.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\System.Memory.Data.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\System.Runtime.Caching.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\System.Security.Permissions.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\System.Text.Encodings.Web.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\System.Text.Json.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\System.Windows.Extensions.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\XLParser.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
-D:\Balwant Dhanda\impacterpapi\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
-D:\Balwant Dhanda\impacterpapi\obj\Debug\net6.0\ERP.csproj.AssemblyReference.cache
-D:\Balwant Dhanda\impacterpapi\obj\Debug\net6.0\ERP.GeneratedMSBuildEditorConfig.editorconfig
-D:\Balwant Dhanda\impacterpapi\obj\Debug\net6.0\ERP.AssemblyInfoInputs.cache
-D:\Balwant Dhanda\impacterpapi\obj\Debug\net6.0\ERP.AssemblyInfo.cs
-D:\Balwant Dhanda\impacterpapi\obj\Debug\net6.0\ERP.csproj.CoreCompileInputs.cache
-D:\Balwant Dhanda\impacterpapi\obj\Debug\net6.0\ERP.MvcApplicationPartsAssemblyInfo.cs
-D:\Balwant Dhanda\impacterpapi\obj\Debug\net6.0\ERP.MvcApplicationPartsAssemblyInfo.cache
-D:\Balwant Dhanda\impacterpapi\obj\Debug\net6.0\ERP.sourcelink.json
-D:\Balwant Dhanda\impacterpapi\obj\Debug\net6.0\staticwebassets.build.json
-D:\Balwant Dhanda\impacterpapi\obj\Debug\net6.0\staticwebassets.development.json
-D:\Balwant Dhanda\impacterpapi\obj\Debug\net6.0\staticwebassets\msbuild.ERP.Microsoft.AspNetCore.StaticWebAssets.props
-D:\Balwant Dhanda\impacterpapi\obj\Debug\net6.0\staticwebassets\msbuild.build.ERP.props
-D:\Balwant Dhanda\impacterpapi\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.ERP.props
-D:\Balwant Dhanda\impacterpapi\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.ERP.props
-D:\Balwant Dhanda\impacterpapi\obj\Debug\net6.0\staticwebassets.pack.json
-D:\Balwant Dhanda\impacterpapi\obj\Debug\net6.0\scopedcss\bundle\ERP.styles.css
-D:\Balwant Dhanda\impacterpapi\obj\Debug\net6.0\ERP.csproj.Up2Date
-D:\Balwant Dhanda\impacterpapi\obj\Debug\net6.0\ERP.dll
-D:\Balwant Dhanda\impacterpapi\obj\Debug\net6.0\refint\ERP.dll
-D:\Balwant Dhanda\impacterpapi\obj\Debug\net6.0\ERP.pdb
-D:\Balwant Dhanda\impacterpapi\obj\Debug\net6.0\ERP.genruntimeconfig.cache
-D:\Balwant Dhanda\impacterpapi\obj\Debug\net6.0\ref\ERP.dll
+D:\ERP\bin\Debug\net6.0\appsettings.Development.json
+D:\ERP\bin\Debug\net6.0\appsettings.json
+D:\ERP\bin\Debug\net6.0\ERP.exe
+D:\ERP\bin\Debug\net6.0\ERP.deps.json
+D:\ERP\bin\Debug\net6.0\ERP.runtimeconfig.json
+D:\ERP\bin\Debug\net6.0\ERP.dll
+D:\ERP\bin\Debug\net6.0\ERP.pdb
+D:\ERP\bin\Debug\net6.0\ClosedXML.dll
+D:\ERP\bin\Debug\net6.0\DocumentFormat.OpenXml.dll
+D:\ERP\bin\Debug\net6.0\ExcelNumberFormat.dll
+D:\ERP\bin\Debug\net6.0\FirebaseAdmin.dll
+D:\ERP\bin\Debug\net6.0\Google.Api.Gax.dll
+D:\ERP\bin\Debug\net6.0\Google.Api.Gax.Rest.dll
+D:\ERP\bin\Debug\net6.0\Google.Apis.dll
+D:\ERP\bin\Debug\net6.0\Google.Apis.Auth.dll
+D:\ERP\bin\Debug\net6.0\Google.Apis.Core.dll
+D:\ERP\bin\Debug\net6.0\Humanizer.dll
+D:\ERP\bin\Debug\net6.0\Irony.dll
+D:\ERP\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\ERP\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\ERP\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
+D:\ERP\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+D:\ERP\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\ERP\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\ERP\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\ERP\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\ERP\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+D:\ERP\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+D:\ERP\bin\Debug\net6.0\Microsoft.Identity.Client.dll
+D:\ERP\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+D:\ERP\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\ERP\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+D:\ERP\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+D:\ERP\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\ERP\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+D:\ERP\bin\Debug\net6.0\Microsoft.OpenApi.dll
+D:\ERP\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\ERP\bin\Debug\net6.0\Newtonsoft.Json.dll
+D:\ERP\bin\Debug\net6.0\SixLabors.Fonts.dll
+D:\ERP\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\ERP\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\ERP\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\ERP\bin\Debug\net6.0\System.CodeDom.dll
+D:\ERP\bin\Debug\net6.0\System.Collections.Immutable.dll
+D:\ERP\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+D:\ERP\bin\Debug\net6.0\System.Diagnostics.DiagnosticSource.dll
+D:\ERP\bin\Debug\net6.0\System.Drawing.Common.dll
+D:\ERP\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+D:\ERP\bin\Debug\net6.0\System.IO.Packaging.dll
+D:\ERP\bin\Debug\net6.0\System.Management.dll
+D:\ERP\bin\Debug\net6.0\System.Runtime.Caching.dll
+D:\ERP\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\ERP\bin\Debug\net6.0\System.Security.Permissions.dll
+D:\ERP\bin\Debug\net6.0\System.Windows.Extensions.dll
+D:\ERP\bin\Debug\net6.0\XLParser.dll
+D:\ERP\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\ERP\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\ERP\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\ERP\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\ERP\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\ERP\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\ERP\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+D:\ERP\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\ERP\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\ERP\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Management.dll
+D:\ERP\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+D:\ERP\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\ERP\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+D:\ERP\obj\Debug\net6.0\ERP.csproj.AssemblyReference.cache
+D:\ERP\obj\Debug\net6.0\ERP.GeneratedMSBuildEditorConfig.editorconfig
+D:\ERP\obj\Debug\net6.0\ERP.AssemblyInfoInputs.cache
+D:\ERP\obj\Debug\net6.0\ERP.AssemblyInfo.cs
+D:\ERP\obj\Debug\net6.0\ERP.csproj.CoreCompileInputs.cache
+D:\ERP\obj\Debug\net6.0\ERP.MvcApplicationPartsAssemblyInfo.cs
+D:\ERP\obj\Debug\net6.0\ERP.MvcApplicationPartsAssemblyInfo.cache
+D:\ERP\obj\Debug\net6.0\staticwebassets.build.json
+D:\ERP\obj\Debug\net6.0\staticwebassets.development.json
+D:\ERP\obj\Debug\net6.0\staticwebassets\msbuild.ERP.Microsoft.AspNetCore.StaticWebAssets.props
+D:\ERP\obj\Debug\net6.0\staticwebassets\msbuild.build.ERP.props
+D:\ERP\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.ERP.props
+D:\ERP\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.ERP.props
+D:\ERP\obj\Debug\net6.0\staticwebassets.pack.json
+D:\ERP\obj\Debug\net6.0\scopedcss\bundle\ERP.styles.css
+D:\ERP\obj\Debug\net6.0\ERP.csproj.Up2Date
+D:\ERP\obj\Debug\net6.0\ERP.dll
+D:\ERP\obj\Debug\net6.0\refint\ERP.dll
+D:\ERP\obj\Debug\net6.0\ERP.pdb
+D:\ERP\obj\Debug\net6.0\ERP.genruntimeconfig.cache
+D:\ERP\obj\Debug\net6.0\ref\ERP.dll
+D:\ERP\bin\Debug\net6.0\ERP.staticwebassets.runtime.json
+D:\ERP\obj\Debug\net6.0\ERP.sourcelink.json
