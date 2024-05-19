@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vWeUI4C1k8c/459oJlaC7gxVnENwm58lMos2pg5d5qRRvJ7XlMUgbkdXd1hd3LTzaCTEKODj522G2ejakLiW5w==",
+  "dgSpecHash": "Vctjh4VL4mukkgU0oGGjMKHeaP5B1Imzet6oVMF9enCLdyClEC+J8SsucFc7XFCv2uhkKRQe+UzmKPCP+NOI+w==",
   "success": true,
-  "projectFilePath": "D:\\ERP\\ERP.csproj",
+  "projectFilePath": "E:\\Balwant Dhanda\\impacterpapi\\ERP.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\dharm\\.nuget\\packages\\closedxml\\0.102.2\\closedxml.0.102.2.nupkg.sha512",
     "C:\\Users\\dharm\\.nuget\\packages\\documentformat.openxml\\2.16.0\\documentformat.openxml.2.16.0.nupkg.sha512",
@@ -150,7 +150,11 @@
     "C:\\Users\\dharm\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512",
     "C:\\Users\\dharm\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\dharm\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\dharm\\.nuget\\packages\\xlparser\\1.5.2\\xlparser.1.5.2.nupkg.sha512"
+    "C:\\Users\\dharm\\.nuget\\packages\\xlparser\\1.5.2\\xlparser.1.5.2.nupkg.sha512",
+    "C:\\Users\\dharm\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.30\\microsoft.windowsdesktop.app.ref.6.0.30.nupkg.sha512",
+    "C:\\Users\\dharm\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.30\\microsoft.netcore.app.ref.6.0.30.nupkg.sha512",
+    "C:\\Users\\dharm\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.30\\microsoft.aspnetcore.app.ref.6.0.30.nupkg.sha512",
+    "C:\\Users\\dharm\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.30\\microsoft.netcore.app.host.win-x64.6.0.30.nupkg.sha512"
   ],
   "logs": []
 }

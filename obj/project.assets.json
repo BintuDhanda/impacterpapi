@@ -7907,11 +7907,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\ERP\\ERP.csproj",
+      "projectUniqueName": "E:\\Balwant Dhanda\\impacterpapi\\ERP.csproj",
       "projectName": "ERP",
-      "projectPath": "D:\\ERP\\ERP.csproj",
+      "projectPath": "E:\\Balwant Dhanda\\impacterpapi\\ERP.csproj",
       "packagesPath": "C:\\Users\\dharm\\.nuget\\packages\\",
-      "outputPath": "D:\\ERP\\obj\\",
+      "outputPath": "E:\\Balwant Dhanda\\impacterpapi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\dharm\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -7999,6 +7999,24 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[6.0.30, 6.0.30]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[6.0.30, 6.0.30]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[6.0.30, 6.0.30]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[6.0.30, 6.0.30]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -8007,7 +8025,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205\\RuntimeIdentifierGraph.json"
       }
     }
   }
