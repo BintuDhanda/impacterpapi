@@ -12,18 +12,17 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERP.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240208024127_academy-seed")]
-    partial class academyseed
+    [Migration("20241203060836_db-update")]
+    partial class dbupdate
     {
-        /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.5")
+                .HasAnnotation("ProductVersion", "6.0.29")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("ERP.Models.Academy", b =>
                 {
@@ -31,10 +30,9 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AcademyId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AcademyId"), 1L, 1);
 
                     b.Property<string>("AcademyName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("CreatedAt")
@@ -64,7 +62,7 @@ namespace ERP.Migrations
                         {
                             AcademyId = 1,
                             AcademyName = "Impact Academy, Hisar",
-                            CreatedAt = new DateTime(2024, 2, 8, 8, 11, 26, 641, DateTimeKind.Local).AddTicks(5424),
+                            CreatedAt = new DateTime(2024, 12, 3, 11, 38, 33, 847, DateTimeKind.Local).AddTicks(5920),
                             IsActive = true,
                             IsDeleted = false
                         },
@@ -72,7 +70,7 @@ namespace ERP.Migrations
                         {
                             AcademyId = 2,
                             AcademyName = "Impact Academy, Chaudhariwas",
-                            CreatedAt = new DateTime(2024, 2, 8, 8, 11, 26, 641, DateTimeKind.Local).AddTicks(5457),
+                            CreatedAt = new DateTime(2024, 12, 3, 11, 38, 33, 847, DateTimeKind.Local).AddTicks(5939),
                             IsActive = true,
                             IsDeleted = false
                         });
@@ -84,7 +82,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AccountId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AccountId"), 1L, 1);
 
                     b.Property<int>("AccCategoryId")
                         .HasColumnType("int");
@@ -122,7 +120,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AccountCategoryId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AccountCategoryId"), 1L, 1);
 
                     b.Property<string>("AccCategoryName")
                         .IsRequired()
@@ -157,7 +155,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AddressTypeId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AddressTypeId"), 1L, 1);
 
                     b.Property<string>("AddressTypeName")
                         .IsRequired()
@@ -192,7 +190,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AttendanceId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AttendanceId"), 1L, 1);
 
                     b.Property<string>("AttendanceType")
                         .IsRequired()
@@ -236,7 +234,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BatchId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BatchId"), 1L, 1);
 
                     b.Property<string>("BatchName")
                         .IsRequired()
@@ -284,7 +282,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("BoardName")
                         .IsRequired()
@@ -304,7 +302,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CityId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CityId"), 1L, 1);
 
                     b.Property<string>("CityName")
                         .IsRequired()
@@ -342,7 +340,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CountryId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CountryId"), 1L, 1);
 
                     b.Property<string>("CountryName")
                         .IsRequired()
@@ -377,7 +375,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CourseId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CourseId"), 1L, 1);
 
                     b.Property<int>("CourseCategoryId")
                         .HasColumnType("int");
@@ -415,7 +413,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CourseCategoryId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CourseCategoryId"), 1L, 1);
 
                     b.Property<int>("AcademyId")
                         .HasColumnType("int");
@@ -453,7 +451,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DayBookId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DayBookId"), 1L, 1);
 
                     b.Property<int>("AccountId")
                         .HasColumnType("int");
@@ -497,7 +495,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -523,7 +521,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HostelId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HostelId"), 1L, 1);
 
                     b.Property<int>("AcademyId")
                         .HasColumnType("int");
@@ -560,7 +558,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HostelRoomId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HostelRoomId"), 1L, 1);
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -597,7 +595,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HostelRoomBadId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HostelRoomBadId"), 1L, 1);
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -643,7 +641,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HostelRoomBadStudentId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HostelRoomBadStudentId"), 1L, 1);
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -686,7 +684,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HostelRoomBadStudentRentId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HostelRoomBadStudentRentId"), 1L, 1);
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -744,7 +742,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdentityTypeId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdentityTypeId"), 1L, 1);
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -779,7 +777,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NewsId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NewsId"), 1L, 1);
 
                     b.Property<int>("AcademyId")
                         .HasColumnType("int");
@@ -822,7 +820,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NewsCommentId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NewsCommentId"), 1L, 1);
 
                     b.Property<string>("Comment")
                         .IsRequired()
@@ -860,7 +858,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NewsLikeId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NewsLikeId"), 1L, 1);
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -894,7 +892,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("CityId")
                         .HasColumnType("int");
@@ -916,7 +914,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("QualificationId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("QualificationId"), 1L, 1);
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -951,7 +949,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("BatchId")
                         .HasColumnType("int");
@@ -973,7 +971,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RolesId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RolesId"), 1L, 1);
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -1008,7 +1006,7 @@ namespace ERP.Migrations
                         new
                         {
                             RolesId = 1,
-                            CreatedAt = new DateTime(2024, 2, 8, 8, 11, 26, 641, DateTimeKind.Local).AddTicks(4909),
+                            CreatedAt = new DateTime(2024, 12, 3, 11, 38, 33, 847, DateTimeKind.Local).AddTicks(5431),
                             IsActive = true,
                             IsDeleted = false,
                             IsStatic = false,
@@ -1017,7 +1015,7 @@ namespace ERP.Migrations
                         new
                         {
                             RolesId = 2,
-                            CreatedAt = new DateTime(2024, 2, 8, 8, 11, 26, 641, DateTimeKind.Local).AddTicks(4978),
+                            CreatedAt = new DateTime(2024, 12, 3, 11, 38, 33, 847, DateTimeKind.Local).AddTicks(5492),
                             IsActive = true,
                             IsDeleted = false,
                             IsStatic = false,
@@ -1026,7 +1024,7 @@ namespace ERP.Migrations
                         new
                         {
                             RolesId = 3,
-                            CreatedAt = new DateTime(2024, 2, 8, 8, 11, 26, 641, DateTimeKind.Local).AddTicks(4997),
+                            CreatedAt = new DateTime(2024, 12, 3, 11, 38, 33, 847, DateTimeKind.Local).AddTicks(5508),
                             IsActive = true,
                             IsDeleted = false,
                             IsStatic = false,
@@ -1035,7 +1033,7 @@ namespace ERP.Migrations
                         new
                         {
                             RolesId = 4,
-                            CreatedAt = new DateTime(2024, 2, 8, 8, 11, 26, 641, DateTimeKind.Local).AddTicks(5012),
+                            CreatedAt = new DateTime(2024, 12, 3, 11, 38, 33, 847, DateTimeKind.Local).AddTicks(5521),
                             IsActive = true,
                             IsDeleted = false,
                             IsStatic = true,
@@ -1044,7 +1042,7 @@ namespace ERP.Migrations
                         new
                         {
                             RolesId = 5,
-                            CreatedAt = new DateTime(2024, 2, 8, 8, 11, 26, 641, DateTimeKind.Local).AddTicks(5027),
+                            CreatedAt = new DateTime(2024, 12, 3, 11, 38, 33, 847, DateTimeKind.Local).AddTicks(5533),
                             IsActive = true,
                             IsDeleted = false,
                             IsStatic = true,
@@ -1053,7 +1051,7 @@ namespace ERP.Migrations
                         new
                         {
                             RolesId = 6,
-                            CreatedAt = new DateTime(2024, 2, 8, 8, 11, 26, 641, DateTimeKind.Local).AddTicks(5047),
+                            CreatedAt = new DateTime(2024, 12, 3, 11, 38, 33, 847, DateTimeKind.Local).AddTicks(5551),
                             IsActive = true,
                             IsDeleted = false,
                             IsStatic = true,
@@ -1062,7 +1060,7 @@ namespace ERP.Migrations
                         new
                         {
                             RolesId = 7,
-                            CreatedAt = new DateTime(2024, 2, 8, 8, 11, 26, 641, DateTimeKind.Local).AddTicks(5063),
+                            CreatedAt = new DateTime(2024, 12, 3, 11, 38, 33, 847, DateTimeKind.Local).AddTicks(5564),
                             IsActive = true,
                             IsDeleted = false,
                             IsStatic = true,
@@ -1071,7 +1069,7 @@ namespace ERP.Migrations
                         new
                         {
                             RolesId = 8,
-                            CreatedAt = new DateTime(2024, 2, 8, 8, 11, 26, 641, DateTimeKind.Local).AddTicks(5079),
+                            CreatedAt = new DateTime(2024, 12, 3, 11, 38, 33, 847, DateTimeKind.Local).AddTicks(5576),
                             IsActive = true,
                             IsDeleted = false,
                             IsStatic = true,
@@ -1080,7 +1078,7 @@ namespace ERP.Migrations
                         new
                         {
                             RolesId = 9,
-                            CreatedAt = new DateTime(2024, 2, 8, 8, 11, 26, 641, DateTimeKind.Local).AddTicks(5094),
+                            CreatedAt = new DateTime(2024, 12, 3, 11, 38, 33, 847, DateTimeKind.Local).AddTicks(5588),
                             IsActive = true,
                             IsDeleted = false,
                             IsStatic = true,
@@ -1089,7 +1087,7 @@ namespace ERP.Migrations
                         new
                         {
                             RolesId = 10,
-                            CreatedAt = new DateTime(2024, 2, 8, 8, 11, 26, 641, DateTimeKind.Local).AddTicks(5111),
+                            CreatedAt = new DateTime(2024, 12, 3, 11, 38, 33, 847, DateTimeKind.Local).AddTicks(5601),
                             IsActive = true,
                             IsDeleted = false,
                             IsStatic = true,
@@ -1098,7 +1096,7 @@ namespace ERP.Migrations
                         new
                         {
                             RolesId = 11,
-                            CreatedAt = new DateTime(2024, 2, 8, 8, 11, 26, 641, DateTimeKind.Local).AddTicks(5127),
+                            CreatedAt = new DateTime(2024, 12, 3, 11, 38, 33, 847, DateTimeKind.Local).AddTicks(5615),
                             IsActive = true,
                             IsDeleted = false,
                             IsStatic = true,
@@ -1107,7 +1105,7 @@ namespace ERP.Migrations
                         new
                         {
                             RolesId = 12,
-                            CreatedAt = new DateTime(2024, 2, 8, 8, 11, 26, 641, DateTimeKind.Local).AddTicks(5143),
+                            CreatedAt = new DateTime(2024, 12, 3, 11, 38, 33, 847, DateTimeKind.Local).AddTicks(5629),
                             IsActive = true,
                             IsDeleted = false,
                             IsStatic = true,
@@ -1116,7 +1114,7 @@ namespace ERP.Migrations
                         new
                         {
                             RolesId = 13,
-                            CreatedAt = new DateTime(2024, 2, 8, 8, 11, 26, 641, DateTimeKind.Local).AddTicks(5159),
+                            CreatedAt = new DateTime(2024, 12, 3, 11, 38, 33, 847, DateTimeKind.Local).AddTicks(5640),
                             IsActive = true,
                             IsDeleted = false,
                             IsStatic = true,
@@ -1125,7 +1123,7 @@ namespace ERP.Migrations
                         new
                         {
                             RolesId = 14,
-                            CreatedAt = new DateTime(2024, 2, 8, 8, 11, 26, 641, DateTimeKind.Local).AddTicks(5197),
+                            CreatedAt = new DateTime(2024, 12, 3, 11, 38, 33, 847, DateTimeKind.Local).AddTicks(5652),
                             IsActive = true,
                             IsDeleted = false,
                             IsStatic = true,
@@ -1134,7 +1132,7 @@ namespace ERP.Migrations
                         new
                         {
                             RolesId = 15,
-                            CreatedAt = new DateTime(2024, 2, 8, 8, 11, 26, 641, DateTimeKind.Local).AddTicks(5219),
+                            CreatedAt = new DateTime(2024, 12, 3, 11, 38, 33, 847, DateTimeKind.Local).AddTicks(5664),
                             IsActive = true,
                             IsDeleted = false,
                             IsStatic = true,
@@ -1143,7 +1141,7 @@ namespace ERP.Migrations
                         new
                         {
                             RolesId = 16,
-                            CreatedAt = new DateTime(2024, 2, 8, 8, 11, 26, 641, DateTimeKind.Local).AddTicks(5236),
+                            CreatedAt = new DateTime(2024, 12, 3, 11, 38, 33, 847, DateTimeKind.Local).AddTicks(5676),
                             IsActive = true,
                             IsDeleted = false,
                             IsStatic = true,
@@ -1152,7 +1150,7 @@ namespace ERP.Migrations
                         new
                         {
                             RolesId = 17,
-                            CreatedAt = new DateTime(2024, 2, 8, 8, 11, 26, 641, DateTimeKind.Local).AddTicks(5252),
+                            CreatedAt = new DateTime(2024, 12, 3, 11, 38, 33, 847, DateTimeKind.Local).AddTicks(5752),
                             IsActive = true,
                             IsDeleted = false,
                             IsStatic = true,
@@ -1161,7 +1159,7 @@ namespace ERP.Migrations
                         new
                         {
                             RolesId = 18,
-                            CreatedAt = new DateTime(2024, 2, 8, 8, 11, 26, 641, DateTimeKind.Local).AddTicks(5269),
+                            CreatedAt = new DateTime(2024, 12, 3, 11, 38, 33, 847, DateTimeKind.Local).AddTicks(5768),
                             IsActive = true,
                             IsDeleted = false,
                             IsStatic = true,
@@ -1170,7 +1168,7 @@ namespace ERP.Migrations
                         new
                         {
                             RolesId = 19,
-                            CreatedAt = new DateTime(2024, 2, 8, 8, 11, 26, 641, DateTimeKind.Local).AddTicks(5333),
+                            CreatedAt = new DateTime(2024, 12, 3, 11, 38, 33, 847, DateTimeKind.Local).AddTicks(5780),
                             IsActive = true,
                             IsDeleted = false,
                             IsStatic = true,
@@ -1179,7 +1177,7 @@ namespace ERP.Migrations
                         new
                         {
                             RolesId = 20,
-                            CreatedAt = new DateTime(2024, 2, 8, 8, 11, 26, 641, DateTimeKind.Local).AddTicks(5372),
+                            CreatedAt = new DateTime(2024, 12, 3, 11, 38, 33, 847, DateTimeKind.Local).AddTicks(5792),
                             IsActive = true,
                             IsDeleted = false,
                             IsStatic = true,
@@ -1193,7 +1191,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SliderId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SliderId"), 1L, 1);
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -1230,7 +1228,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StateId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StateId"), 1L, 1);
 
                     b.Property<int>("CountryId")
                         .HasColumnType("int");
@@ -1268,7 +1266,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -1311,7 +1309,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentAddressId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentAddressId"), 1L, 1);
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -1364,7 +1362,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentBatchId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentBatchId"), 1L, 1);
 
                     b.Property<int>("BatchId")
                         .HasColumnType("int");
@@ -1411,7 +1409,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentBatchFeesId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentBatchFeesId"), 1L, 1);
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -1458,7 +1456,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<string>("Contact")
                         .IsRequired()
@@ -1485,7 +1483,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentId"), 1L, 1);
 
                     b.Property<string>("BodyRemark")
                         .HasColumnType("nvarchar(max)");
@@ -1546,7 +1544,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentIdentitiesId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentIdentitiesId"), 1L, 1);
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -1586,7 +1584,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentQualificationId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentQualificationId"), 1L, 1);
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -1640,7 +1638,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentTokenId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentTokenId"), 1L, 1);
 
                     b.Property<int?>("BatchId")
                         .HasColumnType("int");
@@ -1689,7 +1687,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentTokenFeesId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentTokenFeesId"), 1L, 1);
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -1736,7 +1734,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.HasKey("Id");
 
@@ -1749,7 +1747,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserDeviceTokenId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserDeviceTokenId"), 1L, 1);
 
                     b.Property<string>("DeviceType")
                         .IsRequired()
@@ -1773,7 +1771,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserNotificationId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserNotificationId"), 1L, 1);
 
                     b.Property<string>("Body")
                         .HasColumnType("nvarchar(max)");
@@ -1819,7 +1817,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserRoleId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserRoleId"), 1L, 1);
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -1842,49 +1840,24 @@ namespace ERP.Migrations
                     b.HasKey("UserRoleId");
 
                     b.ToTable("UserRole");
-                });
 
-            modelBuilder.Entity("ERP.Models.UserSendNotification", b =>
-                {
-                    b.Property<int>("UserSendNotificationId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserSendNotificationId"));
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
-
-                    b.Property<bool?>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastUpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("LastUpdatedBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("SentAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("SentStatus")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserNotificationId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserSendNotificationId");
-
-                    b.ToTable("UserSendNotification");
+                    b.HasData(
+                        new
+                        {
+                            UserRoleId = 1,
+                            IsActive = true,
+                            IsDeleted = false,
+                            RoleID = 1,
+                            UserID = 1
+                        },
+                        new
+                        {
+                            UserRoleId = 2,
+                            IsActive = true,
+                            IsDeleted = false,
+                            RoleID = 1,
+                            UserID = 2
+                        });
                 });
 
             modelBuilder.Entity("ERP.Models.Users", b =>
@@ -1893,7 +1866,7 @@ namespace ERP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UsersId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UsersId"), 1L, 1);
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -1931,6 +1904,75 @@ namespace ERP.Migrations
                     b.HasKey("UsersId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            UsersId = 1,
+                            CreatedAt = new DateTime(2024, 12, 3, 11, 38, 33, 847, DateTimeKind.Local).AddTicks(5823),
+                            IsActive = true,
+                            IsDeleted = false,
+                            IsEmailConfirmed = true,
+                            IsMobileConfirmed = true,
+                            UserEmail = "bn2mehlan510@gmail.com",
+                            UserMobile = "9416669174",
+                            UserPassword = "Admin@123"
+                        },
+                        new
+                        {
+                            UsersId = 2,
+                            CreatedAt = new DateTime(2024, 12, 3, 11, 38, 33, 847, DateTimeKind.Local).AddTicks(5852),
+                            IsActive = true,
+                            IsDeleted = false,
+                            IsEmailConfirmed = true,
+                            IsMobileConfirmed = true,
+                            UserEmail = "admin@admin.com",
+                            UserMobile = "9991339400",
+                            UserPassword = "Admin@123"
+                        });
+                });
+
+            modelBuilder.Entity("ERP.Models.UserSendNotification", b =>
+                {
+                    b.Property<int>("UserSendNotificationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserSendNotificationId"), 1L, 1);
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastUpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("LastUpdatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SentAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("SentStatus")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserNotificationId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserSendNotificationId");
+
+                    b.ToTable("UserSendNotification");
                 });
 #pragma warning restore 612, 618
         }

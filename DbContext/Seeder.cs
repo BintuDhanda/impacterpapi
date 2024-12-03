@@ -29,6 +29,18 @@ namespace ERP.ERPDbContext
             modelBuilder.Entity<Roles>().HasData(new Roles { RolesId = 20, RoleName = "StudentHostelRoomBads", IsStatic = true });
         }
 
+        public static void UserSeeder(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Users>().HasData(new Users { UsersId = 1, UserMobile = "9416669174", UserEmail = "bn2mehlan510@gmail.com", UserPassword = "Admin@123", IsActive = true, IsDeleted = false, IsEmailConfirmed = true, IsMobileConfirmed = true });
+            modelBuilder.Entity<Users>().HasData(new Users { UsersId = 2, UserMobile = "9991339400", UserEmail = "admin@admin.com", UserPassword = "Admin@123", IsActive = true, IsDeleted = false, IsEmailConfirmed = true, IsMobileConfirmed = true });
+        }
+
+        public static void UserRoleSeeder(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UserRole>().HasData(new UserRole { UserRoleId = 1, UserID = 1, RoleID = 1, IsDeleted = false, IsActive = true });
+            modelBuilder.Entity<UserRole>().HasData(new UserRole { UserRoleId = 2, UserID = 2, RoleID = 1, IsDeleted = false, IsActive = true });
+        }
+
         public static void AcademySeeder(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Academy>().HasData(new Academy { AcademyId = 1, AcademyName = "Impact Academy, Hisar" });
