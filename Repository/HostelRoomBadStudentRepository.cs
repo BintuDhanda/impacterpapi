@@ -61,6 +61,11 @@ namespace ERP.Repository
         }
         public async Task<HostelRoomBadStudent> AddAsync(HostelRoomBadStudent payload)
         {
+            var student = await _appDbContext.Student.FindAsync(payload.StudentId);
+            if (student == null)
+            {
+                throw new Exception("Student not exist");
+            }
             var fetch = await _appDbContext.HostelRoomBadStudents.Where(b => b.HostelRoomBadId == payload.HostelRoomBadId && b.IsActive == true).FirstOrDefaultAsync();
             if (fetch == null)
             {
@@ -82,6 +87,11 @@ namespace ERP.Repository
         }
         public async Task<HostelRoomBadStudent> UpdateAsync(HostelRoomBadStudent payload)
         {
+            var student = await _appDbContext.Student.FindAsync(payload.StudentId);
+            if (student == null)
+            {
+                throw new Exception("Student not exist");
+            }
             var fetch = await _appDbContext.HostelRoomBadStudents.Where(b => b.HostelRoomBadStudentId == payload.HostelRoomBadStudentId).FirstOrDefaultAsync();
             if (fetch != null)
             {

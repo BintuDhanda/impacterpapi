@@ -29,13 +29,29 @@ namespace ERP.Controllers
         [Route("post")]
         public async Task<HostelRoomBadStudent> HostelRoomBadStudentAdd(HostelRoomBadStudent payload)
         {
-            return await _repository.AddAsync(payload);
+            try
+            {
+                return await _repository.AddAsync(payload);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 450;
+                throw new Exception(ex.Message);
+            }
         }
         [HttpPost]
         [Route("put")]
         public async Task<HostelRoomBadStudent> HostelRoomBadStudentUpdate(HostelRoomBadStudent payload)
         {
-            return await _repository.UpdateAsync(payload);
+            try
+            {
+                return await _repository.UpdateAsync(payload);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 450;
+                throw new Exception(ex.Message);
+            }
         }
         [HttpGet]
         [Route("delete")]

@@ -27,21 +27,21 @@ namespace ERP.Controllers
             return await _countryRepository.GetByIdAsync(Id);
         }
         [HttpPost]
-        [Authorize(Roles = "Admin,Staff")]
+        //[Authorize(Roles = "Admin,Staff")]
         [Route("post")]
         public async Task <Country> CountryAdd(Country country)
         {
             return await _countryRepository.AddAsync(country);
         }
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [Route("put")]
         public async Task<Country> CountryUpdate (Country country)
         {
             return await _countryRepository.UpdateAsync(country);
         }
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [Route("delete")]
         public async Task<Country> CountryDelete(int Id)
         {
