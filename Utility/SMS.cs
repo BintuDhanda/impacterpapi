@@ -38,7 +38,7 @@ namespace LMS.Utilities
                 string clientId = "66784d63-c249-4b84-a07d-97ed90ea4653";
                 string senderId = "IMPHSR";
                 string strUrl = $"http://sms.getways.net/api/v2/SendSMS?ApiKey={apiKey}&ClientId={clientId}"
-                    +$"SenderId={senderId}&Message={msg}&MobileNumbers={mobile}";
+                    +$"&SenderId={senderId}&Message={msg}&MobileNumbers={mobile}";
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 System.Net.WebRequest request = System.Net.WebRequest.Create(strUrl);
@@ -49,7 +49,7 @@ namespace LMS.Utilities
                 s.Close();
                 readStream.Close();
                 response.Close();
-                if (!dataString.Contains("SUCCESS"))
+                if (!dataString.Contains("Success"))
                 {
                     return false;
                 }
