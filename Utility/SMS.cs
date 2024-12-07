@@ -30,17 +30,15 @@ namespace LMS.Utilities
                 switch (type)
                 {
                     case "OTPSMS":
-                        msg = "Your Mobile number verification OTP is " + message + " Regards, Impact Academy Hisar";
+                        msg = $"Your Mobile number verification OTP is {message} Regards, Impact Academy Hisar";
                         break;
                 }
 
-                string user = "impactcampus";
-                string password = "K9F2HDNY";
+                string apiKey = "qjaFM3tH8282IYbKL2ek72Um4ejjx+gQli9Wlx0s7Jk=";
+                string clientId = "66784d63-c249-4b84-a07d-97ed90ea4653";
                 string senderId = "IMPHSR";
-                string entityId = "";
-                string strUrl = "http://www.getwaysms.com/vendorsms/pushsms.aspx?user="
-                    + user + "&password=" + password + "&msisdn=" + mobile
-                     + "&sid=" + senderId + "&msg=" + msg + "&fl=0&gwid=2";
+                string strUrl = $"http://sms.getways.net/api/v2/SendSMS?ApiKey={apiKey}&ClientId={clientId}"
+                    +$"SenderId={senderId}&Message={msg}&MobileNumbers={mobile}";
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 System.Net.WebRequest request = System.Net.WebRequest.Create(strUrl);
