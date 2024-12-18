@@ -50,6 +50,7 @@ namespace ERP.Bussiness
                                  join country in _appDbcontext.Country on allStudentAddress.CountryId equals country.CountryId
                                  join state in _appDbcontext.State on allStudentAddress.StateId equals state.StateId
                                  join city in _appDbcontext.City on allStudentAddress.CityId equals city.CityId
+                                 join village in _appDbcontext.Village on allStudentAddress.VillageId equals village.CityId
                                  where allStudentAddress.StudentId == Id
                                  select new StudentAddress
                                  {
@@ -63,6 +64,7 @@ namespace ERP.Bussiness
                                      State = state.StateName,
                                      CityId = allStudentAddress.CityId,
                                      City = city.CityName,
+                                     Village = village.VillageName,
                                      Pincode = allStudentAddress.Pincode,
                                      IsActive = allStudentAddress.IsActive,
                                      StudentId = allStudentAddress.StudentId,

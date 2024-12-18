@@ -18,6 +18,8 @@ namespace ERP.Models
         [NotMapped]
         public string? AddressType { get; set; }
         [NotMapped]
+        public string? Village { get; set; }
+        [NotMapped]
         public string? City { get; set; }
         [NotMapped]
         public string? Country { get; set; }
