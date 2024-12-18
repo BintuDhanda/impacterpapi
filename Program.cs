@@ -1,4 +1,3 @@
-using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using ERP.Bussiness;
 using ERP.ERPDbContext;
 using ERP.Interface;
@@ -10,12 +9,6 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.WebHost.UseUrls(
-    //"http://0.0.0.0:5000",
-    //"https://0.0.0.0:5001",
-    "http://0.0.0.0:5002",
-    "https://0.0.0.0:5003"
-    );
 // Add services to the container.
 var env = builder.Configuration["EnvironmentVariable"];
 var connectionString = builder.Configuration.GetConnectionString("ERPContext" + env);
@@ -80,8 +73,6 @@ builder.Services.AddScoped<IStudentContact, StudentContactRepository>();
 builder.Services.AddScoped<IStudentAddress, StudentAddressRepository>();
 builder.Services.AddScoped<IAddressType, AddressTypeRepository>();
 builder.Services.AddScoped<IBatch, BatchRepository>();
-builder.Services.AddScoped<IStudentTokenFees, StudentTokenFeesRepository>();
-builder.Services.AddScoped<IStudentToken, StudentTokenRepository>();
 builder.Services.AddScoped<IRegistration, RegistrationRepository>();
 builder.Services.AddScoped<IAttendance, AttendanceRepository>();
 builder.Services.AddScoped<IStudent, StudentRepository>();

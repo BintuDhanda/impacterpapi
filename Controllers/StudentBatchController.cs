@@ -51,12 +51,6 @@ namespace ERP.Controllers
             return await _studentBatchRepository.GetStudentsAsync();
         }
         [HttpPost]
-        [Route("IsExistsToken")]
-        public async Task<IActionResult> IsExistsToken(int TokenNumber)
-        {
-            return await _studentBatchRepository.IsExistsToken(TokenNumber);
-        }
-        [HttpPost]
         [Route("IsExistsRegistration")]
         public async Task<IActionResult> IsExistsRegistraion(string RegistrationNumber)
         {

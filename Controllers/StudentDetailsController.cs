@@ -46,8 +46,6 @@ namespace ERP.Controllers
                 FatherName = obj["FatherName"],
                 MotherName = obj["MotherName"],
                 Gender = obj["Gender"],
-                StudentHeight = Convert.ToInt32(obj["StudentHeight"]),
-                StudentWeight = Convert.ToInt32(obj["StudentWeight"]),
                 BodyRemark = obj["BodyRemark"],
                 UserId = Convert.ToInt32(obj["UserId"]),
                 IsActive = true,

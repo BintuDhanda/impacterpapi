@@ -47,7 +47,7 @@ namespace ERP.Bussiness
                     batchs.BatchName = batch.BatchName;
                     batchs.StartDate = batch.StartDate;
                     batchs.EndDate = batch.EndDate;
-                    batchs.Code = batch.Code;
+                    batchs.Fees = batch.Fees;
                     batchs.CourseId = batch.CourseId;
                     batchs.LastUpdatedBy = batch.LastUpdatedBy;
                     _appDbContext.Batch.Update(batchs);
@@ -70,7 +70,7 @@ namespace ERP.Bussiness
             {
                 BatchId = s.BatchId,
                 BatchName = s.BatchName,
-                Code = s.Code,
+                Fees = s.Fees,
                 CourseId = s.CourseId,
                 StartDate = TimeZoneConvert.UtcToIST(s.StartDate),
                 EndDate = TimeZoneConvert.UtcToIST(s.EndDate),

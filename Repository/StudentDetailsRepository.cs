@@ -22,7 +22,7 @@ namespace ERP.Bussiness
             var studentDetails = await _appDbcontext.StudentDetails
             .Where(sd => !string.IsNullOrEmpty(commonSearchFilter.Mobile) ? (_appDbcontext.Users.Where(s => s.UsersId == sd.UserId).Select(s => s.UserMobile).FirstOrDefault()) == commonSearchFilter.Mobile : sd.CreatedAt >= Convert.ToDateTime(commonSearchFilter.From).ToUniversalTime() &&
             sd.CreatedAt <= Convert.ToDateTime(commonSearchFilter.To).ToUniversalTime())
-            .Select( sd => new StudentDetails 
+            .Select(sd => new StudentDetails
             {
                 StudentId = sd.StudentId,
                 StudentImage = sd.StudentImage,
@@ -31,15 +31,13 @@ namespace ERP.Bussiness
                 LastName = sd.LastName,
                 MotherName = sd.MotherName,
                 Gender = sd.Gender,
-                StudentHeight = sd.StudentHeight,
-                StudentWeight = sd.StudentWeight,
                 BodyRemark = sd.BodyRemark,
                 UserId = sd.UserId,
                 IsActive = sd.IsActive,
                 IsDeleted = sd.IsDeleted,
-                CreatedAt = sd.CreatedAt,                             
+                CreatedAt = sd.CreatedAt,
                 Mobile = _appDbcontext.Users.Where(s => s.UsersId == sd.UserId).Select(s => s.UserMobile).FirstOrDefault(),
-                TotalStudent = _appDbcontext.StudentDetails.Where(sd=>sd.IsActive == true).Count(),
+                TotalStudent = _appDbcontext.StudentDetails.Where(sd => sd.IsActive == true).Count(),
             })
             .OrderByDescending(o => o.StudentId)
             .Skip(commonSearchFilter.Skip)
@@ -54,7 +52,7 @@ namespace ERP.Bussiness
         public async Task<StudentDetails> AddAsync(StudentDetails studentDetails)
         {
             var student = await _appDbcontext.StudentDetails.Where(sd => sd.UserId == studentDetails.UserId).FirstOrDefaultAsync();
-            if(student == null)
+            if (student == null)
             {
                 string filePath = "";
                 if (studentDetails.Image != null)
@@ -75,15 +73,15 @@ namespace ERP.Bussiness
 
                     filePath = "/uploads/" + uniqueFileName;
                 }
-            studentDetails.CreatedAt = DateTime.UtcNow;
-            studentDetails.IsDeleted = false;
-            _appDbcontext.StudentDetails.Add(studentDetails);
-            await _appDbcontext.SaveChangesAsync();
-            studentDetails.Message = "This Student Already Exist";
+                studentDetails.CreatedAt = DateTime.UtcNow;
+                studentDetails.IsDeleted = false;
+                _appDbcontext.StudentDetails.Add(studentDetails);
+                await _appDbcontext.SaveChangesAsync();
+                studentDetails.Message = "Created Sucessfully";
             }
             else
             {
-                studentDetails.Message = "Created Sucessfully";
+                studentDetails.Message = "Updated Sucessfully";
             }
             return studentDetails;
         }
@@ -123,8 +121,6 @@ namespace ERP.Bussiness
                 record.FatherName = studentDetails.FatherName;
                 record.MotherName = studentDetails.MotherName;
                 record.Gender = studentDetails.Gender;
-                record.StudentHeight = studentDetails.StudentHeight;
-                record.StudentWeight = studentDetails.StudentWeight;
                 record.BodyRemark = studentDetails.BodyRemark;
                 record.UserId = studentDetails.UserId;
                 record.IsActive = studentDetails.IsActive;
@@ -149,8 +145,8 @@ namespace ERP.Bussiness
                 {
                     File.Delete(path);
                 }
-            _appDbcontext.StudentDetails.Remove(studentDetails);
-            await _appDbcontext.SaveChangesAsync();
+                _appDbcontext.StudentDetails.Remove(studentDetails);
+                await _appDbcontext.SaveChangesAsync();
             }
             return studentDetails;
         }

@@ -13,8 +13,9 @@ namespace ERP.Models
         public string? FatherName { get; set; }
         public string? MotherName { get; set; }
         public string? Gender { get; set; }
-        public int StudentHeight { get; set; }
-        public int StudentWeight { get; set; }
+        public string? IdNumber { get; set; }
+        public string? IdUrl { get; set; }
+        public string? IdType { get; set; }
         public string? BodyRemark { get; set; }
         public int UserId { get; set; }
         [NotMapped]
@@ -25,5 +26,7 @@ namespace ERP.Models
         public string? Message { get;set; }
         [NotMapped]
         public IFormFile? Image { get; set; }
+        [NotMapped]
+        public IFormFile? IdFile { get; set; }
     }
 }

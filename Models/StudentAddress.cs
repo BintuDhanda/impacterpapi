@@ -12,6 +12,7 @@ namespace ERP.Models
         public int CountryId { get; set; }
         public int StateId { get; set; }
         public int CityId { get; set; }
+        public int VillageId { get; set; }
         public int Pincode { get; set; }
         public int StudentId { get; set; }
         [NotMapped]

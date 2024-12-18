@@ -29,6 +29,7 @@ namespace ERP.ERPDbContext
         public DbSet<Country> Country { get; set; }
         public DbSet<State> State { get; set; }
         public DbSet<City> City { get; set; }
+        public DbSet<Village> Village { get; set; }
         public DbSet<Pincode> Pincode { get; set; }
         public DbSet<Account> Account { get; set; }
         public DbSet<AccountCategory> AccountCategory { get; set; }
@@ -41,8 +42,6 @@ namespace ERP.ERPDbContext
         public DbSet<StudentContact> StudentContact { get; set; }
         public DbSet<StudentAddress> StudentAddress { get; set; }
         public DbSet<AddressType> AddressType { get; set; }
-        public DbSet<StudentToken> StudentToken { get; set; }
-        public DbSet<StudentTokenFees> StudentTokenFees { get; set; }
         public DbSet<Registration> Registration{ get; set; }
         public DbSet<Student> Student { get; set; }
         public DbSet<StudentBatchFees> StudentBatchFees { get; set; }

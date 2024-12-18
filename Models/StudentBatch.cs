@@ -8,7 +8,6 @@ namespace ERP.Models
         [Key]
         public int StudentBatchId { get; set; }
         public DateTime? DateOfJoin { get; set; }
-        public int TokenNumber { get; set; }
         public int BatchId { get; set; }
         public int StudentId { get; set; }
         public string RegistrationNumber { get; set; }
